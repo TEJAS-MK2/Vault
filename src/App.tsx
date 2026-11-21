@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import type { ChangeEvent, DragEvent } from 'react'
+import type { DragEvent, FormEvent } from 'react'
 import {
-  Archive, ArrowDownToLine, AudioLines, Check, ChevronDown, Cloud, File,
-  FileImage, FileText, Film, Folder, Grid2X2, HardDrive, Heart, LayoutGrid,
-  Link2, List, LoaderCircle, LogOut, Menu, MoreHorizontal, Music2, Plus,
-  Search, Settings2, ShieldCheck, SlidersHorizontal, Sparkles, Star, Trash2,
+  Archive, AudioLines, Cloud, File, FileImage, FileText, Film, Grid2X2,
+  HardDrive, LayoutGrid, List, LoaderCircle, LogOut, Menu, MoreHorizontal, Music2, Plus,
+  Search, Settings2, ShieldCheck, SlidersHorizontal, Star, Trash2,
   UploadCloud, X
 } from 'lucide-react'
 import { supabase, storageBucket, isConfigured } from './lib/supabase'
@@ -89,7 +88,7 @@ export default function App() {
     await refresh()
   }
   const onDrop = (e: DragEvent) => { e.preventDefault(); setDragging(false); void upload(e.dataTransfer.files) }
-  const signIn = async (e: ChangeEvent<HTMLFormElement>) => {
+  const signIn = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!supabase) return
     setBusy(true)
