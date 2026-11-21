@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { getProject, projects } from '../data/projects'
 import SignalField from '../components/SignalField'
 import ProjectArtwork from '../components/ProjectArtwork'
+import { getCaseStudy } from '../data/case-studies'
 
 function PageIntro({ index, eyebrow, title, children }: { index: string; eyebrow: string; title: ReactNode; children?: ReactNode }) {
   return <header className="page-intro">
@@ -73,10 +74,24 @@ export function ProjectsPage({ navigate }: { navigate: (path: string) => void })
   return <div className="content-page"><PageIntro index="02" eyebrow="PROJECT INDEX" title={<>Selected things<br /><em>made real.</em></>}><p>A growing archive of tools, interfaces and experiments. Each entry links to its source and, where available, a live build.</p></PageIntro><div className="project-index project-index-page">{projects.map((project, index) => <button className="project-row" key={project.slug} onClick={() => navigate(`/projects/${project.slug}`)}><span className="project-number">0{index + 1}</span><span className="project-title">{project.title}<small>{project.category}</small></span><span className="project-summary">{project.summary}</span><span className="project-arrow">↗</span></button>)}</div></div>
 }
 
+
+function CaseStudyContent({ slug }: { slug: string }) {
+  const study = getCaseStudy(slug)
+  if (!study) return null
+  return <div className="case-study">
+    <div className="case-study-heading"><p className="eyebrow">FIELD NOTES / 0{slug === 'code-forge' ? '1' : slug === 'atlas' ? '2' : slug === 'pijush-os' ? '3' : '4'}</p><h2>Inside the <em>build.</em></h2><p className="case-study-note">A closer look at the problem, implementation and trade-offs documented for this project.</p></div>
+    <section className="case-study-intro"><span>THE CONTEXT</span><p>{study.context}</p></section>
+    <section className="case-study-intro case-study-approach"><span>THE APPROACH</span><p>{study.approach}</p></section>
+    <div className="case-study-sections">{study.sections.map((section, index) => <section className="case-study-section" key={section.title}><span>0{index + 1}</span><div><h3>{section.title}</h3><p>{section.body}</p>{section.points && <ul>{section.points.map((point) => <li key={point}>{point}</li>)}</ul>}</div></section>)}</div>
+    <section className="case-study-constraints"><span>CONSTRAINTS & HONEST LIMITS</span><ul>{study.constraints.map((item) => <li key={item}>{item}</li>)}</ul></section>
+    <p className="case-study-footnote">{study.note}</p>
+  </div>
+}
+
 export function ProjectDetailPage({ slug }: { slug: string }) {
   const project = getProject(slug)
   if (!project) return <NotFoundPage />
-  return <article className="content-page project-detail"><PageIntro index="PROJECT" eyebrow={project.category.toUpperCase()} title={<>{project.title}<em>.</em></>}><p>{project.summary}</p></PageIntro><div className="detail-art"><ProjectArtwork slug={project.slug} /></div><div className="project-facts"><div><span>STATUS</span><strong>{project.status}</strong></div><div><span>YEAR</span><strong>{project.year}</strong></div><div><span>STACK</span><strong>{project.stack.join(' · ')}</strong></div></div><section className="prose-block"><h2>About the project</h2><p>{project.description}</p><h2>Tools & technologies</h2><div className="tag-list">{project.stack.map((item) => <span key={item}>{item}</span>)}</div></section><div className="project-actions"><a className="text-link" href={project.repositoryUrl} target="_blank" rel="noreferrer">View source ↗</a>{project.demoUrl && <a className="text-link" href={project.demoUrl} target="_blank" rel="noreferrer">Open live project ↗</a>}</div></article>
+  return <article className="content-page project-detail"><PageIntro index="PROJECT" eyebrow={project.category.toUpperCase()} title={<>{project.title}<em>.</em></>}><p>{project.summary}</p></PageIntro><div className="detail-art"><ProjectArtwork slug={project.slug} /></div><div className="project-facts"><div><span>STATUS</span><strong>{project.status}</strong></div><div><span>YEAR</span><strong>{project.year}</strong></div><div><span>STACK</span><strong>{project.stack.join(' · ')}</strong></div></div><section className="prose-block"><h2>About the project</h2><p>{project.description}</p><h2>Tools & technologies</h2><div className="tag-list">{project.stack.map((item) => <span key={item}>{item}</span>)}</div></section><CaseStudyContent slug={project.slug} /><div className="project-actions"><a className="text-link" href={project.repositoryUrl} target="_blank" rel="noreferrer">View source ↗</a>{project.demoUrl && <a className="text-link" href={project.demoUrl} target="_blank" rel="noreferrer">Open live project ↗</a>}</div></article>
 }
 
 export function ExperimentsPage() {
