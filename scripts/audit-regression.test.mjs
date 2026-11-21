@@ -5,26 +5,18 @@ import { readFileSync } from 'node:fs'
 const app = readFileSync(new URL('../src/App.tsx', import.meta.url), 'utf8')
 const policies = readFileSync(new URL('../supabase/storage-policies.sql', import.meta.url), 'utf8')
 
-test('magic-link requests always release the busy state after failures', () => {
-  assert.match(app, /signInWithOtp\([\s\S]*?catch \(cause\)[\s\S]*?finally \{\s*setBusy\(false\)/)
+test('portfolio routes are explicit and unknown routes resolve to a not-found page', () => {
+  for (const route of ['/about', '/projects', '/experiments', '/writing', '/uses', '/now', '/contact']) {
+    assert.ok(app.includes(`'${route}'`), `Missing route ${route}`)
+  }
+  assert.match(app, /return <NotFoundPage \/>/)
 })
 
-test('session lookup handles rejected network requests', () => {
-  assert.match(app, /auth\.getUser\(\)[\s\S]*?\.catch\(\(\) =>/)
-  assert.match(app, /\.finally\(\(\) =>\s*\{\s*if \(mounted\) setAuthReady\(true\)/)
+test('the portfolio no longer imports the legacy storage client', () => {
+  assert.doesNotMatch(app, /supabase|storageBucket|signInWithOtp/)
 })
 
-test('file listing ignores stale requests and releases loading state', () => {
-  assert.match(app, /const refreshSequence = useRef\(0\)/)
-  assert.match(app, /requestId !== refreshSequence\.current/)
-  assert.match(app, /if \(requestId === refreshSequence\.current\) setBusy\(false\)/)
-})
-
-test('reserved folder marker cannot be uploaded or used as a renamed file', () => {
-  assert.match(app, /name === '\.emptyFolderPlaceholder'[\s\S]*?reserved for VAULT folder metadata/)
-})
-
-test('storage policies can be safely re-applied', () => {
+test('legacy storage policies remain present and idempotent during the frontend migration', () => {
   const names = [
     'VAULT users can read their own files',
     'VAULT users can upload to their own folder',
