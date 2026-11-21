@@ -31,8 +31,9 @@ assert.match(css, /home-hero/, 'Homepage styles must be present in the CSS bundl
 assert.match(css, /project-row/, 'Project index styles must be present in the CSS bundle')
 
 const js = jsAssets.map((name) => readFileSync(assetsPath + '/' + name, 'utf8')).join('\n')
-for (const route of ['/about', '/projects', '/experiments', '/writing', '/uses', '/now', '/contact']) {
+for (const route of ['/about', '/projects', '/experiments', '/writing', '/uses', '/now', '/contact', 'Inside the', 'CONSTRAINTS & HONEST LIMITS']) {
   assert.ok(js.includes(route), `The application route ${route} must be included in the production bundle`)
 }
 
-console.log('PIJUSH smoke test passed: metadata, CSP, SPA fallback, routes and production assets are present.')
+assert.ok(existsSync('dist/assets'), 'The production assets must be present')
+console.log('PIJUSH smoke test passed: metadata, CSP, SPA fallback, routes, case-study content and production assets are present.')
