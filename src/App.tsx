@@ -9,7 +9,7 @@ import {
 import { supabase, storageBucket, isConfigured } from './lib/supabase'
 import './styles.css'
 
-type VaultFile = { name: string; id?: string | null; size?: number; updated_at?: string | null; created_at?: string | null; metadata?: Record<string, unknown> }
+type VaultFile = { name: string; id?: string | null; size?: number; updated_at?: string | null; created_at?: string | null; metadata?: Record<string, unknown> | null }
 type Section = 'All files' | 'Recent' | 'Favorites' | 'Photos' | 'Videos' | 'Documents' | 'Audio' | 'Archives' | 'Trash'
 const sections: { name: Section; icon: typeof File; kind?: string }[] = [
   { name: 'All files', icon: LayoutGrid }, { name: 'Recent', icon: Archive },
