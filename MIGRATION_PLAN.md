@@ -1,6 +1,6 @@
 # PIJUSH Personal Website — Migration Plan
 
-Status: Phases 1–4 implemented on the migration branch. Latest CI run passed. Production remains unchanged.
+Status: Phases 1–6 implemented; Phase 7 audit fixes committed on the migration branch. Latest CI for the final head is pending. Production remains unchanged.
 
 ## Confirmed creative direction
 
@@ -120,6 +120,10 @@ public/         favicon, social preview, robots, sitemap, manifest
 - Updated production smoke and regression tests for the new portfolio and retained legacy storage-policy idempotence checks.
 - The legacy Supabase project, bucket, data and policy SQL remain intact. The old client package is still present in the dependency lock pending a deliberate dependency cleanup after CI review.
 
-## Next action
+## Phase 7 production-readiness notes
 
-Phase 3 CI passed on commit `b933e983ea60877f4606e0f1e629a6affbcb11b0` (dependency audit, regression tests, TypeScript build and production smoke test). The draft review is [PR #8](https://github.com/TEJAS-MK2/Vault/pull/8). Next: Phase 5 — expand the four project pages into useful case studies with real problem context, design decisions, implementation details, constraints and verified outcomes. Gather real screenshots only from the running projects; do not use concept artwork as if it were product screenshots. Do not merge or deploy until the complete replacement is reviewed and verified.
+- Corrected the CSP so it permits the single verified external host used by the genuine Calculator screenshot.
+- Added the four project detail routes to the sitemap and added Twitter summary metadata.
+- Extended production smoke tests to cover the image-source CSP directive and social metadata.
+- Recorded the remaining launch caveats in [PRODUCTION_READINESS_AUDIT.md](PRODUCTION_READINESS_AUDIT.md).
+- CI must pass on the final branch head before Phase 7 is marked validated. Do not merge or deploy until reviewed and explicitly approved.
