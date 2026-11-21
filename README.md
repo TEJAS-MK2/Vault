@@ -21,17 +21,22 @@ VAULT uses a restrained, editorial productivity aesthetic: warm neutral surfaces
 
 See [DESIGN.md](./DESIGN.md) for the visual system and interface principles.
 
-## Planned technology
+## Technology
 
 - **Frontend:** React + TypeScript + Vite
-- **Styling:** CSS design tokens and component-level styles
-- **Cloud platform:** Supabase
-- **Database:** Supabase Postgres for metadata, folders, notes, links, and ownership
-- **Object storage:** Supabase Storage for uploaded files and media
-- **Authentication:** Supabase Auth; private user-owned data
-- **Deployment:** Vercel
+- **Database:** Supabase Postgres
+- **Object storage:** Supabase Storage
+- **Authentication:** Supabase Auth (email magic links)
+- **Deployment target:** Vercel
 
-The browser should access private objects through authenticated Supabase clients and short-lived signed URLs where appropriate. Never expose the Supabase service-role key in frontend code.
+## Connected cloud project
+
+- Supabase project: `VAULT`
+- Region: Mumbai, India (`ap-south-1`)
+- Private bucket: `vault-files`
+- Project ref: `jlwutbqzjgxhbhakvoci`
+
+See [supabase/SETUP.md](./supabase/SETUP.md) for configuration and security details. Do not commit service-role keys or other secrets.
 
 ## Core areas
 
@@ -57,4 +62,4 @@ The browser should access private objects through authenticated Supabase clients
 
 ## Status
 
-Initial frontend foundation committed. Includes the responsive workspace shell, email magic-link sign-in, cloud file listing and uploads, search, grid/list views, Supabase environment wiring, and private per-user Storage policies. CI is configured to type-check and build on pushes and pull requests. The cloud backend still needs a dedicated VAULT Supabase project and environment configuration; additional content types and management workflows remain in the roadmap.
+Initial frontend foundation and dedicated Supabase project are in place. The private `vault-files` bucket and per-user storage policies have been deployed and verified. The current UI supports email magic-link sign-in, user-scoped cloud file listing and uploads, search, and grid/list presentation. Additional content types and management workflows remain in the roadmap.
