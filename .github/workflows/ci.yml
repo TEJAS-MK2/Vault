@@ -1,5 +1,5 @@
 
-name: VAULT CI
+name: PIJUSH CI
 
 on:
   push:
@@ -22,9 +22,9 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
-      - name: Audit production and development dependencies
+      - name: Audit dependencies
         run: npm audit --audit-level=high
-      - name: Run audit regression tests
+      - name: Run regression tests
         run: npm test
       - name: Type-check and build
         run: npm run build
