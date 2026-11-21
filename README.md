@@ -4,7 +4,7 @@
 
 VAULT is a cloud-only storage workspace for files, photographs, videos and documents. It combines a quiet, editorial public homepage with a responsive private file workspace.
 
-**Live site:** https://tejas-mk2.github.io/Vault/
+**Live site:** https://pijush.runs-on.dev/
 
 ## What is included
 
@@ -62,17 +62,21 @@ npm run preview
 
 ## GitHub Pages
 
-The Vite base path is configured as `/Vault/`. The Pages workflow builds the site, runs a dependency audit, copies the built application shell to `dist/404.html` for client-side route fallback, and deploys the `dist` artifact.
+The Vite base path is configured as `/` for the custom domain. The Pages workflow builds the site, runs a dependency audit, copies the built application shell to `dist/404.html` for client-side route fallback, and deploys the `dist` artifact. The custom domain is recorded in `CNAME`.
 
 In GitHub repository settings, select **Settings → Pages → Build and deployment → Source → GitHub Actions** if Pages has not already been configured for Actions.
 
 ## Supabase Auth redirect
 
-Add the following URL to **Supabase Dashboard → Authentication → URL Configuration → Redirect URLs**:
+Set the Site URL to:
 
-`https://tejas-mk2.github.io/Vault/app`
+`https://pijush.runs-on.dev/`
 
-For local development, add `http://localhost:5173/Vault/app` as well. Set the Site URL to `https://tejas-mk2.github.io/Vault/`.
+Add this exact URL to **Supabase Dashboard → Authentication → URL Configuration → Redirect URLs**:
+
+`https://pijush.runs-on.dev/app`
+
+For local development, add `http://localhost:5173/app` as well. The application constructs the magic-link redirect from the current site origin, so it will use the custom domain automatically.
 
 ## Security model
 
@@ -93,7 +97,7 @@ This release includes folders and core file actions. Full-text indexing, notes/b
 
 ## Legal pages
 
-- [Terms and Conditions](https://tejas-mk2.github.io/Vault/terms)
-- [Privacy Policy](https://tejas-mk2.github.io/Vault/privacy)
+- [Terms and Conditions](https://pijush.runs-on.dev/terms)
+- [Privacy Policy](https://pijush.runs-on.dev/privacy)
 
 The legal pages are a product-specific starting point, not a substitute for jurisdiction-specific legal review before commercial use.
