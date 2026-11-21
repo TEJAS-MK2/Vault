@@ -1,6 +1,6 @@
 # PIJUSH Personal Website — Migration Plan
 
-Status: Phases 1–3 implemented on the migration branch. CI review is pending. Production remains unchanged.
+Status: Phases 1–3 implemented on the migration branch. Latest CI run passed. Production remains unchanged.
 
 ## Confirmed creative direction
 
@@ -91,7 +91,7 @@ public/         favicon, social preview, robots, sitemap, manifest
 
 1. Phase 1 — Audit and migration preparation (this document).
 2. Phase 2 — Brand system: art direction, typography, palette, layout grid, motion principles and asset inventory.
-3. Phase 3 — App foundation: route structure, shared shell, metadata, 404 handling, accessibility and responsive primitives (implemented on the migration branch).
+3. Phase 3 — App foundation: route structure, shared shell, metadata, 404 handling, accessibility and responsive primitives (implemented; CI passed).
 4. Phase 4 — Homepage: custom hero, visual signature, selected work and editorial sections.
 5. Phase 5 — Projects: verified project registry and reusable case-study pages.
 6. Phase 6 — Personal content: About, Writing, Experiments, Uses, Now and Contact.
@@ -122,4 +122,4 @@ public/         favicon, social preview, robots, sitemap, manifest
 
 ## Next action
 
-Open a draft pull request to run the existing CI against this migration. Fix any type-check, build, audit or smoke-test failures before advancing to Phase 4 (the full bespoke homepage art direction). Do not merge or deploy until the migration is reviewed and verified.
+Phase 3 CI passed on commit `b933e983ea60877f4606e0f1e629a6affbcb11b0` (dependency audit, regression tests, TypeScript build and production smoke test). The draft review is [PR #8](https://github.com/TEJAS-MK2/Vault/pull/8). Next: Phase 4 — develop the final bespoke homepage art direction, project-specific visual assets and signature motion. Do not merge or deploy until the complete replacement is reviewed and verified.
