@@ -1,6 +1,6 @@
 # PIJUSH Personal Website — Migration Plan
 
-Status: Phases 1–8 implemented on the migration branch. Phase 8 browser QA and accessibility scans passed locally; final CI is pending. Production remains unchanged.
+Status: Phases 1–8 implemented on the migration branch. Phase 8 browser QA and accessibility scans passed locally. Final CI passed on head `5bf1e6e4d44d63d5dbaf4dfc725e85e745cf0311` (run 44944781000). Production remains unchanged.
 
 ## Confirmed creative direction
 
