@@ -57,4 +57,4 @@ No document-level horizontal overflow was detected at any width. Header content 
 
 ## Verdict
 
-The static build, route smoke checks, responsive layout checks and automated accessibility scans passed in the local production-preview environment. Await the GitHub Actions result on the final PR head. Physical-device and assistive-technology checks remain before a public launch. This report does not authorize merge or deployment.
+The static build, route smoke checks, responsive layout checks and automated accessibility scans passed in the local production-preview environment. GitHub Actions passed on the final PR head `5bf1e6e4d44d63d5dbaf4dfc725e85e745cf0311` in [run 44944781000](https://github.com/TEJAS-MK2/Vault/actions/runs/44944781000), including dependency audit, regression tests, TypeScript build, Pages fallback and production smoke test. Physical-device and assistive-technology checks remain before a public launch. This report does not authorize merge or deployment.
