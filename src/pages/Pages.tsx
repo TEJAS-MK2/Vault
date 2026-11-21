@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react'
 import { getProject, projects } from '../data/projects'
+import SignalField from '../components/SignalField'
 
-function PageIntro({ index, eyebrow, title, children }: { index: string; eyebrow: string; title: string; children?: React.ReactNode }) {
+function PageIntro({ index, eyebrow, title, children }: { index: string; eyebrow: string; title: string; children?: ReactNode }) {
   return <header className="page-intro">
     <p className="eyebrow"><span>{index}</span> / {eyebrow}</p>
     <h1>{title}</h1>
@@ -10,7 +12,7 @@ function PageIntro({ index, eyebrow, title, children }: { index: string; eyebrow
 
 export function HomePage({ navigate }: { navigate: (path: string) => void }) {
   return <div className="home-page">
-    <section className="home-hero">
+    <section className="home-hero">\n      <SignalField />
       <div className="hero-index"><span>INDEPENDENT DEVELOPER</span><span>INDIA · ONLINE</span></div>
       <p className="hero-kicker">A DIGITAL SPACE FOR THINGS I BUILD.</p>
       <h1>Curious by nature.<br /><em>Built to explore.</em></h1>
