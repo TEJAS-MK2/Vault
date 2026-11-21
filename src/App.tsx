@@ -365,6 +365,10 @@ function Workspace({ navigate, url }: AppProps) {
   const pathSegments = folderPath ? folderPath.split('/') : []
   const usedBytes = items.reduce((total, item) => total + (item.folder ? 0 : Number(item.size ?? 0)), 0)
   const currentHeading = pathSegments.length ? pathSegments[pathSegments.length - 1] : 'My files'
+  const rootOverview = section === 'All files' && !folderPath && !query
+  const quickFolders = visible.filter(item => item.folder).slice(0, 4)
+  const recentFiles = visible.filter(item => !item.folder).slice(0, 8)
+  const contentItems = rootOverview ? recentFiles : visible
 
   const reportError = (message: string) => setError(message)
 
@@ -528,20 +532,35 @@ function Workspace({ navigate, url }: AppProps) {
         <div className="topbar-right"><label className="workspace-search"><Search size={16} /><input ref={searchInput} aria-label="Search files in this folder" value={query} onChange={event => setQuery(event.target.value)} placeholder="Search this folder" /><kbd>⌘ K</kbd></label><span className="secure-indicator"><LockKeyhole size={14} /> Private</span><button className="icon-button top-signout" title="Sign out" aria-label="Sign out" onClick={signOut}><LogOut size={17} /></button></div>
       </header>
       <section className="workspace-content">
-        <div className="workspace-heading">
-          <div><p className="eyebrow">YOUR PRIVATE WORKSPACE</p><h1>{pathSegments.length ? currentHeading : section}</h1><p>Keep the things you need, and find them when you need them.</p></div>
-          <div className="heading-actions"><button className="button button-outline" type="button" onClick={() => void createFolder()}><FolderPlus size={16} /> New folder</button><button className="button button-dark" type="button" onClick={() => filePicker.current?.click()}><UploadCloud size={16} /> Upload</button></div>
+        <div className={rootOverview ? 'workspace-heading dashboard-heading' : 'workspace-heading'}>
+          <div><p className="eyebrow">{rootOverview ? 'YOUR PRIVATE CLOUD' : 'YOUR FILES'}</p><h1>{rootOverview ? <>Good to see you, <em>{(userEmail.split('@')[0] || 'there').split(/[._-]/)[0]}</em>.</> : pathSegments.length ? currentHeading : section}</h1><p>{rootOverview ? 'Everything you keep, organised in one quiet place.' : 'Browse, organise and manage the files in this location.'}</p></div>
+          <div className="heading-actions"><button className="button button-outline" type="button" onClick={() => void createFolder()}><FolderPlus size={16} /> New folder</button><button className="button button-dark" type="button" onClick={() => filePicker.current?.click()}><UploadCloud size={16} /> Upload files</button></div>
         </div>
+
+        {rootOverview && !busy && <div className="dashboard-overview">
+          <div className="dashboard-upload-card" onClick={() => filePicker.current?.click()} role="button" tabIndex={0} onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') filePicker.current?.click() }}>
+            <span className="dashboard-upload-icon"><UploadCloud size={22} /></span>
+            <span className="dashboard-upload-copy"><strong>Bring your files into VAULT</strong><small>Drop files anywhere on this page, or browse your device to upload</small></span>
+            <span className="dashboard-browse">Browse files <ArrowDownToLine size={14} /></span>
+          </div>
+          <div className="dashboard-stats">
+            <article><span className="dashboard-stat-icon blue"><Folder size={17} /></span><div><small>Folders here</small><strong>{items.filter(item => item.folder).length}</strong></div></article>
+            <article><span className="dashboard-stat-icon violet"><File size={17} /></span><div><small>Files here</small><strong>{items.filter(item => !item.folder).length}</strong></div></article>
+            <article><span className="dashboard-stat-icon green"><HardDrive size={17} /></span><div><small>Visible file size</small><strong>{formatBytes(usedBytes)}</strong></div></article>
+          </div>
+          {quickFolders.length > 0 && <section className="dashboard-section"><div className="dashboard-section-heading"><div><p className="eyebrow">QUICK ACCESS</p><h2>Your folders</h2></div><span>{quickFolders.length} folders</span></div><div className="quick-folder-grid">{quickFolders.map(folder => <button className="quick-folder-card" type="button" key={folder.name} onClick={() => openFolder(folder)}><span className="quick-folder-icon"><Folder size={21} /></span><span><strong>{folder.name}</strong><small>Open folder</small></span><ChevronRight size={16} /></button>)}</div></section>}
+        </div>}
+
         <div className="content-toolbar">
-          <div className="item-count"><strong>{visible.length}</strong> {visible.length === 1 ? 'item' : 'items'} {query && <span>matching “{query}”</span>}</div>
+          <div className="item-count"><strong>{contentItems.length}</strong> {rootOverview ? 'recent files' : contentItems.length === 1 ? 'item' : 'items'} {query && <span>matching “{query}”</span>}</div>
           <div className="toolbar-right"><button className={'view-toggle' + (view === 'grid' ? ' selected' : '')} type="button" aria-label="Grid view" aria-pressed={view === 'grid'} onClick={() => setView('grid')}><Grid2X2 size={16} /></button><button className={'view-toggle' + (view === 'list' ? ' selected' : '')} type="button" aria-label="List view" aria-pressed={view === 'list'} onClick={() => setView('list')}><List size={17} /></button></div>
         </div>
 
         {error && <div className="inline-alert" role="alert"><span>{error}</span><button type="button" onClick={() => setError('')} aria-label="Dismiss message"><X size={15} /></button></div>}
         {busy ? <div className="workspace-loading"><LoaderCircle className="spin" size={22} /><span>Loading your files…</span></div> :
-          visible.length === 0 ? <div className="workspace-empty"><span className="empty-symbol">{query ? <Search size={23} /> : <Cloud size={25} />}</span><h2>{query ? 'No files found' : section === 'All files' ? 'This space is ready.' : 'Nothing here yet.'}</h2><p>{query ? 'Try a different name or clear your search.' : 'Upload a file or create a folder to give this space a start.'}</p><div className="empty-actions">{query ? <button className="button button-outline" type="button" onClick={() => setQuery('')}>Clear search</button> : <><button className="button button-outline" type="button" onClick={() => void createFolder()}><FolderPlus size={15} /> New folder</button><button className="button button-dark" type="button" onClick={() => filePicker.current?.click()}><UploadCloud size={15} /> Upload files</button></>}</div></div> :
+          contentItems.length === 0 ? <div className="workspace-empty"><span className="empty-symbol">{query ? <Search size={23} /> : <Cloud size={25} />}</span><h2>{query ? 'No files found' : section === 'All files' ? 'This space is ready.' : 'Nothing here yet.'}</h2><p>{query ? 'Try a different name or clear your search.' : 'Upload a file or create a folder to give this space a start.'}</p><div className="empty-actions">{query ? <button className="button button-outline" type="button" onClick={() => setQuery('')}>Clear search</button> : <><button className="button button-outline" type="button" onClick={() => void createFolder()}><FolderPlus size={15} /> New folder</button><button className="button button-dark" type="button" onClick={() => filePicker.current?.click()}><UploadCloud size={15} /> Upload files</button></>}</div></div> :
           <div className={view === 'grid' ? 'entry-grid' : 'entry-list'}>
-            {visible.map(entry => <article className={'entry-card' + (entry.folder ? ' is-folder' : '')} key={entry.name}>
+            {contentItems.map(entry => <article className={'entry-card' + (entry.folder ? ' is-folder' : '')} key={entry.name}>
               <button className="entry-open" type="button" onClick={() => entry.folder ? openFolder(entry) : void downloadFile(entry)} aria-label={entry.folder ? 'Open folder ' + entry.name : 'Download ' + entry.name}>
                 <span className={'entry-icon ' + (entry.folder ? 'folder-icon' : fileKind(entry.name))}>{entry.folder ? <Folder size={21} /> : fileIcon(entry.name)}</span>
                 <span className="entry-text"><b title={entry.name}>{entry.name}</b><small>{entry.folder ? 'Folder' : formatBytes(Number(entry.size ?? 0))}</small></span>
