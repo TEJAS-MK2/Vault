@@ -1,6 +1,6 @@
 # PIJUSH Personal Website — Migration Plan
 
-Status: Phases 1–7 implemented and validated on the migration branch. CI passed on final head `4dcc9da612bdd3bd298c85e9c32d6d9edf5fe5`. Production remains unchanged.
+Status: Phases 1–8 implemented on the migration branch. Phase 8 browser QA and accessibility scans passed locally; final CI is pending. Production remains unchanged.
 
 ## Confirmed creative direction
 
@@ -127,4 +127,5 @@ public/         favicon, social preview, robots, sitemap, manifest
 - Extended production smoke tests to cover the image-source CSP directive and social metadata.
 - Recorded the remaining launch caveats in [PRODUCTION_READINESS_AUDIT.md](PRODUCTION_READINESS_AUDIT.md).
 - CI passed on final branch head `4dcc9da612bdd3bd298c85e9c32d6d9edf5fe5` in run [44943969311](https://github.com/TEJAS-MK2/Vault/actions/runs/44943969311): dependency audit, regression tests, TypeScript build and production smoke test all passed.
-- The draft PR remains open. Do not merge or deploy until reviewed and explicitly approved.
+- Phase 8: Playwright checked all 13 routes at mobile and desktop widths, responsive widths 320–1440px, reduced motion, browser errors, and axe-core WCAG 2.1 A/AA. Initial contrast and accessible-name findings were fixed; 26 route/viewport accessibility scans then passed with zero violations. See [PHASE_8_QA_REPORT.md](PHASE_8_QA_REPORT.md).
+- Physical-device and assistive-technology checks remain before public launch. The draft PR remains open. Do not merge or deploy until reviewed and explicitly approved.
