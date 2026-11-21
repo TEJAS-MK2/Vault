@@ -10,6 +10,7 @@ import {
 import { supabase, storageBucket, isConfigured } from './lib/supabase'
 import './styles.css'
 import './framer.css'
+import './editorial.css'
 
 type Section = 'All files' | 'Images' | 'Videos' | 'Documents' | 'Audio' | 'Archives'
 type Entry = {
