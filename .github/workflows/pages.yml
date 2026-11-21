@@ -1,4 +1,4 @@
-name: Deploy VAULT to GitHub Pages
+name: Deploy PIJUSH to GitHub Pages
 
 on:
   push:
@@ -30,10 +30,6 @@ jobs:
         run: npm audit --audit-level=high
       - name: Build for GitHub Pages
         run: npm run build
-        env:
-          VITE_SUPABASE_URL: https://jlwutbqzjgxhbhakvoci.supabase.co
-          VITE_SUPABASE_PUBLISHABLE_KEY: sb_publishable_FANakZgLlNPB5StNm7_OQA_81V7ktQi
-          VITE_STORAGE_BUCKET: vault-files
       - name: Add single-page application fallback
         run: cp dist/index.html dist/404.html
       - name: Smoke-test the production output
