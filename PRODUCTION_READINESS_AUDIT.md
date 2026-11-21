@@ -38,4 +38,4 @@ Physical-device and assistive-technology checks remain outstanding.
 
 ## Result
 
-The CSP, sitemap, project metadata and automated accessibility findings are fixed on the migration branch. Final CI must pass on the final head before launch readiness is confirmed. This audit does not authorize merge or deployment.
+The CSP, sitemap, project metadata and automated accessibility findings are fixed on the migration branch. Final CI passed on head `5bf1e6e4d44d63d5dbaf4dfc725e85e745cf0311` in [run 44944781000](https://github.com/TEJAS-MK2/Vault/actions/runs/44944781000): dependency audit, regression tests, TypeScript build, Pages fallback and production smoke test all passed. This audit does not authorize merge or deployment.
