@@ -3,6 +3,8 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 
 const app = readFileSync(new URL('../src/App.tsx', import.meta.url), 'utf8')
+const shell = readFileSync(new URL('../src/components/SiteShell.tsx', import.meta.url), 'utf8')
+const styles = readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8')
 const policies = readFileSync(new URL('../supabase/storage-policies.sql', import.meta.url), 'utf8')
 
 test('portfolio routes are explicit and unknown routes resolve to a not-found page', () => {
@@ -27,4 +29,17 @@ test('legacy storage policies remain present and idempotent during the frontend 
     assert.ok(policies.includes(`drop policy if exists "${name}" on storage.objects;`), `Missing idempotent drop for ${name}`)
     assert.equal((policies.match(new RegExp(`create policy "${name}"`, 'g')) ?? []).length, 1)
   }
+})
+
+test('project detail metadata uses verified project names and summaries', () => {
+  assert.match(app, /const projectRecord = project \? getProject\(project\) : undefined/)
+  assert.match(app, /projectRecord\.title/)
+  assert.match(app, /projectRecord\.summary/)
+  assert.match(app, /Boolean\(projectRecord\)/)
+  assert.match(app, /'Project not found — PIJUSH'/)
+})
+
+test('wordmark accessible name includes its visible label and muted text meets the updated contrast token', () => {
+  assert.match(shell, /aria-label="P\. PIJUSH home"/)
+  assert.match(styles, /--text-dim: #858a96/)
 })
