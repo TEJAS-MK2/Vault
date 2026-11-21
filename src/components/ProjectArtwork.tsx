@@ -18,7 +18,8 @@ export default function ProjectArtwork({ slug }: ProjectArtworkProps) {
     <rect x="298" y="130" width="118" height="72" rx="4" fill="#dceafa"/><rect x="430" y="130" width="166" height="8" rx="4" fill="#9eb4ca"/><rect x="430" y="150" width="140" height="7" rx="4" fill="#c0cedb"/><rect x="430" y="169" width="155" height="7" rx="4" fill="#c0cedb"/><rect x="298" y="220" width="298" height="62" rx="4" fill="#edf5fb"/>
     <rect x="88" y="324" width="544" height="30" fill="#174e8d"/><circle cx="108" cy="339" r="8" fill="#79c2f5"/><g fill="#f0f6ff" fontFamily="monospace" fontSize="10"><text x="130" y="343">PIJUSH WEB DESKTOP</text><text x="528" y="343">LOCAL SESSION</text></g>
   </svg>
-  if (slug === 'modern-calculator') return <svg className="project-visual calc-visual" viewBox="0 0 720 420" role="img" aria-label="Abstract mathematical calculation interface">
+  if (slug === 'modern-calculator') return <img className="project-visual calc-screenshot" src="https://raw.githubusercontent.com/TEJAS-MK2/Calculator/main/calculator-screenshot.png" alt="Screenshot of the Modern Calculator application interface" loading="lazy" decoding="async" />
+  if (slug === 'modern-calculator-illustration') return <svg className="project-visual calc-visual" viewBox="0 0 720 420" role="img" aria-label="Abstract mathematical calculation interface">
     <defs><pattern id="calcGrid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#b6f36b" strokeOpacity=".12"/></pattern></defs>
     <rect width="720" height="420" fill="#141a17"/><rect width="720" height="420" fill="url(#calcGrid)"/>
     <g fill="#b6f36b" fontFamily="monospace"><text x="42" y="52" fontSize="12" letterSpacing="3">CALC / ENGINE 04</text><text x="42" y="190" fontSize="82" letterSpacing="-8">∑ x²</text><text x="48" y="232" fontSize="16" opacity=".65">EXACT ARITHMETIC</text></g>
