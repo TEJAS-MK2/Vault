@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
 
 export type Navigate = (path: string) => void
 
@@ -11,7 +11,7 @@ const links = [
 
 export function SiteShell({ children, navigate, pathname }: { children: ReactNode; navigate: Navigate; pathname: string }) {
   const active = (path: string) => pathname === path || (path === '/projects' && pathname.startsWith('/projects/'))
-  const go = (event: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+  const go = (event: MouseEvent<HTMLAnchorElement>, path: string) => {
     event.preventDefault()
     navigate(path)
   }
