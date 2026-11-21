@@ -32,4 +32,4 @@ Production deployment, DNS, CNAME and Supabase resources were not changed.
 
 ## Result
 
-The identified CSP and sitemap gaps are fixed on the migration branch. CI must pass on the final branch head before this audit is considered validated. This audit does not authorize merge or deployment.
+The identified CSP and sitemap gaps are fixed on the migration branch. CI passed on final branch head `4dcc9da612bdd3bd298c85e9c32d6d9edf5fe5` in [run 44943969311](https://github.com/TEJAS-MK2/Vault/actions/runs/44943969311), including dependency audit, regression tests, TypeScript build and production smoke test. This audit does not authorize merge or deployment.
