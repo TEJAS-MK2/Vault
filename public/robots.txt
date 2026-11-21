@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /Vault/
+Disallow: /Vault/app
+
+Sitemap: https://tejas-mk2.github.io/Vault/sitemap.xml

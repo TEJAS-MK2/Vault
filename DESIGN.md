@@ -1,84 +1,71 @@
 # VAULT — Design specification
 
+## Research references
+
+Design exploration focused on file-management patterns, not copying a branded UI or assets.
+
+- [Beamline UI — File manager](https://beamline.io/components/file-manager): side navigation for file views, persistent storage context, breadcrumb path, global file search, grid/list switching, upload as the primary action, and contextual file actions.
+- [Mobbin — Web dashboard and filtering patterns](https://mobbin.com/explore/web/screens/monitoring-dashboard): compact dashboard hierarchy, restrained controls, filters and clear navigation patterns.
+- [Made Good Designs — File manager UX](https://www.madegooddesigns.com/): common patterns around file lists, folder paths, upload flows and empty/error states.
+
+These references inform familiar interaction patterns only. VAULT uses its own layout, copy, color palette and CSS illustration. No reference screenshots, logos or proprietary assets are copied.
+
 ## Visual direction
 
-A calm, modern file workspace with the clarity of a well-made desktop utility and the warmth of a considered editorial product. It should feel human-designed, dependable, and quietly premium.
+A calm, modern file workspace with the clarity of a well-made desktop utility and the warmth of a considered editorial product. Use a warm neutral canvas, dark green-leaning ink, a quiet botanical accent and crisp low-contrast borders. Keep decoration subordinate to the files.
 
-Design references researched:
-- [Dribbble — Cloud storage UI](https://dribbble.com/search/cloud-storage-ui)
-- [Dribbble — File manager web app](https://dribbble.com/search/file-manager-web-app)
-- [Dribbble — File storage app](https://dribbble.com/search/file-storage-app)
-- [Dribbble — Cloud storage app UI](https://dribbble.com/search/cloud-storage-app-ui)
-
-These are inspiration for familiar file-management patterns, not assets or layouts to copy.
-
-## Color system
-
-### Light theme (default)
+## Color tokens
 
 | Token | Hex | Use |
 |---|---|---|
-| Canvas | `#F5F6F2` | Main app background |
-| Surface | `#FFFFFF` | Panels, menus, cards |
-| Surface muted | `#EEF1EB` | Subtle grouped areas |
+| Canvas | `#F5F5F0` | Public and workspace background |
+| Paper | `#FBFBF8` | Secondary page surface |
+| Surface | `#FFFFFF` | Cards, panels and controls |
 | Ink | `#202923` | Primary text |
-| Muted ink | `#68736B` | Secondary text |
-| Border | `#E2E7DF` | Dividers and outlines |
-| Primary | `#426B55` | Main actions and selected states |
-| Primary soft | `#E7EFE8` | Soft selection and accent surfaces |
-| Warm accent | `#B77B4B` | Small highlights, used sparingly |
-| Danger | `#B94B45` | Destructive actions and errors |
-| Success | `#3F795A` | Successful states |
-
-### Dark theme
-
-| Token | Hex | Use |
-|---|---|---|
-| Canvas | `#171C19` | Main app background |
-| Surface | `#202722` | Panels and cards |
-| Surface muted | `#28322B` | Subtle grouped areas |
-| Ink | `#EEF2EC` | Primary text |
-| Muted ink | `#A4AFA5` | Secondary text |
-| Border | `#354139` | Dividers and outlines |
-| Primary | `#91B49A` | Main actions and selected states |
-| Primary soft | `#293B30` | Soft selection surfaces |
-| Warm accent | `#D2A176` | Small highlights |
-
-Use semantic tokens rather than hard-coded colors inside components. Check contrast for text and controls in both themes.
+| Muted ink | `#69736B` | Secondary text |
+| Border | `#E4E7DF` | Separators and outlines |
+| Primary | `#456950` | Primary actions and selection |
+| Primary strong | `#365840` | Hover state |
+| Primary soft | `#EAF0E9` | Selected navigation |
+| Warm accent | `#B47C52` | Small visual highlights |
+| Danger | `#B84D45` | Destructive actions |
 
 ## Typography
 
-- Use a neutral, highly readable sans-serif such as Inter or Geist.
-- Use clear hierarchy and moderate weights; avoid oversized marketing-style headings inside the app.
-- Use tabular numerals for file sizes, dates, and storage metrics.
-- Keep metadata visually quieter than filenames.
+Use native system sans-serif stacks. The production site does not load remote font files or analytics scripts. Use clear heading hierarchy, moderate weights and tabular numerals for sizes and timestamps. Keep metadata visually quieter than file names.
 
-## Layout
+## Public homepage
 
-- Desktop: compact left navigation, a clear top bar, and a flexible content area.
-- Main content: breadcrumb/title row, contextual actions, search/filter controls, then files.
-- Use a comfortable content width and consistent spacing; avoid a dashboard made entirely of cards.
-- Grid and list views should both be first-class.
-- On mobile, collapse navigation into a simple drawer or bottom navigation and keep upload/search actions reachable.
+- Header with wordmark, short navigation, sign-in link and one primary action.
+- Editorial hero with plain-language value proposition.
+- CSS-built workspace illustration; no third-party images required.
+- Short trust strip and feature explanations.
+- Clear final CTA, then footer links to terms and privacy.
 
-## Components and interaction
+## Workspace
 
-- File rows/cards show a recognizable type or thumbnail, filename, modified date, size, and contextual actions.
-- Use real previews for supported image, video, audio, and document formats.
-- Upload uses a visible drop zone and a persistent queue with per-file progress, pause/retry where supported, and clear failure messages.
-- Selection reveals a compact bulk-action bar.
-- Menus and dialogs should be simple, predictable, and keyboard accessible.
-- Empty states should explain what belongs here and offer one useful next action.
-- Use motion only for feedback: short transitions, upload progress, menu/dialog entry. No ambient animations.
+- Compact left navigation with file-type views and account controls.
+- Top bar with current path breadcrumbs, scoped search and private-state indicator.
+- Page heading with new-folder and upload actions.
+- Folder-first file list with grid/list switch.
+- Contextual actions for download, rename and delete.
+- Empty, loading and error states.
+- Mobile navigation drawer, compact controls and touch-friendly entry cards.
 
-## Avoid
+## Interaction and accessibility
 
-- Purple/blue gradient backgrounds as the main identity.
-- Neon outlines, glowing blobs, excessive blur, and glassmorphism everywhere.
-- Random 3D objects, floating orbs, AI sparkles, or decorative charts.
-- Over-rounded cards and buttons on every surface.
-- Fake storage metrics, fake uploads, or fake activity in production UI.
+- Use semantic buttons, anchors, labels and section headings.
+- Keyboard search shortcut: Ctrl/Cmd + K; Escape closes the mobile menu.
+- Keep the folder path visible when drilling into nested folders.
+- Use authenticated Supabase operations for every cloud file action.
+- Respect `prefers-reduced-motion`.
+- Provide visible focus rings, readable labels and accessible action names.
+- Do not imply an upload succeeded until the storage API confirms it.
 
-## Product voice
+## Security and product boundaries
 
-Plain, concise, and reassuring. Prefer “Upload files”, “Move to folder”, “Copy link”, and “Restore” over vague marketing language.
+- Keep the storage bucket private and rely on server-side Storage RLS.
+- Do not use a public URL for private file downloads.
+- Keep the publishable key public and never expose a service-role/secret key.
+- Search currently matches names in the current folder. It is not full-text content search.
+- Trash, restore, shared folders, notes, bookmarks, and resumable large-file uploads are future work until their backing data model and controls are implemented.
