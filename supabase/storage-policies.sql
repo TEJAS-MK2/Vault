@@ -6,6 +6,12 @@ insert into storage.buckets (id, name, public)
 values ('vault-files', 'vault-files', false)
 on conflict (id) do update set public = false;
 
+-- Make this setup script safe to re-run without duplicate-policy errors.
+drop policy if exists "VAULT users can read their own files" on storage.objects;
+drop policy if exists "VAULT users can upload to their own folder" on storage.objects;
+drop policy if exists "VAULT users can update their own files" on storage.objects;
+drop policy if exists "VAULT users can delete their own files" on storage.objects;
+
 create policy "VAULT users can read their own files"
 on storage.objects for select
 to authenticated
