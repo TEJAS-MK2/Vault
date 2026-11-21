@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { DragEvent, FormEvent, ReactNode } from 'react'
 import {
-  Archive, ArrowDownToLine, ArrowLeft, ChevronRight, Clock3, Star,
+  Archive, ArrowDownToLine, ArrowLeft, ChevronRight,
   Cloud, File, FileImage, FileText, Film, Folder, FolderPlus, Grid2X2,
   HardDrive, Home, Image, LayoutGrid, List, LoaderCircle, LockKeyhole,
   LogOut, Menu, MoreHorizontal, Music2, Plus, Search, ShieldCheck,
@@ -79,75 +79,40 @@ function PublicFooter({ navigate, url }: AppProps) {
 }
 
 function HomePage({ navigate, url }: AppProps) {
-  return <div className="marketing-page">
-    <header className="marketing-nav">
-      <a className="brand-anchor" href={url('/')} onClick={e => { e.preventDefault(); navigate('/') }} aria-label="VAULT home"><Brand /></a>
-      <nav className="marketing-links" aria-label="Main navigation">
-        <a href="#features">Why VAULT</a>
-        <a href="#privacy">Privacy</a>
-      </nav>
-      <div className="marketing-actions">
-        <a className="nav-login" href={url('/app')} onClick={e => { e.preventDefault(); navigate('/app') }}>Sign in</a>
-        <a className="button button-dark button-small" href={url('/app')} onClick={e => { e.preventDefault(); navigate('/app') }}>Open VAULT <ArrowDownToLine size={15} /></a>
+  return <div className="vault-home">
+    <header className="vault-home-nav">
+      <a className="vault-home-brand" href={url('/')} onClick={e => { e.preventDefault(); navigate('/') }} aria-label="VAULT home"><Brand /></a>
+      <span className="vault-home-edition">PERSONAL STORAGE / INDIA</span>
+      <div className="vault-home-nav-actions">
+        <a href={url('/privacy')} onClick={e => { e.preventDefault(); navigate('/privacy') }}>Privacy</a>
+        <a className="vault-home-signin" href={url('/app')} onClick={e => { e.preventDefault(); navigate('/app') }}>Open your drive <ArrowDownToLine size={15} /></a>
       </div>
     </header>
-
     <main>
-      <section className="hero-section hero-redesign">
-        <div className="hero-copy">
-          <p className="eyebrow"><span className="eyebrow-dot" /> YOUR PERSONAL CLOUD DRIVE</p>
-          <h1>Your files.<br />Your space.<br /><em>Your rules.</em></h1>
-          <p className="hero-description">A calmer place for the things you want to keep. Upload, organise and find your files from one private workspace.</p>
-          <div className="hero-actions">
-            <a className="button button-dark" href={url('/app')} onClick={e => { e.preventDefault(); navigate('/app') }}>Open your drive <ArrowDownToLine size={16} /></a>
-            <a className="quiet-link" href="#features">See what you can do <ChevronRight size={15} /></a>
-          </div>
-          <div className="hero-proof"><span><LockKeyhole size={14} /> Private by default</span><i /><span><Cloud size={14} /> Your cloud workspace</span><i /><span><ShieldCheck size={14} /> Account-scoped access</span></div>
-        </div>
-        <div className="hero-visual hero-product-visual" aria-label="Preview of the VAULT cloud drive">
-          <div className="product-preview">
-            <div className="product-preview-top"><span className="preview-brand"><span>V</span> VAULT</span><span className="preview-breadcrumb">My Drive <ChevronRight size={11} /> Overview</span><span className="preview-avatar">P</span></div>
-            <div className="product-preview-body">
-              <aside className="preview-sidebar"><div className="preview-side-active"><LayoutGrid size={14} /> Overview</div><div><Folder size={14} /> My files</div><div><Image size={14} /> Photos</div><div><Clock3 size={14} /> Recent</div><div><Star size={14} /> Starred</div><div className="preview-sidebar-bottom"><LockKeyhole size={13} /> Private storage</div></aside>
-              <div className="preview-main"><div className="preview-main-heading"><div><small>YOUR WORKSPACE</small><strong>Everything in its place.</strong></div><span className="preview-add"><Plus size={12} /> Add files</span></div>
-                <div className="preview-stat-row"><div><small>Folders</small><b>08</b></div><div><small>Files</small><b>124</b></div><div><small>Storage used</small><b>2.4 GB</b></div></div>
-                <div className="preview-subhead"><b>Quick access</b><small>View all</small></div>
-                <div className="preview-folder-row"><div><Folder size={18} /><b>Projects</b><small>12 items</small></div><div><Folder size={18} /><b>Personal</b><small>08 items</small></div><div><Folder size={18} /><b>Archive</b><small>24 items</small></div></div>
-                <div className="preview-subhead recent"><b>Recently added</b><small>See all files</small></div>
-                <div className="preview-file-row"><span className="preview-file-icon pdf">PDF</span><b>Brand-guidelines.pdf</b><small>4.2 MB</small><span>Just now</span></div>
-                <div className="preview-file-row"><span className="preview-file-icon photo">IMG</span><b>Campaign-visuals.png</b><small>8.1 MB</small><span>Yesterday</span></div>
-                <div className="preview-file-row"><span className="preview-file-icon sheet">XLS</span><b>Budget-planner.xlsx</b><small>240 KB</small><span>Nov 18</span></div>
-              </div>
-            </div>
-          </div>
-          <div className="preview-floating-note"><span><ShieldCheck size={15} /></span><div><b>Your space stays yours</b><small>Private cloud storage</small></div></div>
+      <section className="vault-home-intro">
+        <div className="vault-home-index"><span>VAULT / 001</span><span>YOUR PERSONAL FILE SPACE</span></div>
+        <h1>A home for<br/><i>your files.</i></h1>
+        <div className="vault-home-intro-bottom">
+          <p>Keep documents, photos and the files you reach for. VAULT is a straightforward cloud drive: sign in, upload, organise, download.</p>
+          <a href={url('/app')} onClick={e => { e.preventDefault(); navigate('/app') }}>Enter workspace <span>↗</span></a>
         </div>
       </section>
-
-      <section className="trust-strip" id="privacy">
-        <div><ShieldCheck size={17} /><span>Private storage by default</span></div>
-        <div><Cloud size={17} /><span>Files live in the cloud</span></div>
-        <div><LockKeyhole size={17} /><span>Access stays account-scoped</span></div>
+      <section className="vault-home-directory" aria-label="What you can do in VAULT">
+        <div className="vault-home-directory-head"><span>01 — THE WORKSPACE</span><span>TOOLS, NOT DECORATION</span></div>
+        <div className="vault-home-row"><span className="vault-home-row-no">01</span><div><h2>Keep things together</h2><p>Create folders and move through your own directory structure.</p></div><Folder size={20}/></div>
+        <div className="vault-home-row"><span className="vault-home-row-no">02</span><div><h2>Bring files in. Take them out.</h2><p>Upload from your device, then download or rename files when you need them.</p></div><UploadCloud size={20}/></div>
+        <div className="vault-home-row"><span className="vault-home-row-no">03</span><div><h2>Find by name or type</h2><p>Search the current folder and browse images, video, documents, audio and archives.</p></div><Search size={20}/></div>
       </section>
-
-      <section className="features-section" id="features">
-        <div className="section-intro"><p className="eyebrow">MADE TO STAY OUT OF YOUR WAY</p><h2>Less hunting.<br /><em>More finding.</em></h2><p>Your storage should be the quiet part of your day. VAULT keeps the essentials close and the interface out of the way.</p></div>
-        <div className="feature-grid">
-          <article className="feature-card feature-large"><span className="feature-icon"><Folder size={19} /></span><p className="eyebrow">A PLACE FOR EACH THING</p><h3>Keep a clear view of what you keep.</h3><p>Browse folders, move through a familiar path, and switch between a visual grid and a detailed list.</p><div className="feature-folder-stack"><span><Folder size={17} /> Projects <small>Folder</small></span><span><Folder size={17} /> Personal <small>Folder</small></span><span><Folder size={17} /> Archive <small>Folder</small></span></div></article>
-          <article className="feature-card"><span className="feature-icon"><Search size={19} /></span><p className="eyebrow">FIND IT AGAIN</p><h3>Search that stays close.</h3><p>Find a file by name in the folder you're viewing, without losing your place.</p></article>
-          <article className="feature-card"><span className="feature-icon"><Cloud size={19} /></span><p className="eyebrow">CLOUD, NOT CLUTTER</p><h3>Your files travel with your account.</h3><p>Content is stored in private cloud storage and loaded when you sign in.</p></article>
-        </div>
+      <section className="vault-home-storage">
+        <div className="vault-home-storage-label">02 — HOW YOUR FILES ARE KEPT</div>
+        <div className="vault-home-storage-copy"><h2>Private storage.<br/><i>Clear boundaries.</i></h2><p>Your files are kept in a private cloud bucket. Access is scoped to the account that uploaded them. VAULT does not currently create public sharing links.</p><a href={url('/privacy')} onClick={e => { e.preventDefault(); navigate('/privacy') }}>Read the privacy policy <span>↗</span></a></div>
+        <div className="vault-home-storage-foot"><span><LockKeyhole size={14}/> PRIVATE BUCKET</span><span><ShieldCheck size={14}/> ACCOUNT-SCOPED ACCESS</span><span><Cloud size={14}/> SUPABASE STORAGE</span></div>
       </section>
-
-      <section className="closing-section">
-        <div><p className="eyebrow">READY WHEN YOU ARE</p><h2>Make room for what matters.</h2><p>Your space is waiting. Sign in to start adding the things you want to keep.</p></div>
-        <a className="button button-light" href={url('/app')} onClick={e => { e.preventDefault(); navigate('/app') }}>Open your VAULT <ArrowDownToLine size={16} /></a>
-      </section>
+      <section className="vault-home-end"><div><span>03 — GET STARTED</span><h2>Your files have<br/>a place to go.</h2></div><a href={url('/app')} onClick={e => { e.preventDefault(); navigate('/app') }}>Open VAULT <ArrowDownToLine size={16}/></a></section>
     </main>
-    <PublicFooter navigate={navigate} url={url} />
+    <footer className="vault-home-footer"><Brand small/><span>VAULT / A PERSONAL CLOUD DRIVE</span><nav><a href={url('/terms')} onClick={e => { e.preventDefault(); navigate('/terms') }}>Terms</a><a href={url('/privacy')} onClick={e => { e.preventDefault(); navigate('/privacy') }}>Privacy</a><a href="https://github.com/TEJAS-MK2/Vault" target="_blank" rel="noreferrer">Source ↗</a></nav></footer>
   </div>
 }
-
 function LegalLayout({ title, intro, children, navigate, url }: AppProps & { title: string; intro: string; children: ReactNode }) {
   return <div className="legal-page">
     <header className="marketing-nav legal-nav">

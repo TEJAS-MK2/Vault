@@ -259,3 +259,55 @@ html,body { background:#f2f1ed; }
 @media (prefers-reduced-motion:reduce) {
   *,*::before,*::after { animation:none!important; transition:none!important; }
 }
+
+
+/* Product-led home: original information architecture, no fabricated dashboard or stock metrics */
+.vault-home{min-height:100vh;background:#e9e8e1;color:#20251f;font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+.vault-home-nav{height:76px;max-width:1240px;margin:auto;padding:0 34px;display:flex;align-items:center;border-bottom:1px solid #c9cbc2}
+.vault-home-brand{color:inherit;text-decoration:none}
+.vault-home-edition{margin-left:52px;color:#858b80;font:9px/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.13em}
+.vault-home-nav-actions{margin-left:auto;display:flex;align-items:center;gap:28px}
+.vault-home-nav-actions>a{color:#586257;text-decoration:none;font-size:11px}
+.vault-home-nav-actions .vault-home-signin{display:flex;align-items:center;gap:12px;padding:12px 15px;background:#283b2d;color:#f6f5ef}
+.vault-home>main{max-width:1240px;margin:auto;padding:0 34px}
+.vault-home-intro{padding:66px 0 84px;border-bottom:1px solid #c9cbc2}
+.vault-home-index,.vault-home-directory-head,.vault-home-storage-label,.vault-home-end>div>span{display:flex;justify-content:space-between;color:#7e867b;font:9px/1.4 ui-monospace,SFMono-Regular,monospace;letter-spacing:.13em}
+.vault-home-intro h1{margin:48px 0 34px;font-size:clamp(76px,12vw,156px);line-height:.79;letter-spacing:-.105em;font-weight:580}
+.vault-home-intro h1 i,.vault-home-storage-copy h2 i{font-family:Georgia,serif;font-weight:400;color:#667b65}
+.vault-home-intro-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:30px}
+.vault-home-intro-bottom p{max-width:390px;margin:0;color:#697166;font-size:14px;line-height:1.8}
+.vault-home-intro-bottom>a,.vault-home-storage-copy>a{display:flex;gap:26px;align-items:center;color:#334b38;text-decoration:none;border-bottom:1px solid #879283;padding:0 0 8px;font-size:12px}
+.vault-home-directory{padding:38px 0 70px}
+.vault-home-directory-head{padding-bottom:17px;border-bottom:1px solid #c9cbc2}
+.vault-home-row{display:grid;grid-template-columns:65px 1fr 30px;align-items:center;gap:20px;min-height:112px;border-bottom:1px solid #c9cbc2}
+.vault-home-row-no{align-self:start;padding-top:30px;color:#8b9186;font:10px ui-monospace,monospace}
+.vault-home-row h2{margin:0 0 7px;font-size:22px;letter-spacing:-.055em;font-weight:550}
+.vault-home-row p{margin:0;color:#737a70;font-size:12px;line-height:1.6}
+.vault-home-row>svg{color:#647a64}
+.vault-home-storage{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;padding:45px 0 38px;border-top:1px solid #c9cbc2;border-bottom:1px solid #c9cbc2}
+.vault-home-storage-label{display:block}
+.vault-home-storage-copy h2{margin:0 0 20px;font-size:clamp(40px,6vw,70px);line-height:.95;letter-spacing:-.08em;font-weight:550}
+.vault-home-storage-copy p{max-width:440px;margin:0 0 22px;color:#6d756b;font-size:13px;line-height:1.8}
+.vault-home-storage-copy>a{width:max-content}
+.vault-home-storage-foot{grid-column:2;display:flex;flex-wrap:wrap;gap:10px 25px;margin-top:20px;padding-top:16px;border-top:1px solid #d0d1c9}
+.vault-home-storage-foot span{display:flex;align-items:center;gap:7px;color:#737c70;font:8px ui-monospace,monospace;letter-spacing:.08em}
+.vault-home-end{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;padding:65px 0 75px}
+.vault-home-end>div>span{display:block}
+.vault-home-end h2{margin:24px 0 0;font-size:clamp(42px,6vw,76px);line-height:.94;letter-spacing:-.08em;font-weight:550}
+.vault-home-end>a{display:flex;align-items:center;gap:24px;padding:14px 17px;background:#283b2d;color:#f6f5ef;text-decoration:none;font-size:11px}
+.vault-home-footer{max-width:1240px;min-height:75px;margin:auto;padding:0 34px;border-top:1px solid #c9cbc2;display:flex;align-items:center;gap:25px}
+.vault-home-footer>span{color:#858b80;font:8px ui-monospace,monospace;letter-spacing:.1em}
+.vault-home-footer nav{margin-left:auto;display:flex;gap:20px}
+.vault-home-footer nav a{color:#667064;text-decoration:none;font-size:10px}
+@media(max-width:650px){
+ .vault-home-nav{height:66px;padding:0 18px}.vault-home-edition{display:none}.vault-home-nav-actions{gap:15px}
+ .vault-home>main{padding:0 18px}.vault-home-intro{padding:53px 0 56px}.vault-home-index{font-size:8px}
+ .vault-home-intro h1{margin:48px 0 30px;font-size:clamp(65px,17vw,100px)}
+ .vault-home-intro-bottom{align-items:flex-start;flex-direction:column;gap:24px}.vault-home-intro-bottom p{font-size:12px}
+ .vault-home-directory{padding:30px 0 50px}.vault-home-row{grid-template-columns:30px 1fr 24px;gap:12px;min-height:105px}
+ .vault-home-row h2{font-size:17px}.vault-home-row p{font-size:10px}
+ .vault-home-storage{grid-template-columns:1fr;gap:28px;padding:32px 0}
+ .vault-home-storage-copy h2{font-size:52px}.vault-home-storage-foot{grid-column:1;gap:12px}
+ .vault-home-end{align-items:flex-start;flex-direction:column;padding:48px 0 55px}
+ .vault-home-footer{padding:16px 18px;flex-wrap:wrap;gap:10px}.vault-home-footer>span{display:none}.vault-home-footer nav{gap:15px}
+}
