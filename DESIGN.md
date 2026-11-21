@@ -12,27 +12,27 @@ These references inform familiar interaction patterns only. VAULT uses its own l
 
 ## Visual direction
 
-A calm, modern file workspace with the clarity of a well-made desktop utility and the warmth of a considered editorial product. Use a warm neutral canvas, dark green-leaning ink, a quiet botanical accent and crisp low-contrast borders. Keep decoration subordinate to the files.
+A confident, premium cloud workspace with the clarity of a well-made desktop utility. Pair cool off-white surfaces and deep midnight navigation with a focused electric-blue accent, crisp borders, generous spacing and restrained depth. Keep decoration subordinate to the files.
 
 ## Color tokens
 
 | Token | Hex | Use |
 |---|---|---|
-| Canvas | `#F5F5F0` | Public and workspace background |
-| Paper | `#FBFBF8` | Secondary page surface |
+| Canvas | `#F6F8FC` | Public and workspace background |
+| Paper | `#FFFFFF` | Secondary page surface |
 | Surface | `#FFFFFF` | Cards, panels and controls |
-| Ink | `#202923` | Primary text |
-| Muted ink | `#69736B` | Secondary text |
-| Border | `#E4E7DF` | Separators and outlines |
-| Primary | `#456950` | Primary actions and selection |
-| Primary strong | `#365840` | Hover state |
-| Primary soft | `#EAF0E9` | Selected navigation |
-| Warm accent | `#B47C52` | Small visual highlights |
-| Danger | `#B84D45` | Destructive actions |
+| Ink | `#172033` | Primary text |
+| Muted ink | `#657087` | Secondary text |
+| Border | `#E7EBF2` | Separators and outlines |
+| Primary | `#315EFB` | Primary actions and selection |
+| Primary strong | `#244BD3` | Hover state |
+| Primary soft | `#EDF2FF` | Selected navigation |
+| Warm accent | `#9B7A55` | Small visual highlights |
+| Danger | `#D44D5C` | Destructive actions |
 
 ## Typography
 
-Use native system sans-serif stacks. The production site does not load remote font files or analytics scripts. Use clear heading hierarchy, moderate weights and tabular numerals for sizes and timestamps. Keep metadata visually quieter than file names.
+Use native system sans-serif stacks. The production site does not load remote font files or analytics scripts. Use bold, tightly tracked display headings, clear hierarchy and tabular numerals for sizes and timestamps. Keep metadata visually quieter than file names.
 
 ## Public homepage
 
@@ -44,7 +44,8 @@ Use native system sans-serif stacks. The production site does not load remote fo
 
 ## Workspace
 
-- Compact left navigation with file-type views and account controls.
+- Midnight-blue left navigation with file-type views and account controls.
+- Electric-blue primary actions and selected states; cool white surfaces and crisp borders.
 - Top bar with current path breadcrumbs, scoped search and private-state indicator.
 - Page heading with new-folder and upload actions.
 - Folder-first file list with grid/list switch.
