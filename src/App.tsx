@@ -56,7 +56,7 @@ export default function App() {
     const { data: auth } = await supabase.auth.getUser()
     if (!auth.user) { setSignedIn(false); setBusy(false); return }
     setSignedIn(true); setUserEmail(auth.user.email ?? '')
-    const { data, error } = await supabase.storage.from(storageBucket).list('', { limit: 100, sortBy: { column: 'updated_at', order: 'desc' } })
+    const { data, error } = await supabase.storage.from(storageBucket).list(auth.user.id, { limit: 100, sortBy: { column: 'updated_at', order: 'desc' } })
     if (error) setMessage(error.message)
     else setFiles((data ?? []).filter(x => x.name !== '.emptyFolderPlaceholder'))
     setBusy(false)
@@ -80,7 +80,9 @@ export default function App() {
     const items = Array.from(selected)
     for (const file of items) {
       setUploading(v => [...v, file.name])
-      const path = file.name
+      const { data: auth } = await supabase.auth.getUser()
+      if (!auth.user) { setMessage('Your session expired. Please sign in again.'); setUploading(v => v.filter(x => x !== file.name)); continue }
+      const path = auth.user.id + '/' + file.name
       const { error } = await supabase.storage.from(storageBucket).upload(path, file, { upsert: false, contentType: file.type || undefined })
       if (error) setMessage(file.name + ': ' + error.message)
       setUploading(v => v.filter(x => x !== file.name))
