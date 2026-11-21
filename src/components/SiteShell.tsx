@@ -20,7 +20,7 @@ export function SiteShell({ children, navigate, pathname }: { children: ReactNod
     <div className="site-shell">
       <a className="skip-link" href="#main-content">Skip to content</a>
       <header className="site-header">
-        <a className="wordmark" href="/" onClick={(event) => go(event, '/')} aria-label="Pijush home">
+        <a className="wordmark" href="/" onClick={(event) => go(event, '/')} aria-label="P. PIJUSH home">
           <span className="wordmark-symbol">P.</span><span>PIJUSH</span>
         </a>
         <nav className="primary-nav" aria-label="Main navigation">
