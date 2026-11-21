@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { getProject, projects } from '../data/projects'
 import SignalField from '../components/SignalField'
 
-function PageIntro({ index, eyebrow, title, children }: { index: string; eyebrow: string; title: string; children?: ReactNode }) {
+function PageIntro({ index, eyebrow, title, children }: { index: string; eyebrow: string; title: ReactNode; children?: ReactNode }) {
   return <header className="page-intro">
     <p className="eyebrow"><span>{index}</span> / {eyebrow}</p>
     <h1>{title}</h1>
