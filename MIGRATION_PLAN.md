@@ -1,6 +1,6 @@
 # PIJUSH Personal Website — Migration Plan
 
-Status: Phases 1–3 implemented on the migration branch. Latest CI run passed. Production remains unchanged.
+Status: Phases 1–4 implemented on the migration branch. Latest CI run passed. Production remains unchanged.
 
 ## Confirmed creative direction
 
@@ -109,7 +109,7 @@ public/         favicon, social preview, robots, sitemap, manifest
 - No Supabase data or infrastructure is deleted as part of the frontend migration.
 - README, metadata, favicon, sitemap and robots.txt describe PIJUSH rather than VAULT.
 
-## Phase 3 implementation notes
+## Phase 4 implementation notes\n\n- Rebuilt the homepage around a large typographic introduction, custom orbital signal object, coordinate details and a scrolling discipline ticker.\n- Added original, inline SVG artwork for Code Forge, ATLAS, PIJUSH OS and Modern Calculator; these are authored illustrations of the documented project concepts, not screenshots or claims about the live UI.\n- Replaced the generic project list on the homepage with a responsive editorial project gallery and added the same artwork to project detail pages.\n- Added a manifesto section and clear contact invitation.\n- Added reduced-motion behavior for the ticker and hover transitions; the ambient canvas remains paused for reduced-motion users and hidden tabs.\n- Latest CI run `44943040270` passed dependency audit, regression tests, TypeScript build and production smoke test.\n\n## Phase 3 implementation notes
 
 - Replaced the storage application entry with a small route-aware portfolio shell.
 - Added typed project records for Code Forge, ATLAS, PIJUSH OS and Modern Calculator, using repository-backed summaries and verified source/demo links.
@@ -122,4 +122,4 @@ public/         favicon, social preview, robots, sitemap, manifest
 
 ## Next action
 
-Phase 3 CI passed on commit `b933e983ea60877f4606e0f1e629a6affbcb11b0` (dependency audit, regression tests, TypeScript build and production smoke test). The draft review is [PR #8](https://github.com/TEJAS-MK2/Vault/pull/8). Next: Phase 4 — develop the final bespoke homepage art direction, project-specific visual assets and signature motion. Do not merge or deploy until the complete replacement is reviewed and verified.
+Phase 3 CI passed on commit `b933e983ea60877f4606e0f1e629a6affbcb11b0` (dependency audit, regression tests, TypeScript build and production smoke test). The draft review is [PR #8](https://github.com/TEJAS-MK2/Vault/pull/8). Next: Phase 5 — expand the four project pages into useful case studies with real problem context, design decisions, implementation details, constraints and verified outcomes. Gather real screenshots only from the running projects; do not use concept artwork as if it were product screenshots. Do not merge or deploy until the complete replacement is reviewed and verified.
