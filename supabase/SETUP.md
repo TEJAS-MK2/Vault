@@ -24,11 +24,11 @@ For local development, copy `../.env.example` to `.env` and fill in the same val
 
 In **Supabase Dashboard → Authentication → URL Configuration**:
 
-- Set **Site URL** to `https://tejas-mk2.github.io/Vault/`.
-- Add `https://tejas-mk2.github.io/Vault/app` to **Redirect URLs**.
-- For local development, also allow `http://localhost:5173/Vault/app`.
+- Set **Site URL** to `https://pijush.runs-on.dev/`.
+- Add `https://pijush.runs-on.dev/app` to **Redirect URLs**.
+- For local development, also allow `http://localhost:5173/app`.
 
-The application sends the magic-link redirect to the current site's `/Vault/app` route. The redirect allowlist must be configured in Supabase before production sign-in links can complete successfully.
+The application sends the magic-link redirect to the current site's `/app` route. The redirect allowlist must be configured in Supabase before production sign-in links can complete successfully.
 
 ## Storage security model
 
@@ -46,7 +46,7 @@ Email magic-link authentication, private folder listing, uploads, folder creatio
 
 ## GitHub Pages
 
-Repository settings must use **Settings → Pages → Build and deployment → Source → GitHub Actions**. The workflow builds with the repository base path `/Vault/` and publishes the `dist` directory, including a `404.html` fallback for client-side routes.
+Repository settings must use **Settings → Pages → Build and deployment → Source → GitHub Actions**. The workflow builds the site from the custom domain root and publishes the `dist` directory, including a `404.html` fallback for client-side routes. The repository must have the custom domain configured as `pijush.runs-on.dev`.
 
 ## Keep secrets out of the repository
 
