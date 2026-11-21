@@ -57,4 +57,4 @@ The browser should access private objects through authenticated Supabase clients
 
 ## Status
 
-Early foundation stage. The repository currently contains the product direction and design specification; application implementation is next.
+Initial frontend foundation committed. Includes the responsive workspace shell, email magic-link sign-in, cloud file listing and uploads, search, grid/list views, Supabase environment wiring, and private per-user Storage policies. CI is configured to type-check and build on pushes and pull requests. The cloud backend still needs a dedicated VAULT Supabase project and environment configuration; additional content types and management workflows remain in the roadmap.
