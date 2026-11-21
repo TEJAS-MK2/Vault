@@ -47,7 +47,7 @@ export function HomePage({ navigate }: { navigate: (path: string) => void }) {
       <div className="featured-grid">
         {featured.map((project, index) => (
           <button className={`featured-project featured-project-${index + 1}`} key={project.slug} onClick={() => navigate(`/projects/${project.slug}`)}>
-            <div className="featured-art"><ProjectArtwork slug={project.slug} /><span className="art-index">PROJECT / 0{index + 1}</span><span className="art-arrow">↗</span></div>
+            <div className="featured-art"><ProjectArtwork slug={project.slug} /><span className="art-index">PROJECT / 0{index + 1}</span><span className="art-source">{project.slug === "modern-calculator" ? "LIVE PROJECT CAPTURE" : "CONCEPT ILLUSTRATION"}</span><span className="art-arrow">↗</span></div>
             <div className="featured-meta"><div><h2>{project.title}</h2><p>{project.summary}</p></div><span>{project.category}</span></div>
           </button>
         ))}
@@ -91,7 +91,7 @@ function CaseStudyContent({ slug }: { slug: string }) {
 export function ProjectDetailPage({ slug }: { slug: string }) {
   const project = getProject(slug)
   if (!project) return <NotFoundPage />
-  return <article className="content-page project-detail"><PageIntro index="PROJECT" eyebrow={project.category.toUpperCase()} title={<>{project.title}<em>.</em></>}><p>{project.summary}</p></PageIntro><div className="detail-art"><ProjectArtwork slug={project.slug} /></div><div className="project-facts"><div><span>STATUS</span><strong>{project.status}</strong></div><div><span>YEAR</span><strong>{project.year}</strong></div><div><span>STACK</span><strong>{project.stack.join(' · ')}</strong></div></div><section className="prose-block"><h2>About the project</h2><p>{project.description}</p><h2>Tools & technologies</h2><div className="tag-list">{project.stack.map((item) => <span key={item}>{item}</span>)}</div></section><CaseStudyContent slug={project.slug} /><div className="project-actions"><a className="text-link" href={project.repositoryUrl} target="_blank" rel="noreferrer">View source ↗</a>{project.demoUrl && <a className="text-link" href={project.demoUrl} target="_blank" rel="noreferrer">Open live project ↗</a>}</div></article>
+  return <article className="content-page project-detail"><PageIntro index="PROJECT" eyebrow={project.category.toUpperCase()} title={<>{project.title}<em>.</em></>}><p>{project.summary}</p></PageIntro><figure className="detail-art"><ProjectArtwork slug={project.slug} /><figcaption>{project.slug === "modern-calculator" ? "Interface screenshot from the project repository." : "Original portfolio illustration — not a screenshot of the live application."}</figcaption></figure><div className="project-facts"><div><span>STATUS</span><strong>{project.status}</strong></div><div><span>YEAR</span><strong>{project.year}</strong></div><div><span>STACK</span><strong>{project.stack.join(' · ')}</strong></div></div><section className="prose-block"><h2>About the project</h2><p>{project.description}</p><h2>Tools & technologies</h2><div className="tag-list">{project.stack.map((item) => <span key={item}>{item}</span>)}</div></section><CaseStudyContent slug={project.slug} /><div className="project-actions"><a className="text-link" href={project.repositoryUrl} target="_blank" rel="noreferrer">View source ↗</a>{project.demoUrl && <a className="text-link" href={project.demoUrl} target="_blank" rel="noreferrer">Open live project ↗</a>}</div></article>
 }
 
 export function ExperimentsPage() {
