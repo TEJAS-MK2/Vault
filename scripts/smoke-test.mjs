@@ -29,6 +29,8 @@ const css = readFileSync(cssPath, 'utf8')
 assert.ok(statSync(cssPath).size > 5000, 'The CSS bundle must contain the portfolio styles')
 assert.match(css, /home-hero/, 'Homepage styles must be present in the CSS bundle')
 assert.match(css, /project-row/, 'Project index styles must be present in the CSS bundle')
+assert.match(css, /art-source/, 'Artwork must be clearly distinguished from genuine screenshots')
+assert.match(css, /skip-link/, 'The production stylesheet must include the keyboard skip link')
 
 const js = jsAssets.map((name) => readFileSync(assetsPath + '/' + name, 'utf8')).join('\n')
 for (const route of ['/about', '/projects', '/experiments', '/writing', '/uses', '/now', '/contact', 'Inside the', 'CONSTRAINTS & HONEST LIMITS']) {
@@ -36,4 +38,6 @@ for (const route of ['/about', '/projects', '/experiments', '/writing', '/uses',
 }
 
 assert.ok(existsSync('dist/assets'), 'The production assets must be present')
-console.log('PIJUSH smoke test passed: metadata, CSP, SPA fallback, routes, case-study content and production assets are present.')
+assert.match(js, /calculator-screenshot\\.png/, 'The genuine calculator repository screenshot must be referenced')
+assert.match(js, /CONCEPT ILLUSTRATION/, 'Concept artwork must not be represented as application screenshots')
+console.log('PIJUSH smoke test passed: metadata, CSP, SPA fallback, routes, case studies, truthful project media and production assets are present.')
