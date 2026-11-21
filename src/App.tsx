@@ -65,7 +65,11 @@ export default function App() {
     if (path === '/') return <HomePage navigate={navigate} />
     if (path === '/about') return <AboutPage />
     if (path === '/projects') return <ProjectsPage navigate={navigate} />
-    if (path.startsWith('/projects/')) {\n      let slug = path.slice('/projects/'.length)\n      try { slug = decodeURIComponent(slug) } catch { return <NotFoundPage /> }\n      return <ProjectDetailPage slug={slug} />\n    }
+    if (path.startsWith('/projects/')) {
+      let slug = path.slice('/projects/'.length)
+      try { slug = decodeURIComponent(slug) } catch { return <NotFoundPage /> }
+      return <ProjectDetailPage slug={slug} />
+    }
     if (path === '/experiments') return <ExperimentsPage />
     if (path === '/writing') return <WritingPage />
     if (path === '/uses') return <UsesPage />
