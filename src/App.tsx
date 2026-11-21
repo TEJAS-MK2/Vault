@@ -91,26 +91,34 @@ function HomePage({ navigate, url }: AppProps) {
     </header>
 
     <main>
-      <section className="hero-section">
+      <section className="hero-section hero-redesign">
         <div className="hero-copy">
-          <p className="eyebrow"><span className="eyebrow-dot" /> YOUR SPACE, IN THE CLOUD</p>
-          <h1>A little more room for <em>everything.</em></h1>
-          <p className="hero-description">One considered place for your files, photographs, documents and the things you don't want to lose in the noise.</p>
+          <p className="eyebrow"><span className="eyebrow-dot" /> YOUR PERSONAL CLOUD DRIVE</p>
+          <h1>Your files.<br />Your space.<br /><em>Your rules.</em></h1>
+          <p className="hero-description">A calmer place for the things you want to keep. Upload, organise and find your files from one private workspace.</p>
           <div className="hero-actions">
-            <a className="button button-dark" href={url('/app')} onClick={e => { e.preventDefault(); navigate('/app') }}>Enter your VAULT <ArrowDownToLine size={16} /></a>
-            <a className="quiet-link" href="#features">Explore the workspace <ChevronRight size={15} /></a>
+            <a className="button button-dark" href={url('/app')} onClick={e => { e.preventDefault(); navigate('/app') }}>Open your drive <ArrowDownToLine size={16} /></a>
+            <a className="quiet-link" href="#features">See what you can do <ChevronRight size={15} /></a>
           </div>
-          <div className="hero-proof"><span><LockKeyhole size={14} /> Private cloud storage</span><i /> <span><ShieldCheck size={14} /> Access scoped to your account</span></div>
+          <div className="hero-proof"><span><LockKeyhole size={14} /> Private by default</span><i /><span><Cloud size={14} /> Your cloud workspace</span><i /><span><ShieldCheck size={14} /> Account-scoped access</span></div>
         </div>
-        <div className="hero-visual" aria-label="Illustration of the VAULT file workspace">
-          <div className="visual-window">
-            <div className="visual-topline"><span className="window-dots"><i /><i /><i /></span><span>VAULT / My files</span><span className="visual-lock"><LockKeyhole size={12} /> Private</span></div>
-            <div className="visual-body">
-              <aside className="visual-sidebar"><div className="visual-logo"><span>V</span> VAULT</div><div className="visual-nav active"><LayoutGrid size={13} /> My files</div><div className="visual-nav"><Image size={13} /> Images</div><div className="visual-nav"><Film size={13} /> Videos</div><div className="visual-nav"><FileText size={13} /> Documents</div><div className="visual-storage"><span>Cloud storage</span><b><span /></b><small>Your files, kept together</small></div></aside>
-              <div className="visual-files"><div className="visual-heading"><div><small>YOUR WORKSPACE</small><b>My files</b></div><span className="visual-upload"><Plus size={12} /> Upload</span></div><div className="visual-search"><Search size={12} /> Search your files <kbd>⌘ K</kbd></div><div className="visual-crumb">Workspace <ChevronRight size={10} /> My files</div><div className="visual-folders"><div><span className="folder-art"><Folder size={20} /></span><b>Projects</b><small>Folder</small></div><div><span className="folder-art warm"><Folder size={20} /></span><b>Personal</b><small>Folder</small></div></div><div className="visual-file-row"><span className="art-file pdf">PDF</span><b>Project-brief.pdf</b><small>2.4 MB</small><span>Today</span></div><div className="visual-file-row"><span className="art-file image">IMG</span><b>Summer-notes.jpg</b><small>4.8 MB</small><span>Yesterday</span></div><div className="visual-file-row"><span className="art-file text">TXT</span><b>Reading-list.txt</b><small>12 KB</small><span>Nov 18</span></div></div>
+        <div className="hero-visual hero-product-visual" aria-label="Preview of the VAULT cloud drive">
+          <div className="product-preview">
+            <div className="product-preview-top"><span className="preview-brand"><span>V</span> VAULT</span><span className="preview-breadcrumb">My Drive <ChevronRight size={11} /> Overview</span><span className="preview-avatar">P</span></div>
+            <div className="product-preview-body">
+              <aside className="preview-sidebar"><div className="preview-side-active"><LayoutGrid size={14} /> Overview</div><div><Folder size={14} /> My files</div><div><Image size={14} /> Photos</div><div><Clock3 size={14} /> Recent</div><div><Star size={14} /> Starred</div><div className="preview-sidebar-bottom"><LockKeyhole size={13} /> Private storage</div></aside>
+              <div className="preview-main"><div className="preview-main-heading"><div><small>YOUR WORKSPACE</small><strong>Everything in its place.</strong></div><span className="preview-add"><Plus size={12} /> Add files</span></div>
+                <div className="preview-stat-row"><div><small>Folders</small><b>08</b></div><div><small>Files</small><b>124</b></div><div><small>Storage used</small><b>2.4 GB</b></div></div>
+                <div className="preview-subhead"><b>Quick access</b><small>View all</small></div>
+                <div className="preview-folder-row"><div><Folder size={18} /><b>Projects</b><small>12 items</small></div><div><Folder size={18} /><b>Personal</b><small>08 items</small></div><div><Folder size={18} /><b>Archive</b><small>24 items</small></div></div>
+                <div className="preview-subhead recent"><b>Recently added</b><small>See all files</small></div>
+                <div className="preview-file-row"><span className="preview-file-icon pdf">PDF</span><b>Brand-guidelines.pdf</b><small>4.2 MB</small><span>Just now</span></div>
+                <div className="preview-file-row"><span className="preview-file-icon photo">IMG</span><b>Campaign-visuals.png</b><small>8.1 MB</small><span>Yesterday</span></div>
+                <div className="preview-file-row"><span className="preview-file-icon sheet">XLS</span><b>Budget-planner.xlsx</b><small>240 KB</small><span>Nov 18</span></div>
+              </div>
             </div>
           </div>
-          <div className="visual-caption"><span className="caption-line" /> A quieter home for your digital life</div>
+          <div className="preview-floating-note"><span><ShieldCheck size={15} /></span><div><b>Your space stays yours</b><small>Private cloud storage</small></div></div>
         </div>
       </section>
 
