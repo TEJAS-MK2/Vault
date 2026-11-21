@@ -1,6 +1,6 @@
 # PIJUSH Personal Website — Migration Plan
 
-Status: Phase 1 audit complete; implementation not started.
+Status: Phase 1 audit complete. Phase 2 visual direction and repository-backed content inventory prepared. Website implementation has not started.
 
 ## Confirmed creative direction
 
@@ -111,4 +111,4 @@ public/         favicon, social preview, robots, sitemap, manifest
 
 ## Next action
 
-Begin Phase 2 by inventorying verified personal/project content and establishing the visual system. Implement on this migration branch; do not modify `main` until the replacement passes CI and review.
+Begin Phase 3 by building the route structure, typed content registry, shared shell, metadata and accessible responsive primitives. Implement on this migration branch; do not modify `main` until the replacement passes CI and review.
