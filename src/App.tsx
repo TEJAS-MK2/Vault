@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { DragEvent, FormEvent, ReactNode } from 'react'
 import {
-  Archive, ArrowDownToLine, ArrowLeft, ChevronRight, Clock3, Star,
+  Archive, ArrowDownToLine, ArrowLeft, ChevronRight,
   Cloud, File, FileImage, FileText, Film, Folder, FolderPlus, Grid2X2,
   HardDrive, Home, Image, LayoutGrid, List, LoaderCircle, LockKeyhole,
   LogOut, Menu, MoreHorizontal, Music2, Plus, Search, ShieldCheck,
