@@ -26,11 +26,18 @@ function pageMetadata(path: string) {
     '/now': 'Now — PIJUSH',
     '/contact': 'Contact — PIJUSH',
   }
-  const title = project ? `${project.replace(/-/g, ' ')} — PIJUSH` : titles[path] ?? 'Page not found — PIJUSH'
+  const projectRecord = project ? getProject(project) : undefined
+  const title = projectRecord
+    ? `${projectRecord.title} — PIJUSH`
+    : project
+      ? 'Project not found — PIJUSH'
+      : titles[path] ?? 'Page not found — PIJUSH'
   const description = path === '/'
     ? 'The personal website of Pijush — creative developer, builder and explorer of software.'
-    : 'Projects, experiments and notes from Pijush.'
-  return { title, description, indexable: knownRoutes.has(path) || Boolean(project && getProject(project)) }
+    : projectRecord
+      ? projectRecord.summary
+      : 'Projects, experiments and notes from Pijush.'
+  return { title, description, indexable: knownRoutes.has(path) || Boolean(projectRecord) }
 }
 
 export default function App() {
