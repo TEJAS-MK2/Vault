@@ -102,3 +102,61 @@ Before the homepage implementation is considered complete:
 - Gather at least one genuine image per featured project or decide on a consistent CSS-based treatment.
 - Confirm real contact and social destinations.
 - Review every public claim for accuracy.
+
+
+## Repository-backed verification notes (21 November 2026)
+
+The following facts were checked against the repositories' current `main` README files. This verifies the repository's documented scope, not independent operation of every feature or current live-demo health.
+
+### Strong featured-project candidates
+
+**Code Forge** — [Repository](https://github.com/TEJAS-MK2/Code-Forge) · [Live app](https://tejas-mk2.github.io/Code-Forge/)
+- README describes a local-first HTML/CSS/JavaScript browser IDE with CodeMirror 6, sandboxed preview, runtime console, diagnostics, browser-local projects, snapshots, JSON/ZIP backup and offline shell.
+- Important honest boundary: projects stay in that browser profile; there is no cloud sync. Preview sandboxing is not a guarantee that arbitrary code is safe.
+- Portfolio angle: building a robust browser developer tool with local-first data safety and recovery UX.
+
+**ATLAS** — [Repository](https://github.com/TEJAS-MK2/ATLAS) · [Live app](https://tejas-mk2.github.io/ATLAS/)
+- README identifies the current product as ATLAS 4.3 / Aurora Spatial Workspace.
+- Documented stack includes JavaScript ES modules, Leaflet, globe.gl, Three.js, GeoJSON, OpenStreetMap, Supabase and PWA support.
+- Portfolio angle: map-first geospatial workspace and spatial interaction design.
+- Verify the current production build and the precise feature set before making claims about individual analysis workflows.
+
+**PIJUSH OS** — [Repository](https://github.com/TEJAS-MK2/PIJUSH-WEB-OS) · [Live app](https://tejas-mk2.github.io/PIJUSH-WEB-OS/)
+- README describes a static browser desktop/PWA using vanilla HTML, CSS and JavaScript, with a Windows XP Luna-inspired shell.
+- Documented elements include window management, file manager, virtual filesystem, built-in apps, IndexedDB persistence, backup/restore, package sandboxing and diagnostics.
+- Portfolio angle: ambitious interface engineering, desktop metaphors and browser-local application architecture.
+- Important honest boundary: it is a browser-based desktop environment, not an operating system.
+
+**Modern Calculator** — [Repository](https://github.com/TEJAS-MK2/Calculator) · [Live app](https://tejas-mk2.github.io/Calculator/)
+- README describes a browser calculator and reusable calculation engines across JavaScript, Python, Ruby, Java, Gradle and .NET.
+- Documented areas include exact rational arithmetic, scientific tools, matrices, statistics, PWA/offline support and tests.
+- Portfolio angle: reusable calculation-engine design and cross-language implementation.
+- Verify package registry links and versions before displaying them as current install instructions.
+
+### Additional candidates
+
+**Subscription Bouncer** — [Repository](https://github.com/TEJAS-MK2/Fintech) · [Live app](https://subscription-bouncer.vercel.app/)
+- README describes an India-first subscription intelligence workspace with CSV imports, recurring-payment pattern detection, duplicate candidates, price-change signals and user-scoped Supabase data.
+- Critical limitation: it does not connect to bank accounts, initiate payments, cancel subscriptions or negotiate with merchants. Savings are estimates.
+- Portfolio angle: explainable transaction-pattern analysis and a carefully scoped fintech prototype.
+
+**MITROON** — [Repository](https://github.com/TEJAS-MK2/MITROON) · [GitHub Pages demo](https://tejas-mk2.github.io/MITROON/) · [Vercel demo](https://mitroon-pijush1.vercel.app/)
+- README describes an Indian political-satire 2D arcade fighting game, with a sixteen-fighter parody roster, local CPU play and early private WebSocket room prototype.
+- Critical limitation: multiplayer is not authoritative against cheating; ranked play, accounts and persistent online tournament features are not implemented.
+- Portfolio angle: game interaction, canvas presentation and a distinctive cultural satire concept. Use a content warning/context line and review all artwork and copy before featuring.
+
+### Excluded pending repository verification
+
+- `TEJAS-MK2/WEATHER` did not resolve through the repository endpoint during this audit; do not publish its link until the canonical repository is confirmed.
+- `TEJAS-MK2/Cybersecurity` and `TEJAS-MK2/Chat` were not verified in this pass. Keep them out of the featured list until their canonical repositories and README files are checked.
+- Do not assume similarly named repositories are the same project; resolve canonical repository URLs first.
+
+### Recommended homepage order
+
+1. Code Forge — a strong direct match for a developer-builder identity.
+2. ATLAS — the most visually expressive geospatial project.
+3. PIJUSH OS — distinctive interface/interaction work.
+4. Modern Calculator — engineering depth and reusable software.
+5. Subscription Bouncer or MITROON — optional, based on visual evidence and final editorial balance.
+
+Use four featured projects initially. Place the rest in an archive rather than overcrowding the homepage.
