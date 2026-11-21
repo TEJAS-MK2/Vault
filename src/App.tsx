@@ -204,12 +204,17 @@ function SignInPage({ navigate, url }: AppProps) {
     setBusy(true)
     setNotice('')
     const address = email.trim()
-    const { error } = await supabase.auth.signInWithOtp({
-      email: address,
-      options: { emailRedirectTo: window.location.origin + url('/app') }
-    })
-    setNotice(error ? error.message : 'Check your inbox for your secure sign-in link.')
-    setBusy(false)
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email: address,
+        options: { emailRedirectTo: window.location.origin + url('/app') }
+      })
+      setNotice(error ? error.message : 'Check your inbox for your secure sign-in link.')
+    } catch (cause) {
+      setNotice(cause instanceof Error ? cause.message : 'The sign-in link could not be sent. Please try again.')
+    } finally {
+      setBusy(false)
+    }
   }
   return <main className="auth-screen">
     <a className="auth-back" href={url('/')} onClick={e => { e.preventDefault(); navigate('/') }}><ArrowLeft size={15} /> Back to VAULT</a>
@@ -244,21 +249,27 @@ function Workspace({ navigate, url }: AppProps) {
   const [mobileNav, setMobileNav] = useState(false)
   const filePicker = useRef<HTMLInputElement>(null)
   const searchInput = useRef<HTMLInputElement>(null)
+  const refreshSequence = useRef(0)
 
   useEffect(() => {
     if (!supabase) { setAuthReady(true); return }
     let mounted = true
-    void supabase.auth.getUser().then(({ data }) => {
+    void supabase.auth.getUser().then(({ data, error: authError }) => {
       if (!mounted) return
+      if (authError) setError('Your session could not be checked. Please refresh and try again.')
       setUserId(data.user?.id ?? null)
       setUserEmail(data.user?.email ?? '')
-      setAuthReady(true)
+    }).catch(() => {
+      if (mounted) setError('A network error prevented VAULT from checking your session.')
+    }).finally(() => {
+      if (mounted) setAuthReady(true)
     })
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!mounted) return
       setUserId(session?.user.id ?? null)
       setUserEmail(session?.user.email ?? '')
       if (!session) {
+        refreshSequence.current += 1
         setItems([])
         setFolderPath('')
       }
@@ -269,35 +280,31 @@ function Workspace({ navigate, url }: AppProps) {
 
   const refresh = async () => {
     if (!supabase || !userId) return
+    const requestId = ++refreshSequence.current
     setBusy(true)
     setError('')
     const prefix = userId + (folderPath ? '/' + folderPath : '')
     const pageSize = 100
-    const { data, error: listError } = await supabase.storage.from(storageBucket).list(prefix, {
-      limit: pageSize,
-      offset: 0,
-      sortBy: { column: 'updated_at', order: 'desc' }
-    })
-    const allData = [...(data ?? [])]
-    let paginationError: string | null = null
-    while (!listError && allData.length > 0 && allData.length % pageSize === 0) {
-      const { data: page, error: pageError } = await supabase.storage.from(storageBucket).list(prefix, {
+    try {
+      const { data, error: listError } = await supabase.storage.from(storageBucket).list(prefix, {
         limit: pageSize,
-        offset: allData.length,
+        offset: 0,
         sortBy: { column: 'updated_at', order: 'desc' }
       })
-      if (pageError) {
-        paginationError = pageError.message
-        break
+      if (listError) throw listError
+      const allData = [...(data ?? [])]
+      while (allData.length > 0 && allData.length % pageSize === 0) {
+        const { data: page, error: pageError } = await supabase.storage.from(storageBucket).list(prefix, {
+          limit: pageSize,
+          offset: allData.length,
+          sortBy: { column: 'updated_at', order: 'desc' }
+        })
+        if (pageError) throw pageError
+        if (!page?.length) break
+        allData.push(...page)
+        if (page.length < pageSize) break
       }
-      if (!page?.length) break
-      allData.push(...page)
-      if (page.length < pageSize) break
-    }
-    if (listError || paginationError) {
-      setError('Your files could not be loaded. ' + (listError?.message ?? paginationError))
-      setItems([])
-    } else {
+      if (requestId !== refreshSequence.current) return
       const next = allData
         .filter(item => item.name !== '.emptyFolderPlaceholder')
         .filter(item => safeSegment(item.name) !== null)
@@ -312,8 +319,13 @@ function Workspace({ navigate, url }: AppProps) {
         }))
       next.sort((a, b) => Number(b.folder) - Number(a.folder) || (new Date(b.updated_at ?? b.created_at ?? 0).getTime() - new Date(a.updated_at ?? a.created_at ?? 0).getTime()))
       setItems(next)
+    } catch (cause) {
+      if (requestId !== refreshSequence.current) return
+      setError('Your files could not be loaded. ' + (cause instanceof Error ? cause.message : 'Please check your connection and try again.'))
+      setItems([])
+    } finally {
+      if (requestId === refreshSequence.current) setBusy(false)
     }
-    setBusy(false)
   }
 
   useEffect(() => { if (userId) void refresh() }, [userId, folderPath])
@@ -364,6 +376,7 @@ function Workspace({ navigate, url }: AppProps) {
     for (const file of files) {
       const name = safeSegment(file.name)
       if (!name) { reportError('A file name contains characters that cannot be used in a cloud path.'); continue }
+      if (name === '.emptyFolderPlaceholder') { reportError('That file name is reserved for VAULT folder metadata. Rename the file before uploading.'); continue }
       setUploading(current => [...current, name])
       const { error: uploadError } = await supabase.storage.from(storageBucket).upload(prefix + name, file, {
         upsert: false,
@@ -410,6 +423,7 @@ function Workspace({ navigate, url }: AppProps) {
     if (entered === null) return
     const name = safeSegment(entered)
     if (!name) { reportError('Use a file name without slashes or control characters.'); return }
+    if (name === '.emptyFolderPlaceholder') { reportError('That file name is reserved for VAULT folder metadata.'); return }
     if (name === entry.name) return
     const { error: moveError } = await supabase.storage.from(storageBucket).move(rootPath + '/' + entry.name, rootPath + '/' + name)
     if (moveError) reportError(moveError.message)
