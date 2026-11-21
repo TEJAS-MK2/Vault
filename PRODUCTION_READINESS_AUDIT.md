@@ -30,6 +30,12 @@ Production deployment, DNS, CNAME and Supabase resources were not changed.
 - The legacy Supabase client package remains in the dependency manifest even though the portfolio frontend no longer imports the client. Remove it only with a lockfile-regenerated change and a full regression run. Supabase project, bucket, objects, users and policies remain preserved.
 - Manual visual verification on physical mobile devices and browser accessibility tooling is still required before launch.
 
+## Phase 8 QA addendum
+
+Browser QA found and fixed two accessibility issues: low-contrast muted footer text and a wordmark accessible-name mismatch. Project detail metadata was also improved to use verified display names and summaries, with unknown project slugs explicitly non-indexable. Playwright checked all 13 routes at 390px and 1440px, seven responsive widths from 320px to 1440px, and reduced-motion behavior. axe-core reported zero WCAG 2.1 A/AA violations across 26 route/viewport scans after fixes. No console/page errors or horizontal overflow were found. Full details: [PHASE_8_QA_REPORT.md](PHASE_8_QA_REPORT.md).
+
+Physical-device and assistive-technology checks remain outstanding.
+
 ## Result
 
-The identified CSP and sitemap gaps are fixed on the migration branch. CI passed on final branch head `4dcc9da612bdd3bd298c85e9c32d6d9edf5fe5` in [run 44943969311](https://github.com/TEJAS-MK2/Vault/actions/runs/44943969311), including dependency audit, regression tests, TypeScript build and production smoke test. This audit does not authorize merge or deployment.
+The CSP, sitemap, project metadata and automated accessibility findings are fixed on the migration branch. Final CI must pass on the final head before launch readiness is confirmed. This audit does not authorize merge or deployment.
