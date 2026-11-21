@@ -1,26 +1,30 @@
 # Supabase setup
 
-VAULT is cloud-only. It does not use browser local storage as a file store.
+VAULT is cloud-only. The dedicated Supabase project has been created and the private storage bucket and access policies have been applied.
 
-## Required project configuration
+## Connected project
 
-1. Use a dedicated Supabase project for VAULT.
-2. Enable email one-time-password / magic-link sign-in in Supabase Auth.
-3. Create a private Storage bucket named `vault-files` by running [storage-policies.sql](./storage-policies.sql) in the SQL Editor.
-4. Add the project URL and publishable key to your deployment environment using the names in [../.env.example](../.env.example).
-5. Configure the Auth redirect URL for the deployed VAULT domain.
+- Project: `VAULT`
+- Project ref: `jlwutbqzjgxhbhakvoci`
+- Region: `ap-south-1` (Mumbai, India)
+- API URL: `https://jlwutbqzjgxhbhakvoci.supabase.co`
+- Private bucket: `vault-files`
 
-## Environment
+## Local / deployment environment
+
+Copy the values from [../.env.example](../.env.example) into your local `.env` file and into the frontend deployment environment. The publishable key is intended for browser use; never expose a Supabase secret or service-role key in frontend code.
 
 - `VITE_SUPABASE_URL`: project API URL.
-- `VITE_SUPABASE_PUBLISHABLE_KEY`: publishable client key. Never put a service-role or secret key in browser environment variables.
-- `VITE_STORAGE_BUCKET`: defaults to `vault-files`.
+- `VITE_SUPABASE_PUBLISHABLE_KEY`: public publishable client key.
+- `VITE_STORAGE_BUCKET`: `vault-files`.
+
+Configure the deployed VAULT domain as an allowed Auth redirect URL in Supabase Auth. Email magic-link sign-in is used by the current frontend.
 
 ## Storage security model
 
-The bucket must remain private. Objects are stored below a first-level folder named with the authenticated user's UUID. The SQL policies grant SELECT, INSERT, UPDATE, and DELETE only when that first path segment matches `auth.uid()`.
+The `vault-files` bucket is private. Objects are stored below a first-level folder named with the authenticated user's UUID. Policies grant SELECT, INSERT, UPDATE, and DELETE only when that first path segment matches `auth.uid()`.
 
-Do not make the bucket public. Use authenticated downloads or short-lived signed URLs for sharing. Review the policies and test cross-user denial before launch.
+The bucket and policies are deployed. The frontend uses authenticated sessions and user-scoped object paths. Do not make the bucket public. Use authenticated downloads or short-lived signed URLs for sharing.
 
 ## Current implementation boundary
 
