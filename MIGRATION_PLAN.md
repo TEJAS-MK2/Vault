@@ -1,6 +1,6 @@
 # PIJUSH Personal Website — Migration Plan
 
-Status: Phase 1 audit complete. Phase 2 visual direction and repository-backed content inventory prepared. Website implementation has not started.
+Status: Phases 1–3 implemented on the migration branch. CI review is pending. Production remains unchanged.
 
 ## Confirmed creative direction
 
@@ -91,7 +91,7 @@ public/         favicon, social preview, robots, sitemap, manifest
 
 1. Phase 1 — Audit and migration preparation (this document).
 2. Phase 2 — Brand system: art direction, typography, palette, layout grid, motion principles and asset inventory.
-3. Phase 3 — App foundation: route structure, shared shell, metadata, 404 handling, accessibility and responsive primitives.
+3. Phase 3 — App foundation: route structure, shared shell, metadata, 404 handling, accessibility and responsive primitives (implemented on the migration branch).
 4. Phase 4 — Homepage: custom hero, visual signature, selected work and editorial sections.
 5. Phase 5 — Projects: verified project registry and reusable case-study pages.
 6. Phase 6 — Personal content: About, Writing, Experiments, Uses, Now and Contact.
@@ -109,6 +109,17 @@ public/         favicon, social preview, robots, sitemap, manifest
 - No Supabase data or infrastructure is deleted as part of the frontend migration.
 - README, metadata, favicon, sitemap and robots.txt describe PIJUSH rather than VAULT.
 
+## Phase 3 implementation notes
+
+- Replaced the storage application entry with a small route-aware portfolio shell.
+- Added typed project records for Code Forge, ATLAS, PIJUSH OS and Modern Calculator, using repository-backed summaries and verified source/demo links.
+- Added Home, About, Projects, Project Detail, Experiments, Writing, Uses, Now, Contact and Not Found routes.
+- Added shared responsive navigation/footer, dark design tokens, keyboard focus treatment and reduced-motion CSS.
+- Added a lightweight canvas signal field that responds to pointer movement on fine-pointer devices, caps device pixel ratio, pauses while the tab is hidden and stops continuous motion when reduced motion is requested.
+- Replaced title/description/canonical/robots metadata, favicon, sitemap, robots.txt, README and deployment workflow branding.
+- Updated production smoke and regression tests for the new portfolio and retained legacy storage-policy idempotence checks.
+- The legacy Supabase project, bucket, data and policy SQL remain intact. The old client package is still present in the dependency lock pending a deliberate dependency cleanup after CI review.
+
 ## Next action
 
-Begin Phase 3 by building the route structure, typed content registry, shared shell, metadata and accessible responsive primitives. Implement on this migration branch; do not modify `main` until the replacement passes CI and review.
+Open a draft pull request to run the existing CI against this migration. Fix any type-check, build, audit or smoke-test failures before advancing to Phase 4 (the full bespoke homepage art direction). Do not merge or deploy until the migration is reviewed and verified.
