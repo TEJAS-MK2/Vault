@@ -1,6 +1,6 @@
 # PIJUSH Personal Website — Migration Plan
 
-Status: Phases 1–6 implemented; Phase 7 audit fixes committed on the migration branch. Latest CI for the final head is pending. Production remains unchanged.
+Status: Phases 1–7 implemented and validated on the migration branch. CI passed on final head `4dcc9da612bdd3bd298c85e9c32d6d9edf5fe5`. Production remains unchanged.
 
 ## Confirmed creative direction
 
@@ -126,4 +126,5 @@ public/         favicon, social preview, robots, sitemap, manifest
 - Added the four project detail routes to the sitemap and added Twitter summary metadata.
 - Extended production smoke tests to cover the image-source CSP directive and social metadata.
 - Recorded the remaining launch caveats in [PRODUCTION_READINESS_AUDIT.md](PRODUCTION_READINESS_AUDIT.md).
-- CI must pass on the final branch head before Phase 7 is marked validated. Do not merge or deploy until reviewed and explicitly approved.
+- CI passed on final branch head `4dcc9da612bdd3bd298c85e9c32d6d9edf5fe5` in run [44943969311](https://github.com/TEJAS-MK2/Vault/actions/runs/44943969311): dependency audit, regression tests, TypeScript build and production smoke test all passed.
+- The draft PR remains open. Do not merge or deploy until reviewed and explicitly approved.
