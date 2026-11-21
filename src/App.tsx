@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { DragEvent, FormEvent, ReactNode } from 'react'
 import {
-  Archive, ArrowDownToLine, ArrowLeft, ChevronRight, Clock3,
+  Archive, ArrowDownToLine, ArrowLeft, ChevronRight,
   Cloud, File, FileImage, FileText, Film, Folder, FolderPlus, Grid2X2,
   HardDrive, Home, Image, LayoutGrid, List, LoaderCircle, LockKeyhole,
   LogOut, Menu, MoreHorizontal, Music2, Plus, Search, ShieldCheck,
@@ -10,7 +10,7 @@ import {
 import { supabase, storageBucket, isConfigured } from './lib/supabase'
 import './styles.css'
 
-type Section = 'All files' | 'Recent' | 'Images' | 'Videos' | 'Documents' | 'Audio' | 'Archives'
+type Section = 'All files' | 'Images' | 'Videos' | 'Documents' | 'Audio' | 'Archives'
 type Entry = {
   name: string
   id?: string | null
@@ -24,7 +24,6 @@ type AppProps = { navigate: (path: string) => void; url: (path: string) => strin
 
 const sections: { name: Section; icon: typeof File }[] = [
   { name: 'All files', icon: LayoutGrid },
-  { name: 'Recent', icon: Clock3 },
   { name: 'Images', icon: Image },
   { name: 'Videos', icon: Film },
   { name: 'Documents', icon: FileText },
@@ -107,7 +106,7 @@ function HomePage({ navigate, url }: AppProps) {
           <div className="visual-window">
             <div className="visual-topline"><span className="window-dots"><i /><i /><i /></span><span>VAULT / My files</span><span className="visual-lock"><LockKeyhole size={12} /> Private</span></div>
             <div className="visual-body">
-              <aside className="visual-sidebar"><div className="visual-logo"><span>V</span> VAULT</div><div className="visual-nav active"><LayoutGrid size={13} /> My files</div><div className="visual-nav"><Clock3 size={13} /> Recent</div><div className="visual-nav"><Image size={13} /> Photos</div><div className="visual-nav"><FileText size={13} /> Documents</div><div className="visual-storage"><span>Cloud storage</span><b><span /></b><small>Your files, kept together</small></div></aside>
+              <aside className="visual-sidebar"><div className="visual-logo"><span>V</span> VAULT</div><div className="visual-nav active"><LayoutGrid size={13} /> My files</div><div className="visual-nav"><Image size={13} /> Images</div><div className="visual-nav"><Film size={13} /> Videos</div><div className="visual-nav"><FileText size={13} /> Documents</div><div className="visual-storage"><span>Cloud storage</span><b><span /></b><small>Your files, kept together</small></div></aside>
               <div className="visual-files"><div className="visual-heading"><div><small>YOUR WORKSPACE</small><b>My files</b></div><span className="visual-upload"><Plus size={12} /> Upload</span></div><div className="visual-search"><Search size={12} /> Search your files <kbd>⌘ K</kbd></div><div className="visual-crumb">Workspace <ChevronRight size={10} /> My files</div><div className="visual-folders"><div><span className="folder-art"><Folder size={20} /></span><b>Projects</b><small>Folder</small></div><div><span className="folder-art warm"><Folder size={20} /></span><b>Personal</b><small>Folder</small></div></div><div className="visual-file-row"><span className="art-file pdf">PDF</span><b>Project-brief.pdf</b><small>2.4 MB</small><span>Today</span></div><div className="visual-file-row"><span className="art-file image">IMG</span><b>Summer-notes.jpg</b><small>4.8 MB</small><span>Yesterday</span></div><div className="visual-file-row"><span className="art-file text">TXT</span><b>Reading-list.txt</b><small>12 KB</small><span>Nov 18</span></div></div>
             </div>
           </div>
@@ -273,15 +272,33 @@ function Workspace({ navigate, url }: AppProps) {
     setBusy(true)
     setError('')
     const prefix = userId + (folderPath ? '/' + folderPath : '')
+    const pageSize = 100
     const { data, error: listError } = await supabase.storage.from(storageBucket).list(prefix, {
-      limit: 100,
+      limit: pageSize,
+      offset: 0,
       sortBy: { column: 'updated_at', order: 'desc' }
     })
-    if (listError) {
-      setError('Your files could not be loaded. ' + listError.message)
+    const allData = [...(data ?? [])]
+    let paginationError: string | null = null
+    while (!listError && allData.length > 0 && allData.length % pageSize === 0) {
+      const { data: page, error: pageError } = await supabase.storage.from(storageBucket).list(prefix, {
+        limit: pageSize,
+        offset: allData.length,
+        sortBy: { column: 'updated_at', order: 'desc' }
+      })
+      if (pageError) {
+        paginationError = pageError.message
+        break
+      }
+      if (!page?.length) break
+      allData.push(...page)
+      if (page.length < pageSize) break
+    }
+    if (listError || paginationError) {
+      setError('Your files could not be loaded. ' + (listError?.message ?? paginationError))
       setItems([])
     } else {
-      const next = (data ?? [])
+      const next = allData
         .filter(item => item.name !== '.emptyFolderPlaceholder')
         .filter(item => safeSegment(item.name) !== null)
         .map(item => ({
@@ -403,12 +420,22 @@ function Workspace({ navigate, url }: AppProps) {
     if (!supabase) return []
     const found: string[] = []
     const walk = async (path: string): Promise<void> => {
-      const { data, error: folderError } = await supabase!.storage.from(storageBucket).list(path, { limit: 100 })
-      if (folderError) throw folderError
-      for (const child of data ?? []) {
-        const childPath = path + '/' + child.name
-        if (child.id == null && child.metadata == null) await walk(childPath)
-        else found.push(childPath)
+      const pageSize = 100
+      let offset = 0
+      while (true) {
+        const { data, error: folderError } = await supabase!.storage.from(storageBucket).list(path, {
+          limit: pageSize,
+          offset
+        })
+        if (folderError) throw folderError
+        const children = data ?? []
+        for (const child of children) {
+          const childPath = path + '/' + child.name
+          if (child.id == null && child.metadata == null) await walk(childPath)
+          else found.push(childPath)
+        }
+        if (children.length < pageSize) break
+        offset += children.length
       }
     }
     await walk(prefix)
