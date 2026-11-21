@@ -1,5 +1,5 @@
 User-agent: *
-Allow: /Vault/
-Disallow: /Vault/app
+Allow: /
+Disallow: /app
 
-Sitemap: https://tejas-mk2.github.io/Vault/sitemap.xml
+Sitemap: https://pijush.runs-on.dev/sitemap.xml
