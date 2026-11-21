@@ -16,7 +16,8 @@ const cssAssets = assets.filter((name) => name.endsWith('.css'))
 const jsAssets = assets.filter((name) => name.endsWith('.js'))
 
 assert.match(html, /<title>VAULT — A little more room for everything<\/title>/, 'The public home page title must be present')
-assert.match(html, /\/Vault\/assets\//, 'Bundled assets must use the GitHub Pages repository base path')
+assert.match(html, /\/assets\//, 'Bundled assets must use the custom-domain root path')
+assert.doesNotMatch(html, /\/Vault\/assets\//, 'The old GitHub repository subpath must not remain')
 assert.match(html, /Content-Security-Policy/, 'The production document must ship a CSP')
 assert.equal(fallback, html, 'The 404 fallback must load the same router and assets as the app')
 assert.ok(cssAssets.length > 0, 'The application must emit a CSS bundle')
@@ -28,4 +29,4 @@ assert.ok(statSync(cssPath).size > 5000, 'The CSS bundle must contain the produc
 assert.match(css, /workspace-sidebar/, 'Workspace styles must be present in the CSS bundle')
 assert.match(css, /marketing-page/, 'Homepage styles must be present in the CSS bundle')
 
-console.log('VAULT smoke test passed: homepage, Pages base path, CSP, 404 fallback, CSS and JS bundles are present.')
+console.log('VAULT smoke test passed: homepage, custom-domain root path, CSP, 404 fallback, CSS and JS bundles are present.')
