@@ -61,5 +61,5 @@ for (const route of ['/about', '/projects/', '/experiments', '/writing', '/uses'
 
 assert.ok(existsSync('dist/assets'), 'The production assets must be present')
 assert.match(js, /calculator-screenshot\.png/, 'The genuine calculator repository screenshot must be referenced')
-assert.match(js, /CONCEPT ILLUSTRATION/, 'Concept artwork must not be represented as application screenshots')
+assert.match(js, /ORIGINAL CONCEPT ART/, 'Concept artwork must not be represented as application screenshots')
 console.log('PIJUSH smoke test passed: metadata, CSP, direct route documents, removed project index, case studies, truthful project media and production assets are present.')
