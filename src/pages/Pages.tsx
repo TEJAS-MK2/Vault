@@ -93,27 +93,27 @@ export function HomePage({ navigate }: { navigate: (path: string) => void }) {
 }
 
 export function AboutPage() {
-  return <div className="content-page"><PageIntro index="01" eyebrow="ABOUT" title={<>A person behind<br /><em>the pixels.</em>}><p>I’m Pijush, a developer who learns by building. I’m interested in the way software works beneath the surface and how people experience it on the screen.</p></PageIntro><section className="prose-block"><h2>What keeps me curious</h2><p>Developer tools, networks, browser interfaces, practical automation and the small details that make a product feel considered. I enjoy moving between the structure of a system and the character of its interface.</p><h2>How I like to build</h2><p>Start with a real problem. Understand the constraints. Make the smallest useful thing, then keep refining it. I value clear behavior, resilient data handling and interfaces that respect the person using them.</p></section></div>
+  return <div className="content-page"><PageIntro index="01" eyebrow="ABOUT" title={<>A person behind<br /><em>the pixels.</em></>}><p>I’m Pijush, a developer who learns by building. I’m interested in the way software works beneath the surface and how people experience it on the screen.</p></PageIntro><section className="prose-block"><h2>What keeps me curious</h2><p>Developer tools, networks, browser interfaces, practical automation and the small details that make a product feel considered. I enjoy moving between the structure of a system and the character of its interface.</p><h2>How I like to build</h2><p>Start with a real problem. Understand the constraints. Make the smallest useful thing, then keep refining it. I value clear behavior, resilient data handling and interfaces that respect the person using them.</p></section></div>
 }
 
 export function ExperimentsPage() {
-  return <div className="content-page"><PageIntro index="03" eyebrow="INTERESTS" title={<>Ideas in<br /><em>motion.</em>}><p>A place for the subjects, questions and rabbit holes that keep me exploring.</p></PageIntro><section className="prose-block"><h2>What I keep exploring</h2><p>Systems and infrastructure, creative web interfaces, networks, security and the craft of making software feel clear. This space will grow as I find useful things to share.</p></section></div>
+  return <div className="content-page"><PageIntro index="03" eyebrow="INTERESTS" title={<>Ideas in<br /><em>motion.</em></>}><p>A place for the subjects, questions and rabbit holes that keep me exploring.</p></PageIntro><section className="prose-block"><h2>What I keep exploring</h2><p>Systems and infrastructure, creative web interfaces, networks, security and the craft of making software feel clear. This space will grow as I find useful things to share.</p></section></div>
 }
 
 export function WritingPage() {
-  return <div className="content-page"><PageIntro index="04" eyebrow="NOTES" title={<>Notes from<br /><em>the process.</em>}><p>Technical notes, observations and ideas worth keeping. Articles will appear here when they are ready to read.</p></PageIntro><section className="prose-block"><h2>Coming into focus</h2><p>I’m collecting useful lessons from the things I learn and build. This space will hold the details that do not fit anywhere else.</p></section></div>
+  return <div className="content-page"><PageIntro index="04" eyebrow="NOTES" title={<>Notes from<br /><em>the process.</em></>}><p>Technical notes, observations and ideas worth keeping. Articles will appear here when they are ready to read.</p></PageIntro><section className="prose-block"><h2>Coming into focus</h2><p>I’m collecting useful lessons from the things I learn and build. This space will hold the details that do not fit anywhere else.</p></section></div>
 }
 
 export function UsesPage() {
-  return <div className="content-page"><PageIntro index="05" eyebrow="USES" title={<>Tools of<br /><em>the trade.</em>}><p>A practical inventory of the tools and setup behind the work.</p></PageIntro><section className="prose-block"><h2>Current toolkit</h2><p>VS Code, Git, GitHub, JavaScript, TypeScript, React, Vite, Node.js, Python and Flutter are part of my current toolkit. This list will be refined into a current setup rather than a permanent shopping list.</p></section></div>
+  return <div className="content-page"><PageIntro index="05" eyebrow="USES" title={<>Tools of<br /><em>the trade.</em></>}><p>A practical inventory of the tools and setup behind the work.</p></PageIntro><section className="prose-block"><h2>Current toolkit</h2><p>VS Code, Git, GitHub, JavaScript, TypeScript, React, Vite, Node.js, Python and Flutter are part of my current toolkit. This list will be refined into a current setup rather than a permanent shopping list.</p></section></div>
 }
 
 export function NowPage() {
-  return <div className="content-page"><PageIntro index="06" eyebrow="NOW" title={<>What I’m<br /><em>focused on.</em>}><p>A small snapshot of current interests and active work.</p></PageIntro><section className="prose-block"><h2>Current direction</h2><p>Building useful developer experiences, exploring expressive web interfaces and improving the craft behind reliable applications.</p></section></div>
+  return <div className="content-page"><PageIntro index="06" eyebrow="NOW" title={<>What I’m<br /><em>focused on.</em></>}><p>A small snapshot of current interests and active work.</p></PageIntro><section className="prose-block"><h2>Current direction</h2><p>Building useful developer experiences, exploring expressive web interfaces and improving the craft behind reliable applications.</p></section></div>
 }
 
 export function ContactPage() {
-  return <div className="content-page"><PageIntro index="07" eyebrow="CONTACT" title={<>Have a good<br /><em>question?</em>}><p>For a thoughtful exchange, collaboration or just to say hello, the best verified public starting point is GitHub.</p></PageIntro><div className="project-actions"><a className="text-link" href="https://github.com/TEJAS-MK2" target="_blank" rel="noreferrer">Find me on GitHub ↗</a></div></div>
+  return <div className="content-page"><PageIntro index="07" eyebrow="CONTACT" title={<>Have a good<br /><em>question?</em></>}><p>For a thoughtful exchange, collaboration or just to say hello, the best verified public starting point is GitHub.</p></PageIntro><div className="project-actions"><a className="text-link" href="https://github.com/TEJAS-MK2" target="_blank" rel="noreferrer">Find me on GitHub ↗</a></div></div>
 }
 
 export function NotFoundPage() {
