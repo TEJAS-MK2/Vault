@@ -56,8 +56,6 @@ export function HomePage({ navigate }: { navigate: (path: string) => void }) {
       <span>Technology is the medium. Learning is the point.</span>
     </section>
 
-    <GitHubTimeline />
-
     <section className="creator-interests section-block" id="interests">
       <div className="creator-section-heading">
         <div><p className="eyebrow">01 / WHAT I'M INTO</p><h2>A few rabbit<br /><em>holes I love.</em></h2></div>
@@ -71,6 +69,8 @@ export function HomePage({ navigate }: { navigate: (path: string) => void }) {
         </article>)}
       </div>
     </section>
+
+    <GitHubTimeline />
 
     <section className="creator-about-band">
       <div className="creator-about-label"><span>03 / THE PERSON</span><span>BEHIND THE KEYBOARD</span></div>
