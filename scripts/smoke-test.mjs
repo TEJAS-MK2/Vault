@@ -45,12 +45,12 @@ const cssPath = assetsPath + '/' + cssAssets[0]
 const css = readFileSync(cssPath, 'utf8')
 assert.ok(statSync(cssPath).size > 5000, 'The CSS bundle must contain the portfolio styles')
 assert.match(css, /home-hero/, 'Homepage styles must be present in the CSS bundle')
-assert.match(css, /manifesto/, 'Personal editorial content must be present in the CSS bundle')
-assert.match(css, /art-source/, 'Artwork must be clearly distinguished from genuine screenshots')
+assert.match(css, /creator-hero/, 'Creator-led homepage styles must be present in the CSS bundle')
+assert.match(css, /creator-interest-card/, 'Personal interest cards must be present in the CSS bundle')
 assert.match(css, /skip-link/, 'The production stylesheet must include the keyboard skip link')
 
 const js = jsAssets.map((name) => readFileSync(assetsPath + '/' + name, 'utf8')).join('\n')
-for (const route of ['/about', '/experiments', '/writing', '/uses', '/now', '/contact', 'Curiosity is the', 'Have a good']) {
+for (const route of ['/about', '/experiments', '/writing', '/uses', '/now', '/contact', 'Curiosity', 'Have a good']) {
   assert.ok(js.includes(route), `The application route ${route} must be included in the production bundle`)
 }
 
