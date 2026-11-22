@@ -42,5 +42,17 @@ test('the personal site contains no project directory, project routes or project
   assert.doesNotMatch(app, /\/projects\/|data\/projects|ProjectDetailPage|getProject/)
   const pages = readFileSync(new URL('../src/pages/Pages.tsx', import.meta.url), 'utf8')
   assert.doesNotMatch(pages, /ProjectArtwork|CaseStudyContent|featured-grid|selected-work|Code Forge|Modern Calculator|ATLAS|PIJUSH OS/)
-  assert.match(pages, /Curiosity is the/)
+  assert.match(pages, /Curiosity/)
+})
+
+
+test('creator-inspired homepage keeps personal identity and interest areas without adding a project portfolio', () => {
+  const pages = readFileSync(new URL('../src/pages/Pages.tsx', import.meta.url), 'utf8')
+  assert.match(pages, /Curiosity/)
+  assert.match(pages, /Systems thinking/)
+  assert.match(pages, /Creative web/)
+  assert.match(pages, /Networks & security/)
+  assert.match(shell, /Interests/)
+  assert.match(styles, /creator-hero/)
+  assert.match(styles, /prefers-reduced-motion/)
 })
