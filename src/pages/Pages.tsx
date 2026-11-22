@@ -13,67 +13,84 @@ function PageIntro({ index, eyebrow, title, children }: { index: string; eyebrow
 }
 
 export function HomePage({ navigate }: { navigate: (path: string) => void }) {
-  const featured = projects.filter((project) => project.featured)
+  const featured = projects.filter((project) => project.featured).slice(0, 3)
+  const scrollToWork = () => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+
   return <div className="home-page">
     <section className="home-hero">
       <SignalField />
-      <div className="hero-index"><span>INDEPENDENT DEVELOPER</span><span>EST. IN CURIOSITY · INDIA</span></div>
+      <div className="hero-index"><span>PIJUSH / INDEPENDENT DEVELOPER</span><span>BASED IN INDIA · BUILT ON CURIOSITY</span></div>
       <div className="hero-main">
         <div className="hero-copy">
-          <p className="hero-kicker"><span className="status-dot" /> A DIGITAL SPACE FOR THINGS I BUILD</p>
-          <h1>Curious<br />by <em>nature.</em></h1>
+          <p className="hero-kicker"><span className="status-dot" /> STUDENT DEVELOPER · ALWAYS EXPERIMENTING</p>
+          <h1>I build to<br /><em>understand.</em></h1>
           <div className="hero-bottom">
-            <p>I’m Pijush — a developer exploring the edges between software, interfaces and ideas. I turn questions into working things, then keep pulling at the details.</p>
-            <button className="text-link" onClick={() => navigate('/projects')}>Explore the work <span>↗</span></button>
+            <p>I’m Pijush — a student developer who learns by turning questions into working software. I care about the engineering underneath, and the details people actually feel.</p>
+            <button className="text-link" onClick={scrollToWork}>A few things I’ve made <span>↓</span></button>
           </div>
         </div>
         <div className="hero-object" aria-hidden="true">
           <div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="orbit orbit-three" />
           <div className="hero-core"><span>P.</span></div>
-          <span className="orbit-label orbit-label-a">IDEAS → SYSTEMS</span>
-          <span className="orbit-label orbit-label-b">BUILD / BREAK / REPEAT</span>
+          <span className="orbit-label orbit-label-a">QUESTIONS → SYSTEMS</span>
+          <span className="orbit-label orbit-label-b">MAKE / TEST / REFINE</span>
           <span className="orbit-coordinate">22°34′ N<br />88°22′ E</span>
         </div>
       </div>
-      <div className="hero-coordinate"><span>SCROLL TO EXPLORE</span><span>FIG. 001 — A WORK IN PROGRESS</span><span>2026 / PRESENT</span></div>
+      <div className="hero-coordinate"><span>SCROLL TO EXPLORE</span><span>FIELD NOTE / 001</span><span>2026 / PRESENT</span></div>
     </section>
 
     <div className="ticker" aria-label="Areas of interest">
-      <div className="ticker-track"><span>SOFTWARE</span><i>✳</i><span>INTERACTION</span><i>✳</i><span>EXPERIMENTS</span><i>✳</i><span>OPEN WEB</span><i>✳</i><span>SOFTWARE</span><i>✳</i><span>INTERACTION</span><i>✳</i><span>EXPERIMENTS</span><i>✳</i><span>OPEN WEB</span><i>✳</i></div>
+      <div className="ticker-track"><span>SOFTWARE</span><i>✳</i><span>INTERFACES</span><i>✳</i><span>DEVELOPER TOOLS</span><i>✳</i><span>OPEN WEB</span><i>✳</i><span>SOFTWARE</span><i>✳</i><span>INTERFACES</span><i>✳</i><span>DEVELOPER TOOLS</span><i>✳</i><span>OPEN WEB</span><i>✳</i></div>
     </div>
 
-    <section className="selected-work section-block">
-      <div className="section-heading"><p className="eyebrow">01 / SELECTED WORK</p><button className="text-link" onClick={() => navigate('/projects')}>Project index <span>↗</span></button></div>
+    <section id="work" className="selected-work section-block" aria-labelledby="work-heading">
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">01 / IN THE WORKSHOP</p>
+          <h2 id="work-heading">A few things,<br /><em>made real.</em></h2>
+        </div>
+        <p className="section-aside">Not a catalogue. Just a handful of builds where I followed a question far enough to make something useful.</p>
+      </div>
       <div className="featured-grid">
-        {featured.map((project, index) => (
-          <button className={`featured-project featured-project-${index + 1}`} key={project.slug} onClick={() => navigate(`/projects/${project.slug}`)}>
-            <div className="featured-art"><ProjectArtwork slug={project.slug} /><span className="art-index">PROJECT / 0{index + 1}</span><span className="art-source">{project.slug === "modern-calculator" ? "LIVE PROJECT CAPTURE" : "CONCEPT ILLUSTRATION"}</span><span className="art-arrow">↗</span></div>
-            <div className="featured-meta"><div><h2>{project.title}</h2><p>{project.summary}</p></div><span>{project.category}</span></div>
+        {featured.map((project) => (
+          <button className={`featured-project featured-project-${project.slug}`} key={project.slug} onClick={() => navigate(`/projects/${project.slug}`)} aria-label={`Read about ${project.title}`}>
+            <div className="featured-art">
+              <ProjectArtwork slug={project.slug} />
+              <span className="art-source">{project.slug === "modern-calculator" ? "LIVE PROJECT CAPTURE" : "ORIGINAL CONCEPT ART"}</span>
+              <span className="art-arrow" aria-hidden="true">↗</span>
+            </div>
+            <div className="featured-meta">
+              <div className="featured-title-line"><span className="project-category">{project.category}</span><h3>{project.title}</h3></div>
+              <div className="featured-description"><p>{project.summary}</p><span>{project.year} / {project.status}</span></div>
+            </div>
           </button>
         ))}
       </div>
     </section>
 
     <section className="manifesto section-block">
-      <p className="eyebrow">02 / THE APPROACH</p>
-      <div className="manifesto-content"><h2>Make it work.<br /><em>Make it clear.</em><br />Make it matter.</h2><div className="manifesto-note"><span className="note-mark">↳</span><p>I’m interested in the space where engineering meets expression: tools that feel good to use, interfaces with a point of view, and systems that do what they promise.</p><button className="text-link" onClick={() => navigate('/about')}>A little about me <span>↗</span></button></div></div>
+      <p className="eyebrow">02 / THE WAY I WORK</p>
+      <div className="manifesto-content">
+        <h2>Curiosity is the<br /><em>starting point.</em></h2>
+        <div className="manifesto-note">
+          <span className="note-mark">↳</span>
+          <p>I like moving between the structure of a system and the character of its interface — figuring out how things work, then making them feel considered and clear.</p>
+          <div className="interest-tags"><span>01 / SYSTEMS</span><span>02 / INTERFACES</span><span>03 / SMALL DETAILS</span></div>
+          <button className="text-link" onClick={() => navigate('/about')}>A little about me <span>↗</span></button>
+        </div>
+      </div>
     </section>
 
     <section className="home-bottom section-block">
-      <div><p className="eyebrow">03 / KEEP IN TOUCH</p><h2>Have a curious<br /><em>problem?</em></h2></div>
+      <div><p className="eyebrow">03 / KEEP IN TOUCH</p><h2>Have a good<br /><em>question?</em></h2></div>
       <div className="home-bottom-action"><p>Good ideas usually start with a conversation. If something here caught your attention, come say hello.</p><button className="text-link" onClick={() => navigate('/contact')}>Start a conversation <span>↗</span></button></div>
     </section>
   </div>
 }
-
 export function AboutPage() {
   return <div className="content-page"><PageIntro index="01" eyebrow="ABOUT" title={<>A person behind<br /><em>the pixels.</em></>}><p>I’m Pijush, a developer who learns by building. I’m interested in the way software works beneath the surface and how people experience it on the screen.</p></PageIntro><section className="prose-block"><h2>What keeps me curious</h2><p>Developer tools, maps, browser interfaces, practical automation and the small details that make a product feel considered. I enjoy moving between the structure of a system and the character of its interface.</p><h2>How I like to build</h2><p>Start with a real problem. Understand the constraints. Make the smallest useful thing, then keep refining it. I value clear behavior, resilient data handling and interfaces that respect the person using them.</p></section></div>
 }
-
-export function ProjectsPage({ navigate }: { navigate: (path: string) => void }) {
-  return <div className="content-page"><PageIntro index="02" eyebrow="PROJECT INDEX" title={<>Selected things<br /><em>made real.</em></>}><p>A growing archive of tools, interfaces and experiments. Each entry links to its source and, where available, a live build.</p></PageIntro><div className="project-index project-index-page">{projects.map((project, index) => <button className="project-row" key={project.slug} onClick={() => navigate(`/projects/${project.slug}`)}><span className="project-number">0{index + 1}</span><span className="project-title">{project.title}<small>{project.category}</small></span><span className="project-summary">{project.summary}</span><span className="project-arrow">↗</span></button>)}</div></div>
-}
-
 
 function CaseStudyContent({ slug }: { slug: string }) {
   const study = getCaseStudy(slug)

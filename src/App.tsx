@@ -3,11 +3,11 @@ import { SiteShell } from './components/SiteShell'
 import { getProject } from './data/projects'
 import {
   AboutPage, ContactPage, ExperimentsPage, HomePage, NotFoundPage,
-  ProjectDetailPage, ProjectsPage, WritingPage, UsesPage, NowPage,
+  ProjectDetailPage, WritingPage, UsesPage, NowPage,
 } from './pages/Pages'
 import './styles.css'
 
-const knownRoutes = new Set(['/','/about','/projects','/experiments','/writing','/uses','/now','/contact'])
+const knownRoutes = new Set(['/','/about','/experiments','/writing','/uses','/now','/contact'])
 
 function readPath() {
   const path = window.location.pathname.replace(/\/+$/, '')
@@ -19,7 +19,6 @@ function pageMetadata(path: string) {
   const titles: Record<string, string> = {
     '/': 'PIJUSH — Creative developer',
     '/about': 'About — PIJUSH',
-    '/projects': 'Projects — PIJUSH',
     '/experiments': 'Experiments — PIJUSH',
     '/writing': 'Writing — PIJUSH',
     '/uses': 'Uses — PIJUSH',
@@ -36,7 +35,7 @@ function pageMetadata(path: string) {
     ? 'The personal website of Pijush — creative developer, builder and explorer of software.'
     : projectRecord
       ? projectRecord.summary
-      : 'Projects, experiments and notes from Pijush.'
+      : 'Notes, experiments and current work from Pijush.'
   return { title, description, indexable: knownRoutes.has(path) || Boolean(projectRecord) }
 }
 
@@ -71,7 +70,6 @@ export default function App() {
   const page = (() => {
     if (path === '/') return <HomePage navigate={navigate} />
     if (path === '/about') return <AboutPage />
-    if (path === '/projects') return <ProjectsPage navigate={navigate} />
     if (path.startsWith('/projects/')) {
       let slug = path.slice('/projects/'.length)
       try { slug = decodeURIComponent(slug) } catch { return <NotFoundPage /> }

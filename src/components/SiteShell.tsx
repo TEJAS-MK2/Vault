@@ -3,14 +3,13 @@ import type { MouseEvent, ReactNode } from 'react'
 export type Navigate = (path: string) => void
 
 const links = [
-  { label: 'Work', path: '/projects' },
   { label: 'About', path: '/about' },
-  { label: 'Experiments', path: '/experiments' },
-  { label: 'Writing', path: '/writing' },
+  { label: 'Lab', path: '/experiments' },
+  { label: 'Notes', path: '/writing' },
 ]
 
 export function SiteShell({ children, navigate, pathname }: { children: ReactNode; navigate: Navigate; pathname: string }) {
-  const active = (path: string) => pathname === path || (path === '/projects' && pathname.startsWith('/projects/'))
+  const active = (path: string) => pathname === path
   const go = (event: MouseEvent<HTMLAnchorElement>, path: string) => {
     event.preventDefault()
     navigate(path)
