@@ -9,7 +9,6 @@ assert.ok(existsSync(entry), 'Build the Vite app before preparing GitHub Pages r
 // the React router in control while avoiding HTTP 404 responses for deep links.
 const routes = [
   'about',
-  'projects',
   'projects/code-forge',
   'projects/atlas',
   'projects/pijush-os',
