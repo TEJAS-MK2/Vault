@@ -41,18 +41,18 @@ test('wordmark accessible name includes its visible label and muted text meets t
 test('the personal site uses a chronological GitHub journey without dedicated project detail routes', () => {
   assert.doesNotMatch(app, /\/projects\/|data\/projects|ProjectDetailPage|getProject/)
   const pages = readFileSync(new URL('../src/pages/Pages.tsx', import.meta.url), 'utf8')
-  assert.doesNotMatch(pages, /ProjectArtwork|CaseStudyContent|featured-grid|selected-work|Code Forge|Modern Calculator|ATLAS|PIJUSH OS/)
-  assert.match(pages, /Curiosity/)
+  assert.doesNotMatch(pages, /ProjectArtwork|CaseStudyContent|featured-grid|selected-work|ProjectDetailPage/)
+  assert.match(pages, /GitHubTimeline/)
 })
-
 
 test('reference-inspired homepage keeps Pijush identity, real interests and accessible interactions', () => {
   const pages = readFileSync(new URL('../src/pages/Pages.tsx', import.meta.url), 'utf8')
-  assert.match(pages, /Curiosity/)
-  assert.match(pages, /Systems thinking/)
+  assert.match(pages, /Pijush/)
+  assert.match(pages, /Systems & infrastructure/)
   assert.match(pages, /Creative web/)
-  assert.match(pages, /Networks & security/)
-  assert.match(shell, /Interests/)
-  assert.match(styles, /creator-hero/)
+  assert.match(pages, /Developer tools/)
+  assert.match(shell, /Journey/)
+  assert.match(shell, /AgentMode/)
+  assert.match(styles, /reference-hero/)
   assert.match(styles, /prefers-reduced-motion/)
 })
