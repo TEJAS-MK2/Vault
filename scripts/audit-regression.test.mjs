@@ -8,7 +8,7 @@ const styles = readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8
 const policies = readFileSync(new URL('../supabase/storage-policies.sql', import.meta.url), 'utf8')
 
 test('portfolio routes are explicit and unknown routes resolve to a not-found page', () => {
-  for (const route of ['/about', '/projects', '/experiments', '/writing', '/uses', '/now', '/contact']) {
+  for (const route of ['/about', '/experiments', '/writing', '/uses', '/now', '/contact']) {
     assert.ok(app.includes(`'${route}'`), `Missing route ${route}`)
   }
   assert.match(app, /return <NotFoundPage \/>/)
@@ -42,4 +42,14 @@ test('project detail metadata uses verified project names and summaries', () => 
 test('wordmark accessible name includes its visible label and muted text meets the updated contrast token', () => {
   assert.match(shell, /aria-label="P\. PIJUSH home"/)
   assert.match(styles, /--text-dim: #858a96/)
+})
+
+
+test('the project directory is removed while individual project stories remain available', () => {
+  assert.doesNotMatch(app, /ProjectsPage|\/projects':/)
+  assert.match(app, /path\.startsWith\('\/projects\/'\)/)
+  assert.doesNotMatch(shell, /path: '\/projects'/)
+  const pages = readFileSync(new URL('../src/pages/Pages.tsx', import.meta.url), 'utf8')
+  assert.doesNotMatch(pages, /Project index|PROJECT INDEX|ProjectsPage/)
+  assert.match(pages, /A few things,/)
 })
