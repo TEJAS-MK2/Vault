@@ -1,47 +1,24 @@
-import type { MouseEvent, ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { CommandPalette } from './CommandPalette'
 import { AgentMode } from './AgentMode'
-
 export type Navigate = (path: string) => void
-
-const links = [
-  { label: 'About', path: '/about' },
-  { label: 'Interests', path: '/experiments' },
-  { label: 'Notes', path: '/writing' },
-  { label: 'Uses', path: '/uses' },
-]
-
-export function SiteShell({ children, navigate, pathname }: { children: ReactNode; navigate: Navigate; pathname: string }) {
-  const active = (path: string) => pathname === path
-  const go = (event: MouseEvent<HTMLAnchorElement>, path: string) => {
-    event.preventDefault()
-    navigate(path)
-  }
-
-  return (
-    <div className="site-shell creator-shell">
-      <a className="skip-link" href="#main-content">Skip to content</a>
-      <header className="site-header creator-header">
-        <a className="wordmark creator-wordmark" href="/" onClick={(event) => go(event, '/')} aria-label="P. PIJUSH home">
-          <span className="wordmark-symbol">P.</span><span>PIJUSH<span className="creator-wordmark-dot">.</span></span>
-        </a>
-        <nav className="primary-nav creator-nav" aria-label="Main navigation">
-          {links.map((link) => (
-            <a key={link.path} href={link.path} aria-current={active(link.path) ? 'page' : undefined} className={active(link.path) ? 'is-active' : ''} onClick={(event) => go(event, link.path)}>{link.label}</a>
-          ))}
-        </nav>
-        <div className="header-tools">
-          <CommandPalette navigate={navigate} />
-          <AgentMode />
-          <a className="header-contact creator-header-contact" href="/contact" onClick={(event) => go(event, '/contact')}>Let's talk <span aria-hidden="true">↗</span></a>
-        </div>
-      </header>
-      <main id="main-content" tabIndex={-1}>{children}</main>
-      <footer className="site-footer creator-footer">
-        <span>© {new Date().getFullYear()} PIJUSH</span>
-        <span>Curious by nature. Built on the web.</span>
-        <a href="https://github.com/TEJAS-MK2" target="_blank" rel="noreferrer">GitHub ↗</a>
-      </footer>
-    </div>
-  )
+function useKolkataClock() {
+ const [time,setTime]=useState(()=>new Date().toLocaleTimeString('en-IN',{timeZone:'Asia/Kolkata',hour:'numeric',minute:'2-digit',hour12:true}))
+ useEffect(()=>{const update=()=>setTime(new Date().toLocaleTimeString('en-IN',{timeZone:'Asia/Kolkata',hour:'numeric',minute:'2-digit',hour12:true}));update();const interval=window.setInterval(update,30000);return()=>window.clearInterval(interval)},[])
+ return time
+}
+export function SiteShell({children}:{children:ReactNode;navigate?:Navigate;pathname?:string}) {
+ const time=useKolkataClock()
+ const [dark,setDark]=useState(false)
+ useEffect(()=>{document.documentElement.dataset.theme=dark?'dark':'light'},[dark])
+ return <div className="reference-site">
+  <a className="reference-skip" href="#main">Skip to content</a>
+  <header className="reference-header">
+   <a className="reference-brand" href="/" aria-label="Pijush home"><span className="reference-brand-mark">P.</span><span>PIJUSH<span className="reference-brand-dot">.</span></span></a>
+   <nav className="reference-nav" aria-label="Main navigation"><a href="#journey">Journey</a><a href="#focus">Focus</a><a href="#opensource">Open source</a><a href="#contact">Contact</a></nav>
+   <div className="reference-header-actions"><span className="reference-clock">{time} IST</span><CommandPalette/><AgentMode/><button className="reference-theme" type="button" onClick={()=>setDark(v=>!v)} aria-label={dark?'Switch to light theme':'Switch to dark theme'} title="Toggle theme">{dark?'☼':'◐'}</button></div>
+  </header>
+  <main id="main" tabIndex={-1}>{children}</main>
+  <footer className="reference-footer"><span>PIJUSH / BUILT WITH CURIOSITY</span><span>© {new Date().getFullYear()}</span><a href="https://github.com/TEJAS-MK2" target="_blank" rel="noreferrer">GitHub ↗</a></footer>
+ </div>
 }
