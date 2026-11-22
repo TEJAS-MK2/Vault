@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import SignalField from '../components/SignalField'
+import { GitHubTimeline } from '../components/GitHubTimeline'
 
 function PageIntro({ index, eyebrow, title, children }: { index: string; eyebrow: string; title: ReactNode; children?: ReactNode }) {
   return <header className="page-intro">
@@ -55,6 +56,8 @@ export function HomePage({ navigate }: { navigate: (path: string) => void }) {
       <span>Technology is the medium. Learning is the point.</span>
     </section>
 
+    <GitHubTimeline />
+
     <section className="creator-interests section-block" id="interests">
       <div className="creator-section-heading">
         <div><p className="eyebrow">01 / WHAT I'M INTO</p><h2>A few rabbit<br /><em>holes I love.</em></h2></div>
@@ -70,7 +73,7 @@ export function HomePage({ navigate }: { navigate: (path: string) => void }) {
     </section>
 
     <section className="creator-about-band">
-      <div className="creator-about-label"><span>02 / THE PERSON</span><span>BEHIND THE KEYBOARD</span></div>
+      <div className="creator-about-label"><span>03 / THE PERSON</span><span>BEHIND THE KEYBOARD</span></div>
       <div className="creator-about-content">
         <h2>Part engineer.<br />Part explorer.<br /><em>Always a student.</em></h2>
         <div><p>I’m Pijush. I’m interested in the space between how technology works and how it feels to use it. I like getting into the details, experimenting with ideas and learning something new along the way.</p><button className="creator-inline-link" onClick={() => navigate('/about')}>A little more about me <span>↗</span></button></div>
@@ -78,13 +81,13 @@ export function HomePage({ navigate }: { navigate: (path: string) => void }) {
     </section>
 
     <section className="creator-toolkit section-block">
-      <div><p className="eyebrow">03 / THE TOOLBOX</p><h2>Tools change.<br /><em>Curiosity stays.</em></h2></div>
+      <div><p className="eyebrow">04 / THE TOOLBOX</p><h2>Tools change.<br /><em>Curiosity stays.</em></h2></div>
       <div className="creator-toolkit-content"><p>My current toolkit moves across the web stack, scripting and app development. The fun part is learning which tool makes the most sense for the problem.</p><div className="creator-tool-tags"><span>JAVASCRIPT</span><span>TYPESCRIPT</span><span>REACT</span><span>NODE.JS</span><span>PYTHON</span><span>FLUTTER</span><span>GIT</span><span>LINUX</span></div><button className="creator-inline-link" onClick={() => navigate('/uses')}>See my setup <span>↗</span></button></div>
     </section>
 
     <section className="creator-contact">
       <div className="creator-contact-orbit" aria-hidden="true"><span>✳</span></div>
-      <p className="eyebrow">04 / YOUR TURN</p>
+      <p className="eyebrow">05 / YOUR TURN</p>
       <h2>Got a curious<br /><em>mind too?</em></h2>
       <p>Good conversations can lead to unexpected places. If you want to talk tech, share an idea or just say hello, my inbox is open.</p>
       <button className="creator-button creator-button-primary" onClick={() => navigate('/contact')}>Let's talk <span>↗</span></button>
