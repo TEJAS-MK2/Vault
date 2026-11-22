@@ -45,22 +45,24 @@ export function GitHubTimeline() {
 
   useEffect(() => {
     let active = true
-    const cached = sessionStorage.getItem('pijush-public-events')
+    let cached: string | null = null
+    try { cached = sessionStorage.getItem('pijush-public-events') } catch { /* Storage can be unavailable in hardened browsers. */ }
     if (cached) {
       try {
         const parsed = JSON.parse(cached) as GitHubEvent[]
         if (Array.isArray(parsed)) { setEvents(parsed); setStatus(parsed.length ? 'ready' : 'empty') }
-      } catch { sessionStorage.removeItem('pijush-public-events') }
+      } catch { try { sessionStorage.removeItem('pijush-public-events') } catch { /* Ignore unavailable storage. */ } }
     }
     fetch('https://api.github.com/users/TEJAS-MK2/events/public?per_page=30', { headers: { Accept: 'application/vnd.github+json' } })
       .then((response) => {
         if (!response.ok) throw new Error(`GitHub returned ${response.status}`)
-        return response.json() as Promise<GitHubEvent[]>
+        return response.json() as Promise<unknown>
       })
       .then((data) => {
         if (!active) return
-        const visible = data.filter((event) => describe(event)).slice(0, 6)
-        sessionStorage.setItem('pijush-public-events', JSON.stringify(visible))
+        if (!Array.isArray(data)) throw new Error('Unexpected GitHub events response')
+        const visible = (data as GitHubEvent[]).filter((event) => describe(event)).slice(0, 6)
+        try { sessionStorage.setItem('pijush-public-events', JSON.stringify(visible)) } catch { /* The live feed still works without a cache. */ }
         setEvents(visible)
         setStatus(visible.length ? 'ready' : 'empty')
       })
