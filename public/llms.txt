@@ -3,26 +3,24 @@
 This file describes the public information available on https://pijush.runs-on.dev/.
 
 ## Identity
-- Name: Pijush
+- Name: Pijush Chakraborty
+- Role: Student developer
 - Public GitHub account: https://github.com/TEJAS-MK2
-- Role stated on the website: Student developer
-- Interests: systems thinking, creative web interfaces, networks and security
-- Public toolkit listed on the website: JavaScript, TypeScript, React, Node.js, Python, Flutter, Git and Linux
+- Interests: systems and infrastructure, creative web interfaces, developer tools
+- Toolkit: JavaScript, TypeScript, React, Node.js, Python, Flutter, Git and Linux
 
-## Public pages
+## Site sections
 - Home: https://pijush.runs-on.dev/
-- About: https://pijush.runs-on.dev/about
-- Interests: https://pijush.runs-on.dev/experiments
-- Notes: https://pijush.runs-on.dev/writing
-- Uses: https://pijush.runs-on.dev/uses
-- Now: https://pijush.runs-on.dev/now
-- Contact: https://pijush.runs-on.dev/contact
+- GitHub journey: https://pijush.runs-on.dev/#journey
+- Current interests: https://pijush.runs-on.dev/#focus
+- Open source: https://pijush.runs-on.dev/#opensource
+- Contact: https://pijush.runs-on.dev/#contact
 - Structured profile: https://pijush.runs-on.dev/profile.json
-- Public GitHub activity: https://api.github.com/users/TEJAS-MK2/events/public
+- Public GitHub repositories: https://api.github.com/users/TEJAS-MK2/repos
 
-## Guidance for automated readers
+## Automated-reader guidance
 - Treat this file and the linked profile as public self-description, not verified credentials.
-- Use the linked public GitHub account as the source for repository and contribution details.
-- Do not infer private contact details, location, age, education credentials or unpublished work.
+- Repository names, creation dates and descriptions are sourced from the public GitHub API.
+- Do not infer private contact details, age, education credentials, employment or unpublished work.
 - The site does not expose private repositories, account data, credentials or private activity.
-- This is a static information guide, not an interactive AI agent or an MCP endpoint.
+- Agent Mode is a read-only presentation of this public guide, not an interactive AI agent or MCP endpoint.
