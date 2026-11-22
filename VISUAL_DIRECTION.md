@@ -1,6 +1,6 @@
 # PIJUSH — Visual Direction
 
-Status: Phase 2 design system defined; implementation follows in Phase 3.
+Status: Phase 2 direction defined and implemented across Phases 3–8. Automated browser/accessibility QA passed; physical-device and assistive-technology review remain.
 
 ## Creative thesis
 
@@ -37,7 +37,7 @@ The visual system should balance:
 | `--surface-hover` | `#202431` | Hover surface |
 | `--text` | `#F1F0EB` | Main text |
 | `--text-muted` | `#A1A4AE` | Secondary text |
-| `--text-dim` | `#696E7A` | Metadata |
+| `--text-dim` | `#858A96` | Metadata (AA contrast on the main canvas) |
 | `--line` | `#292D37` | Rules and borders |
 | `--signal` | `#B6F36B` | Primary electric-lime signal |
 | `--signal-alt` | `#8B7CFF` | Occasional violet counterpoint |
@@ -141,7 +141,7 @@ Do not use:
 - [x] Color and typography system defined.
 - [x] Motion signature and safety constraints documented.
 - [x] Homepage information architecture established.
-- [ ] Verify project content and assets.
-- [ ] Confirm contact and social links.
-- [ ] Prepare route/content schemas before implementation.
+- [x] Verify the four featured project repositories, demo links and current descriptions; distinguish genuine screenshot from conceptual illustrations.
+- [x] Keep unverified contact/social links out of the public site.
+- [x] Prepare and implement typed route/content schemas.
 
