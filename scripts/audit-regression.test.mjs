@@ -31,25 +31,16 @@ test('legacy storage policies remain present and idempotent during the frontend 
   }
 })
 
-test('project detail metadata uses verified project names and summaries', () => {
-  assert.match(app, /const projectRecord = project \? getProject\(project\) : undefined/)
-  assert.match(app, /projectRecord\.title/)
-  assert.match(app, /projectRecord\.summary/)
-  assert.match(app, /Boolean\(projectRecord\)/)
-  assert.match(app, /'Project not found — PIJUSH'/)
-})
-
 test('wordmark accessible name includes its visible label and muted text meets the updated contrast token', () => {
   assert.match(shell, /aria-label="P\. PIJUSH home"/)
   assert.match(styles, /--text-dim: #858a96/)
 })
 
 
-test('the project directory is removed while individual project stories remain available', () => {
-  assert.doesNotMatch(app, /ProjectsPage|\/projects':/)
-  assert.match(app, /path\.startsWith\('\/projects\/'\)/)
-  assert.doesNotMatch(shell, /path: '\/projects'/)
+
+test('the personal site contains no project directory, project routes or project data imports', () => {
+  assert.doesNotMatch(app, /\/projects\/|data\/projects|ProjectDetailPage|getProject/)
   const pages = readFileSync(new URL('../src/pages/Pages.tsx', import.meta.url), 'utf8')
-  assert.doesNotMatch(pages, /Project index|PROJECT INDEX|ProjectsPage/)
-  assert.match(pages, /A few things,/)
+  assert.doesNotMatch(pages, /ProjectArtwork|CaseStudyContent|featured-grid|selected-work|Code Forge|Modern Calculator|ATLAS|PIJUSH OS/)
+  assert.match(pages, /Curiosity is the/)
 })
