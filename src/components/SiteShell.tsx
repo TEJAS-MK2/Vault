@@ -1,4 +1,6 @@
 import type { MouseEvent, ReactNode } from 'react'
+import { CommandPalette } from './CommandPalette'
+import { AgentMode } from './AgentMode'
 
 export type Navigate = (path: string) => void
 
@@ -28,7 +30,11 @@ export function SiteShell({ children, navigate, pathname }: { children: ReactNod
             <a key={link.path} href={link.path} aria-current={active(link.path) ? 'page' : undefined} className={active(link.path) ? 'is-active' : ''} onClick={(event) => go(event, link.path)}>{link.label}</a>
           ))}
         </nav>
-        <a className="header-contact creator-header-contact" href="/contact" onClick={(event) => go(event, '/contact')}>Let's talk <span aria-hidden="true">↗</span></a>
+        <div className="header-tools">
+          <CommandPalette navigate={navigate} />
+          <AgentMode />
+          <a className="header-contact creator-header-contact" href="/contact" onClick={(event) => go(event, '/contact')}>Let's talk <span aria-hidden="true">↗</span></a>
+        </div>
       </header>
       <main id="main-content" tabIndex={-1}>{children}</main>
       <footer className="site-footer creator-footer">
