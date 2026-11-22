@@ -1,88 +1,17 @@
-import { useEffect, useState } from 'react'
-
-type GitHubEvent = {
-  id: string
-  type: string
-  created_at: string
-  repo: { name: string }
-  payload: {
-    action?: string
-    ref_type?: string
-    ref?: string
-    commits?: Array<{ sha: string; message: string }>
-    pull_request?: { title?: string; html_url?: string }
-    issue?: { title?: string; html_url?: string }
-    release?: { name?: string; tag_name?: string; html_url?: string }
-  }
-}
-
-function describe(event: GitHubEvent) {
-  const payload = event.payload
-  switch (event.type) {
-    case 'PushEvent': return { title: payload.commits?.[0]?.message?.split('\n')[0] || 'Pushed code', detail: payload.commits?.length ? `${payload.commits.length} commit${payload.commits.length === 1 ? '' : 's'}` : 'Code update' }
-    case 'PullRequestEvent': return { title: payload.pull_request?.title || 'Pull request activity', detail: payload.action ? `Pull request ${payload.action}` : 'Pull request' }
-    case 'IssuesEvent': return { title: payload.issue?.title || 'Issue activity', detail: payload.action ? `Issue ${payload.action}` : 'Issue' }
-    case 'CreateEvent': return { title: `Created ${payload.ref_type || 'repository item'}`, detail: payload.ref || event.repo.name }
-    case 'ReleaseEvent': return { title: payload.release?.name || 'Published a release', detail: payload.release?.tag_name || 'Release' }
-    case 'WatchEvent': return { title: 'Starred a repository', detail: 'Community signal' }
-    case 'ForkEvent': return { title: 'Forked a repository', detail: 'Open-source exploration' }
-    default: return null
-  }
-}
-
-function eventUrl(event: GitHubEvent) {
-  const repo = `https://github.com/${event.repo.name}`
-  if (event.type === 'PushEvent' && event.payload.commits?.[0]?.sha) return `${repo}/commit/${event.payload.commits[0].sha}`
-  if (event.type === 'PullRequestEvent' && event.payload.pull_request?.html_url) return event.payload.pull_request.html_url
-  if (event.type === 'IssuesEvent' && event.payload.issue?.html_url) return event.payload.issue.html_url
-  if (event.type === 'ReleaseEvent' && event.payload.release?.html_url) return event.payload.release.html_url
-  return repo
-}
-
-export function GitHubTimeline() {
-  const [events, setEvents] = useState<GitHubEvent[]>([])
-  const [status, setStatus] = useState<'loading' | 'ready' | 'empty' | 'error'>('loading')
-
-  useEffect(() => {
-    let active = true
-    let cached: string | null = null
-    try { cached = sessionStorage.getItem('pijush-public-events') } catch { /* Storage can be unavailable in hardened browsers. */ }
-    if (cached) {
-      try {
-        const parsed = JSON.parse(cached) as GitHubEvent[]
-        if (Array.isArray(parsed)) { setEvents(parsed); setStatus(parsed.length ? 'ready' : 'empty') }
-      } catch { try { sessionStorage.removeItem('pijush-public-events') } catch { /* Ignore unavailable storage. */ } }
-    }
-    fetch('https://api.github.com/users/TEJAS-MK2/events/public?per_page=30', { headers: { Accept: 'application/vnd.github+json' } })
-      .then((response) => {
-        if (!response.ok) throw new Error(`GitHub returned ${response.status}`)
-        return response.json() as Promise<unknown>
-      })
-      .then((data) => {
-        if (!active) return
-        if (!Array.isArray(data)) throw new Error('Unexpected GitHub events response')
-        const visible = (data as GitHubEvent[]).filter((event) => describe(event)).slice(0, 6)
-        try { sessionStorage.setItem('pijush-public-events', JSON.stringify(visible)) } catch { /* The live feed still works without a cache. */ }
-        setEvents(visible)
-        setStatus(visible.length ? 'ready' : 'empty')
-      })
-      .catch(() => { if (active && !cached) setStatus('error') })
-    return () => { active = false }
-  }, [])
-
-  return <section className="github-timeline section-block" aria-labelledby="timeline-title">
-    <div className="timeline-heading">
-      <div><p className="eyebrow">02 / THE OPEN TRAIL</p><h2 id="timeline-title">A little proof<br /><em>of curiosity.</em></h2></div>
-      <div className="timeline-source"><span className="timeline-live-dot" /> PUBLIC GITHUB ACTIVITY <a href="https://github.com/TEJAS-MK2" target="_blank" rel="noreferrer">VIEW PROFILE ↗</a></div>
-    </div>
-    {status === 'loading' && <p className="timeline-message">Loading recent public activity…</p>}
-    {status === 'error' && <p className="timeline-message">Public activity is temporarily unavailable. The rest of the site is unaffected.</p>}
-    {status === 'empty' && <p className="timeline-message">No recent public events to show. Check back as new activity appears.</p>}
-    {events.length > 0 && <ol className="timeline-list">{events.map((event) => {
-      const item = describe(event)
-      if (!item) return null
-      return <li key={event.id}><span className="timeline-date">{new Date(event.created_at).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' })}</span><span className="timeline-marker" aria-hidden="true" /><div className="timeline-event"><a href={eventUrl(event)} target="_blank" rel="noreferrer"><strong>{item.title}</strong><span>↗</span></a><p>{event.repo.name} <i>·</i> {item.detail}</p></div></li>
-    })}</ol>}
-    <p className="timeline-footnote">A live, limited view of public GitHub events. Private activity is not requested or displayed.</p>
-  </section>
+import {useEffect,useState} from 'react'
+type Repo={id:number;name:string;description:string|null;html_url:string;created_at:string;language:string|null;fork:boolean;stargazers_count:number}
+const initial:Repo[]=[
+{id:1,name:'Calculator',description:'A JavaScript calculator project.',html_url:'https://github.com/TEJAS-MK2/Calculator',created_at:'2026-07-05T10:09:24Z',language:'JavaScript',fork:false,stargazers_count:3},
+{id:2,name:'ANIMATION',description:'An animation toolkit for creating animations.',html_url:'https://github.com/TEJAS-MK2/ANIMATION',created_at:'2026-08-13T04:55:38Z',language:'HTML',fork:false,stargazers_count:1},
+{id:3,name:'Code-Forge',description:'A browser-based code editor.',html_url:'https://github.com/TEJAS-MK2/Code-Forge',created_at:'2026-10-09T10:01:53Z',language:'JavaScript',fork:false,stargazers_count:1},
+{id:4,name:'pocketlab',description:null,html_url:'https://github.com/TEJAS-MK2/pocketlab',created_at:'2026-10-10T02:16:18Z',language:'TypeScript',fork:false,stargazers_count:1},
+{id:5,name:'Commonroom',description:'A real-time chat application.',html_url:'https://github.com/TEJAS-MK2/Commonroom',created_at:'2026-11-01T15:57:09Z',language:'PLpgSQL',fork:false,stargazers_count:1},
+{id:6,name:'ATLAS',description:'A live map platform.',html_url:'https://github.com/TEJAS-MK2/ATLAS',created_at:'2026-11-02T04:53:47Z',language:'JavaScript',fork:false,stargazers_count:1},
+{id:7,name:'MITROON',description:null,html_url:'https://github.com/TEJAS-MK2/MITROON',created_at:'2026-11-05T04:11:24Z',language:'HTML',fork:false,stargazers_count:0}
+]
+const dateLabel=(value:string)=>new Date(value).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'})
+export function GitHubTimeline(){
+ const[repos,setRepos]=useState<Repo[]>(initial),[status,setStatus]=useState<'loading'|'live'|'cached'>('loading')
+ useEffect(()=>{let active=true;fetch('https://api.github.com/users/TEJAS-MK2/repos?sort=created&direction=asc&per_page=100',{headers:{Accept:'application/vnd.github+json'}}).then(r=>{if(!r.ok)throw new Error('GitHub API unavailable');return r.json() as Promise<Repo[]>}).then(data=>{if(!active||!Array.isArray(data))return;const visible=data.filter(r=>!r.fork&&r.name!=='personal'&&r.name!=='I'&&(!!r.description||['pocketlab','MITROON'].includes(r.name))).sort((a,b)=>Date.parse(a.created_at)-Date.parse(b.created_at));setRepos(visible);setStatus('live')}).catch(()=>{if(active)setStatus('cached')});return()=>{active=false}},[])
+ return <section className="reference-section reference-journey" id="journey" aria-labelledby="journey-title"><div className="reference-section-meta"><span>01 / THE JOURNEY</span><span className="reference-live"><i/>{status==='live'?'LIVE FROM GITHUB':status==='loading'?'LOADING GITHUB':'CACHED PUBLIC DATA'}</span></div><div className="reference-section-title"><h2 id="journey-title">A timeline of<br/><em>making things.</em></h2><p>A chronological look at public repositories I’ve started. Each entry links to its source on GitHub. The list updates from the public GitHub API.</p></div><div className="reference-timeline">{repos.map((repo,index)=><article className="reference-timeline-item" key={repo.id}><time dateTime={repo.created_at}>{dateLabel(repo.created_at)}</time><span className="reference-timeline-node" aria-hidden="true"/><div className="reference-timeline-copy"><a href={repo.html_url} target="_blank" rel="noreferrer"><strong>{repo.name}</strong><span>↗</span></a><p>{repo.description||'An experiment in progress.'}</p><small>{repo.language||'OPEN SOURCE'}{repo.stargazers_count>0? ` · ${repo.stargazers_count} ${repo.stargazers_count===1?'star':'stars'}`:''}</small></div><span className="reference-timeline-index">{String(index+1).padStart(2,'0')}</span></article>)}</div><p className="reference-timeline-foot">Public repository creation dates and descriptions from GitHub. Forks and empty placeholder repositories are excluded.</p><a className="reference-text-link" href="https://github.com/TEJAS-MK2?tab=repositories" target="_blank" rel="noreferrer">All repositories on GitHub ↗</a></section>
 }
