@@ -52,7 +52,7 @@ assert.match(css, /reference-timeline/, 'Chronological repository timeline style
 assert.match(css, /reference-focus-list/, 'Focus section styles must be present')
 assert.match(css, /reference-command-dialog/, 'The command palette styles must be present')
 assert.match(css, /reference-agent-view/, 'Agent mode styles must be present')
-assert.match(css, /skip-link/, 'The production stylesheet must include the keyboard skip link')
+assert.match(css, /reference-skip/, 'The production stylesheet must include the keyboard skip link')
 
 const js = jsAssets.map((name) => readFileSync(assetsPath + '/' + name, 'utf8')).join('\n')
 for (const route of ['/about', '/experiments', '/writing', '/uses', '/now', '/contact', 'Pijush', 'A timeline of', 'OPEN SOURCE', 'Agent mode']) {
@@ -67,4 +67,4 @@ assert.match(agentGuide, /Public GitHub account/)
 assert.equal(agentProfile.github_username, 'TEJAS-MK2')
 assert.equal(agentProfile.privacy.private_activity_exposed, false)
 assert.equal(agentProfile.privacy.interactive_agent, false)
-console.log('PIJUSH smoke test passed: metadata, CSP, personal routes, agent profile, public timeline, removed project content and production assets are present.')
+console.log('PIJUSH smoke test passed: metadata, CSP, personal routes, agent profile, public timeline, no project-detail routes and production assets are present.')
