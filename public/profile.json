@@ -21,9 +21,10 @@
     "Linux"
   ],
   "sections": {
-    "journey": "/#journey",
-    "focus": "/#focus",
-    "opensource": "/#opensource",
+    "home": "/",
+    "projects": "/#projects",
+    "work": "/#work",
+    "opensource": "/#oss",
     "contact": "/#contact"
   },
   "public_repositories_api": "https://api.github.com/users/TEJAS-MK2/repos",
