@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import { SiteShell } from './components/SiteShell'
-import { getProject } from './data/projects'
 import {
   AboutPage, ContactPage, ExperimentsPage, HomePage, NotFoundPage,
-  ProjectDetailPage, WritingPage, UsesPage, NowPage,
+  WritingPage, UsesPage, NowPage,
 } from './pages/Pages'
 import './styles.css'
 
@@ -15,7 +14,6 @@ function readPath() {
 }
 
 function pageMetadata(path: string) {
-  const project = path.startsWith('/projects/') ? path.slice('/projects/'.length) : ''
   const titles: Record<string, string> = {
     '/': 'PIJUSH — Creative developer',
     '/about': 'About — PIJUSH',
@@ -25,18 +23,11 @@ function pageMetadata(path: string) {
     '/now': 'Now — PIJUSH',
     '/contact': 'Contact — PIJUSH',
   }
-  const projectRecord = project ? getProject(project) : undefined
-  const title = projectRecord
-    ? `${projectRecord.title} — PIJUSH`
-    : project
-      ? 'Project not found — PIJUSH'
-      : titles[path] ?? 'Page not found — PIJUSH'
+  const title = titles[path] ?? 'Page not found — PIJUSH'
   const description = path === '/'
     ? 'The personal website of Pijush — creative developer, builder and explorer of software.'
-    : projectRecord
-      ? projectRecord.summary
-      : 'Notes, experiments and current work from Pijush.'
-  return { title, description, indexable: knownRoutes.has(path) || Boolean(projectRecord) }
+    : 'Notes, experiments and personal interests from Pijush.'
+  return { title, description, indexable: knownRoutes.has(path) }
 }
 
 export default function App() {
@@ -70,11 +61,6 @@ export default function App() {
   const page = (() => {
     if (path === '/') return <HomePage navigate={navigate} />
     if (path === '/about') return <AboutPage />
-    if (path.startsWith('/projects/')) {
-      let slug = path.slice('/projects/'.length)
-      try { slug = decodeURIComponent(slug) } catch { return <NotFoundPage /> }
-      return <ProjectDetailPage slug={slug} />
-    }
     if (path === '/experiments') return <ExperimentsPage />
     if (path === '/writing') return <WritingPage />
     if (path === '/uses') return <UsesPage />
