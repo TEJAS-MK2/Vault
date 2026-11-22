@@ -17,7 +17,7 @@ function readPath() {
 
 function pageMetadata(path: string) {
   const titles: Record<string, string> = {
-    '/': 'PIJUSH — Creative developer',
+    '/': 'Pijush Chakraborty — Student developer',
     '/about': 'About — PIJUSH',
     '/experiments': 'Experiments — PIJUSH',
     '/writing': 'Writing — PIJUSH',
@@ -27,7 +27,7 @@ function pageMetadata(path: string) {
   }
   const title = titles[path] ?? 'Page not found — PIJUSH'
   const description = path === '/'
-    ? 'The personal website of Pijush — creative developer, builder and explorer of software.'
+    ? 'The personal website of Pijush Chakraborty, student developer and curious builder.'
     : 'Notes, experiments and personal interests from Pijush.'
   return { title, description, indexable: knownRoutes.has(path) }
 }
