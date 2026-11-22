@@ -54,7 +54,7 @@ export function HomePage({ navigate }: { navigate: (path: string) => void }) {
       </div>
       <div className="featured-grid">
         {featured.map((project) => (
-          <button className={`featured-project featured-project-${project.slug}`} key={project.slug} onClick={() => navigate(`/projects/${project.slug}`} aria-label={`Read about ${project.title}`}>
+          <button className={`featured-project featured-project-${project.slug}`} key={project.slug} onClick={() => navigate(`/projects/${project.slug}`)} aria-label={`Read about ${project.title}`}>
             <div className="featured-art">
               <ProjectArtwork slug={project.slug} />
               <span className="art-source">{project.slug === "modern-calculator" ? "LIVE PROJECT CAPTURE" : "ORIGINAL CONCEPT ART"}</span>
