@@ -2,9 +2,9 @@ import {useEffect,useMemo,useRef,useState} from 'react'
 type Command={label:string;detail:string;href:string}
 const commands:Command[]=[
  {label:'Home',detail:'Back to the introduction',href:'#main'},
- {label:'GitHub journey',detail:'Browse public repositories by date',href:'#journey'},
- {label:'Current focus',detail:'What I am learning and exploring',href:'#focus'},
- {label:'Open source',detail:'Public work and contributions',href:'#opensource'},
+ {label:'Projects timeline',detail:'Browse public repositories by date',href:'#projects'},
+ {label:'Work and interests',detail:'What I am learning and exploring',href:'#work'},
+ {label:'Open source',detail:'Public work and contributions',href:'#oss'},
  {label:'Contact',detail:'Find me on GitHub',href:'#contact'},
  {label:'GitHub profile',detail:'TEJAS-MK2 on GitHub',href:'https://github.com/TEJAS-MK2'},
  {label:'Agent profile',detail:'Machine-readable public profile',href:'/llms.txt'}
