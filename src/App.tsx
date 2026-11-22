@@ -6,6 +6,7 @@ import {
 } from './pages/Pages'
 import './styles.css'
 import './enhancements.css'
+import './reference-style.css'
 
 const knownRoutes = new Set(['/','/about','/experiments','/writing','/uses','/now','/contact'])
 
@@ -60,7 +61,7 @@ export default function App() {
   }
 
   const page = (() => {
-    if (path === '/') return <HomePage navigate={navigate} />
+    if (path === '/') return <HomePage />
     if (path === '/about') return <AboutPage />
     if (path === '/experiments') return <ExperimentsPage />
     if (path === '/writing') return <WritingPage />
