@@ -11,9 +11,9 @@ This file describes the public information available on https://pijush.runs-on.d
 
 ## Site sections
 - Home: https://pijush.runs-on.dev/
-- GitHub journey: https://pijush.runs-on.dev/#journey
-- Current interests: https://pijush.runs-on.dev/#focus
-- Open source: https://pijush.runs-on.dev/#opensource
+- Projects timeline: https://pijush.runs-on.dev/#projects
+- Work and interests: https://pijush.runs-on.dev/#work
+- Open source: https://pijush.runs-on.dev/#oss
 - Contact: https://pijush.runs-on.dev/#contact
 - Structured profile: https://pijush.runs-on.dev/profile.json
 - Public GitHub repositories: https://api.github.com/users/TEJAS-MK2/repos
