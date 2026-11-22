@@ -9,7 +9,7 @@ function useKolkataClock() {
 }
 export function SiteShell({children}:{children:ReactNode;navigate?:Navigate;pathname?:string}) {
  const time=useKolkataClock()
- const [dark,setDark]=useState(false)
+ const [dark,setDark]=useState(true)
  useEffect(()=>{document.documentElement.dataset.theme=dark?'dark':'light'},[dark])
  return <div className="reference-site">
   <a className="reference-skip" href="#main">Skip to content</a>

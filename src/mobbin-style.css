@@ -218,3 +218,47 @@ a:focus-visible,button:focus-visible { outline: 2px solid var(--accent); outline
 @media(prefers-reduced-motion:reduce) {
   *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
 }
+
+/* The alternate light appearance keeps the same product UI hierarchy. */
+:root[data-theme="light"] {
+  --paper: #f3f5f7;
+  --surface: #ffffff;
+  --ink: #18212a;
+  --muted: #64717e;
+  --faint: #87939e;
+  --line: #dce2e8;
+  --accent: #527a1b;
+  --accent-soft: #edf4df;
+  color-scheme: light;
+}
+:root[data-theme="light"] .reference-header { background: color-mix(in srgb,var(--paper) 90%,transparent); }
+:root[data-theme="light"] .reference-nav,
+:root[data-theme="light"] .reference-command-trigger,
+:root[data-theme="light"] .reference-agent-trigger,
+:root[data-theme="light"] .reference-theme,
+:root[data-theme="light"] .reference-live { background: #fff; }
+:root[data-theme="light"] .reference-hero {
+  background: radial-gradient(ellipse at 84% 20%,rgba(82,122,27,.10),transparent 36%),linear-gradient(135deg,#fff,#f5f7f3 65%,#f0f4eb);
+}
+:root[data-theme="light"] .reference-profile-frame { background: #fff; box-shadow: 0 22px 60px rgba(20,35,20,.08); }
+:root[data-theme="light"] .reference-profile-index { background: #fff; }
+:root[data-theme="light"] .reference-timeline-item,
+:root[data-theme="light"] .reference-focus-list article { background: linear-gradient(145deg,#fff,#f8fafb); }
+:root[data-theme="light"] .reference-timeline-item:hover,
+:root[data-theme="light"] .reference-focus-list article:hover { background: linear-gradient(145deg,#f8fbf2,#fff); }
+:root[data-theme="light"] .reference-open-stats div,
+:root[data-theme="light"] .reference-intro-line,
+:root[data-theme="light"] .reference-subcopy { background: #fff; }
+:root[data-theme="light"] .reference-contact {
+  border-color: #d5e3c2;
+  background: radial-gradient(circle at 88% 15%,rgba(82,122,27,.10),transparent 35%),linear-gradient(125deg,#f5f8ef,#fff 70%);
+}
+:root[data-theme="light"] .reference-command-backdrop,
+:root[data-theme="light"] .reference-agent-overlay { background: rgba(20,28,34,.38); }
+:root[data-theme="light"] .reference-command-dialog { border-color: var(--line); background: #fff; }
+:root[data-theme="light"] .reference-command-search input { color: var(--ink); }
+:root[data-theme="light"] .reference-command-item { color: var(--ink); }
+:root[data-theme="light"] .reference-command-item:hover,
+:root[data-theme="light"] .reference-command-item.active { background: var(--accent-soft); }
+:root[data-theme="light"] .reference-agent-overlay { background: var(--paper); }
+:root[data-theme="light"] .reference-agent-content { background: #fff; }
