@@ -1,6 +1,6 @@
 # PIJUSH Personal Website — Migration Plan
 
-Status: Phases 1–8 implemented on the migration branch. Phase 8 browser QA and accessibility scans passed locally. Final CI passed on head `5bf1e6e4d44d63d5dbaf4dfc725e85e745cf0311` (run 44944781000). Production remains unchanged.
+Status: Phases 1–8 implemented on the migration branch. Phase 8 browser QA and accessibility scans passed locally. Final CI passed on head `4c7ae6617ed22bbc2e5207aa0e76963fcd8f5d3b` (run [44944859195](https://github.com/TEJAS-MK2/Vault/actions/runs/44944859195)). PR #8 remains open and draft; production remains unchanged.
 
 ## Confirmed creative direction
 
@@ -40,7 +40,7 @@ Current application entry: `src/main.tsx` → `src/App.tsx`
 ### Replace or remove from the website
 
 - VAULT product branding, storage landing page, workspace, login and legal copy.
-- Supabase client dependency and all browser-side auth/storage integration once no route depends on them.
+- Browser-side auth/storage integration (removed from the portfolio; the unused package/module remain pending a separate lockfile-safe cleanup).
 - Supabase-specific CSP origins and storage configuration in documentation.
 - Storage-oriented design system and redundant stylesheet layers.
 - Storage-specific sitemap entries and metadata.
@@ -95,8 +95,19 @@ public/         favicon, social preview, robots, sitemap, manifest
 4. Phase 4 — Homepage: custom hero, visual signature, selected work and editorial sections.
 5. Phase 5 — Projects: verified project registry and reusable case-study pages.
 6. Phase 6 — Personal content: About, Writing, Experiments, Uses, Now and Contact.
-7. Phase 7 — Motion, performance and PWA: purposeful interaction, reduced-motion fallback, image optimization, offline shell and install metadata.
-8. Phase 8 — QA and launch: route tests, mobile/desktop review, accessibility, SEO, dependency/security audit, Pages deployment and custom-domain verification.
+7. Phase 7 — Production readiness: CSP, sitemap, social metadata, smoke-test hardening and documented launch caveats (implemented).
+8. Phase 8 — Browser QA and accessibility: 13 routes, responsive widths, browser error checks and axe-core WCAG 2.1 A/AA scans (automated checks passed; physical device and assistive-technology review remain).
+
+## Current release gate
+
+- Automated browser, accessibility, regression, build, dependency audit and Pages fallback checks are complete and passing.
+- A real physical-device review and screen-reader/assistive-technology review remain outstanding.
+- Writing and Experiments are intentionally honest empty states until real material is ready.
+- Deep-route metadata is client-rendered; social crawlers may see the shared base document metadata on project detail routes.
+- GitHub Pages CSP is delivered through a document meta tag, not an HTTP response header.
+- The Calculator screenshot is served from the verified GitHub raw host; a locally optimized asset would remove that runtime dependency.
+- Supabase resources and user data remain preserved. Infrastructure retirement is explicitly out of scope.
+- PR #8 must remain draft until the remaining manual review is completed. Do not merge or deploy without explicit approval.
 
 ## Acceptance criteria
 
