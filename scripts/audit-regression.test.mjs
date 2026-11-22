@@ -51,7 +51,7 @@ test('reference-inspired homepage keeps Pijush identity, real interests and acce
   assert.match(pages, /Systems & infrastructure/)
   assert.match(pages, /Creative web/)
   assert.match(pages, /Developer tools/)
-  assert.match(shell, /Journey/)
+  assert.match(shell, /Projects/)
   assert.match(shell, /AgentMode/)
   assert.match(styles, /reference-hero/)
   assert.match(styles, /prefers-reduced-motion/)
