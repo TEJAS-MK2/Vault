@@ -23,6 +23,26 @@ assert.match(html, /img-src[^;]*https:\/\/raw\.githubusercontent\.com/, 'CSP mus
 assert.match(html, /twitter:card/, 'Social preview metadata must include a Twitter card')
 assert.doesNotMatch(html, /supabase\.co/, 'The public portfolio must not connect to the legacy Supabase project')
 assert.equal(fallback, html, 'The 404 fallback must load the same router and assets as the app')
+
+const routes = [
+  'about',
+  'projects',
+  'projects/code-forge',
+  'projects/atlas',
+  'projects/pijush-os',
+  'projects/modern-calculator',
+  'experiments',
+  'writing',
+  'uses',
+  'now',
+  'contact',
+]
+for (const route of routes) {
+  const routeHtml = `dist/${route}/index.html`
+  assert.ok(existsSync(routeHtml), `GitHub Pages must have a direct document for /${route}/`)
+  assert.equal(readFileSync(routeHtml, 'utf8'), html, `The /${route}/ document must load the same app entry`)
+}
+
 assert.ok(cssAssets.length > 0, 'The application must emit a CSS bundle')
 assert.ok(jsAssets.length > 0, 'The application must emit a JavaScript bundle')
 
@@ -42,4 +62,4 @@ for (const route of ['/about', '/projects', '/experiments', '/writing', '/uses',
 assert.ok(existsSync('dist/assets'), 'The production assets must be present')
 assert.match(js, /calculator-screenshot\.png/, 'The genuine calculator repository screenshot must be referenced')
 assert.match(js, /CONCEPT ILLUSTRATION/, 'Concept artwork must not be represented as application screenshots')
-console.log('PIJUSH smoke test passed: metadata, CSP, social preview, SPA fallback, routes, case studies, truthful project media and production assets are present.')
+console.log('PIJUSH smoke test passed: metadata, CSP, direct route documents, SPA fallback, routes, case studies, truthful project media and production assets are present.')

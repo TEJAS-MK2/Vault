@@ -30,8 +30,8 @@ jobs:
         run: npm audit --audit-level=high
       - name: Build for GitHub Pages
         run: npm run build
-      - name: Add single-page application fallback
-        run: cp dist/index.html dist/404.html
+      - name: Prepare direct GitHub Pages routes
+        run: node scripts/prepare-pages.mjs
       - name: Smoke-test the production output
         run: npm run test:smoke
       - name: Configure GitHub Pages

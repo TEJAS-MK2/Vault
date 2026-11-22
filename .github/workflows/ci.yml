@@ -1,4 +1,3 @@
-
 name: PIJUSH CI
 
 on:
@@ -28,7 +27,7 @@ jobs:
         run: npm test
       - name: Type-check and build
         run: npm run build
-      - name: Add GitHub Pages route fallback
-        run: cp dist/index.html dist/404.html
+      - name: Prepare direct GitHub Pages routes
+        run: node scripts/prepare-pages.mjs
       - name: Smoke-test the production output
         run: npm run test:smoke
