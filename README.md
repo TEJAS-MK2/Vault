@@ -5,14 +5,17 @@ A personal website and creative portfolio for Pijush.
 **Live website:** https://pijush.runs-on.dev/  
 **Repository:** https://github.com/TEJAS-MK2/Vault
 
-The site is being rebuilt from a private cloud-storage application into a dark, editorial portfolio for software projects, experiments and writing.
+A dark, editorial personal site for Pijush, with a live public GitHub activity timeline, keyboard navigation and a machine-readable public profile.
 
 ## Direction
 
 - Creative developer identity
 - Dark visual system with a restrained signal-lime accent
 - Experimental motion with reduced-motion support
-- Project-led storytelling and real repository links
+- Personal storytelling and a live public activity timeline
+- Keyboard command palette (Ctrl/⌘ + K)
+- Read-only Agent Mode with `/llms.txt` and `/profile.json`
+- No project catalogue or private activity exposure
 - Responsive, accessible React application
 
 ## Stack
@@ -26,8 +29,8 @@ The site is being rebuilt from a private cloud-storage application into a dark, 
 
 - `/` — Home
 - `/about` — About
-- `/projects` — Project index
-- `/projects/:slug` — Project details
+- `/llms.txt` — Public site guide for automated readers
+- `/profile.json` — Structured public profile
 - `/experiments` — Experiments
 - `/writing` — Writing
 - `/uses` — Tools and setup
@@ -56,7 +59,7 @@ GitHub Actions builds the Vite application and publishes the `dist/` directory t
 
 ## Content accuracy
 
-Project summaries are based on their repositories' documentation. Project status and feature details should be verified before publication. No metrics, testimonials or capabilities are fabricated.
+The GitHub timeline reads only the public events API for `TEJAS-MK2`; it does not request private activity. Agent Mode is a public information view, not an interactive AI agent. No private account data, credentials, fabricated metrics or project catalogue are exposed.
 
 ## License
 

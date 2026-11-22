@@ -5,6 +5,7 @@ import {
   WritingPage, UsesPage, NowPage,
 } from './pages/Pages'
 import './styles.css'
+import './enhancements.css'
 
 const knownRoutes = new Set(['/','/about','/experiments','/writing','/uses','/now','/contact'])
 
