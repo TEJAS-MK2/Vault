@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs'
 
 const app = readFileSync(new URL('../src/App.tsx', import.meta.url), 'utf8')
 const shell = readFileSync(new URL('../src/components/SiteShell.tsx', import.meta.url), 'utf8')
-const styles = readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8')
+const styles = readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8') + readFileSync(new URL('../src/reference-style.css', import.meta.url), 'utf8')
 const policies = readFileSync(new URL('../supabase/storage-policies.sql', import.meta.url), 'utf8')
 
 test('portfolio routes are explicit and unknown routes resolve to a not-found page', () => {
@@ -32,27 +32,27 @@ test('legacy storage policies remain present and idempotent during the frontend 
 })
 
 test('wordmark accessible name includes its visible label and muted text meets the updated contrast token', () => {
-  assert.match(shell, /aria-label="P\. PIJUSH home"/)
-  assert.match(styles, /--text-dim: #858a96/)
+  assert.match(shell, /aria-label="Pijush home"/)
+  assert.match(styles, /--muted:#77766f/)
 })
 
 
 
-test('the personal site contains no project directory, project routes or project data imports', () => {
+test('the personal site uses a chronological GitHub journey without dedicated project detail routes', () => {
   assert.doesNotMatch(app, /\/projects\/|data\/projects|ProjectDetailPage|getProject/)
   const pages = readFileSync(new URL('../src/pages/Pages.tsx', import.meta.url), 'utf8')
-  assert.doesNotMatch(pages, /ProjectArtwork|CaseStudyContent|featured-grid|selected-work|Code Forge|Modern Calculator|ATLAS|PIJUSH OS/)
-  assert.match(pages, /Curiosity/)
+  assert.doesNotMatch(pages, /ProjectArtwork|CaseStudyContent|featured-grid|selected-work|ProjectDetailPage/)
+  assert.match(pages, /GitHubTimeline/)
 })
 
-
-test('creator-inspired homepage keeps personal identity and interest areas without adding a project portfolio', () => {
+test('reference-inspired homepage keeps Pijush identity, real interests and accessible interactions', () => {
   const pages = readFileSync(new URL('../src/pages/Pages.tsx', import.meta.url), 'utf8')
-  assert.match(pages, /Curiosity/)
-  assert.match(pages, /Systems thinking/)
+  assert.match(pages, /Pijush/)
+  assert.match(pages, /Systems & infrastructure/)
   assert.match(pages, /Creative web/)
-  assert.match(pages, /Networks & security/)
-  assert.match(shell, /Interests/)
-  assert.match(styles, /creator-hero/)
+  assert.match(pages, /Developer tools/)
+  assert.match(shell, /Projects/)
+  assert.match(shell, /AgentMode/)
+  assert.match(styles, /reference-hero/)
   assert.match(styles, /prefers-reduced-motion/)
 })

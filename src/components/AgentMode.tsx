@@ -1,21 +1,7 @@
-import { useState } from 'react'
-
-export function AgentMode() {
-  const [open, setOpen] = useState(false)
-  return <div className="agent-mode-wrap">
-    <button type="button" className="agent-mode-trigger" aria-expanded={open} aria-controls="agent-mode-panel" onClick={() => setOpen((value) => !value)}>
-      <span className="agent-mode-pulse" /> Agent mode <span aria-hidden="true">↗</span>
-    </button>
-    {open && <section className="agent-mode-panel" id="agent-mode-panel" aria-label="Agent-readable profile">
-      <div className="agent-mode-heading"><span>PUBLIC PROFILE / READ ONLY</span><button type="button" onClick={() => setOpen(false)} aria-label="Close agent mode">×</button></div>
-      <h2>Hi, I’m Pijush.</h2>
-      <p>A student developer interested in systems, creative web experiences, networks and security.</p>
-      <div className="agent-mode-links">
-        <a href="/llms.txt">Read site guide <span>↗</span></a>
-        <a href="/profile.json">Structured profile <span>↗</span></a>
-        <a href="https://github.com/TEJAS-MK2" target="_blank" rel="noreferrer">Public GitHub <span>↗</span></a>
-      </div>
-      <small>This mode exposes public website information only. It does not provide private data or an interactive AI agent.</small>
-    </section>}
-  </div>
+import {useEffect,useState} from 'react'
+export function AgentMode(){
+ const[open,setOpen]=useState(false),[guide,setGuide]=useState('Loading public profile…')
+ useEffect(()=>{if(!open)return;let active=true;fetch('/llms.txt').then(r=>{if(!r.ok)throw new Error('Unavailable');return r.text()}).then(t=>{if(active)setGuide(t)}).catch(()=>{if(active)setGuide('The public profile guide is temporarily unavailable. You can still open /llms.txt directly.')});return()=>{active=false}},[open])
+ useEffect(()=>{const close=(e:KeyboardEvent)=>{if(e.key==='Escape')setOpen(false)};window.addEventListener('keydown',close);return()=>window.removeEventListener('keydown',close)},[])
+ return <><button className="reference-agent-trigger" type="button" onClick={()=>setOpen(true)} aria-haspopup="dialog" aria-expanded={open}><span className="reference-agent-dot"/> Agent mode</button>{open&&<div className="reference-agent-overlay"><section className="reference-agent-view" role="dialog" aria-modal="true" aria-labelledby="agent-title"><div className="reference-agent-top"><span>PUBLIC PROFILE / READ ONLY</span><button type="button" onClick={()=>setOpen(false)}>Back to human mode ↗</button></div><p className="reference-agent-kicker">AGENT MODE · THIS IS WHAT AUTOMATED READERS CAN SEE</p><h2 id="agent-title">A little context<br/><em>about Pijush.</em></h2><p className="reference-agent-note">This is the public information guide for the site. It contains no private repositories, credentials or private activity.</p><pre className="reference-agent-content">{guide}</pre><div className="reference-agent-links"><a href="/llms.txt">Open llms.txt ↗</a><a href="/profile.json">Structured profile ↗</a><a href="https://github.com/TEJAS-MK2" target="_blank" rel="noreferrer">GitHub ↗</a></div></section></div>}</>
 }
