@@ -55,7 +55,7 @@ assert.match(css, /agent-mode-panel/, 'Agent mode styles must be present')
 assert.match(css, /skip-link/, 'The production stylesheet must include the keyboard skip link')
 
 const js = jsAssets.map((name) => readFileSync(assetsPath + '/' + name, 'utf8')).join('\n')
-for (const route of ['/about', '/experiments', '/writing', '/uses', '/now', '/contact', 'Curiosity', 'Have a good', 'GitHub activity', 'Agent profile']) {
+for (const route of ['/about', '/experiments', '/writing', '/uses', '/now', '/contact', 'Curiosity', 'Have a good', 'PUBLIC GITHUB ACTIVITY', 'Agent profile']) {
   assert.ok(js.includes(route), `The application route ${route} must be included in the production bundle`)
 }
 
