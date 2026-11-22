@@ -9,77 +9,111 @@ function PageIntro({ index, eyebrow, title, children }: { index: string; eyebrow
   </header>
 }
 
-export function HomePage({ navigate }: { navigate: (path: string) => void }) {
+const interests = [
+  { number: '01', title: 'Systems thinking', copy: 'Understanding what happens beneath the interface — architecture, logic, data and the decisions that make software dependable.', tag: 'UNDER THE HOOD', mark: '⌘' },
+  { number: '02', title: 'Creative web', copy: 'Building expressive digital experiences where interaction, motion and visual clarity work together.', tag: 'ON THE SCREEN', mark: '✳' },
+  { number: '03', title: 'Networks & security', copy: 'Exploring how devices connect, how infrastructure behaves and how to make the internet a little less mysterious.', tag: 'CONNECTED WORLD', mark: '⌁' },
+]
 
-  return <div className="home-page">
-    <section className="home-hero">
+export function HomePage({ navigate }: { navigate: (path: string) => void }) {
+  return <div className="home-page creator-home">
+    <section className="creator-hero">
       <SignalField />
-      <div className="hero-index"><span>PIJUSH / INDEPENDENT DEVELOPER</span><span>BASED IN INDIA · BUILT ON CURIOSITY</span></div>
-      <div className="hero-main">
-        <div className="hero-copy">
-          <p className="hero-kicker"><span className="status-dot" /> STUDENT DEVELOPER · ALWAYS EXPERIMENTING</p>
-          <h1>I build to<br /><em>understand.</em></h1>
-          <div className="hero-bottom">
-            <p>I’m Pijush — a student developer who learns by turning questions into working software. I care about the engineering underneath, and the details people actually feel.</p>
-            <button className="text-link" onClick={() => navigate('/about')}>A little about me <span>↗</span></button>
+      <div className="creator-hero-top">
+        <span className="creator-eyebrow"><i /> A PERSONAL SPACE ON THE INTERNET</span>
+        <span className="creator-edition">INDEPENDENT / EST. 2026</span>
+      </div>
+      <div className="creator-hero-main">
+        <div className="creator-hero-copy">
+          <p className="creator-kicker">HEY, I'M PIJUSH <span>— STUDENT DEVELOPER</span></p>
+          <h1>Curiosity<br />looks good<br /><em>in motion.</em></h1>
+          <p className="creator-intro">I learn by building, breaking things, asking better questions and turning ideas into experiences people can actually use.</p>
+          <div className="creator-actions">
+            <button className="creator-button creator-button-primary" onClick={() => navigate('/about')}>Get to know me <span>↗</span></button>
+            <button className="creator-button creator-button-quiet" onClick={() => navigate('/experiments')}>Explore my interests <span>↓</span></button>
           </div>
         </div>
-        <div className="hero-object" aria-hidden="true">
-          <div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="orbit orbit-three" />
-          <div className="hero-core"><span>P.</span></div>
-          <span className="orbit-label orbit-label-a">QUESTIONS → SYSTEMS</span>
-          <span className="orbit-label orbit-label-b">MAKE / TEST / REFINE</span>
-          <span className="orbit-coordinate">22°34′ N<br />88°22′ E</span>
+        <div className="creator-visual" aria-label="Abstract animated network illustration">
+          <div className="creator-visual-grid" />
+          <div className="creator-visual-glow" />
+          <div className="creator-orbit creator-orbit-a" />
+          <div className="creator-orbit creator-orbit-b" />
+          <div className="creator-orbit creator-orbit-c" />
+          <div className="creator-visual-core"><span>P.</span></div>
+          <span className="creator-node creator-node-a">IDEA</span>
+          <span className="creator-node creator-node-b">BUILD</span>
+          <span className="creator-node creator-node-c">REPEAT</span>
+          <span className="creator-visual-caption">A MIND IN CONSTANT MOTION / 22.57° N</span>
         </div>
       </div>
-      <div className="hero-coordinate"><span>SCROLL TO EXPLORE</span><span>FIELD NOTE / 001</span><span>2026 / PRESENT</span></div>
+      <div className="creator-hero-bottom"><span>SCROLL TO EXPLORE <b>↓</b></span><span>MADE OF QUESTIONS, MOSTLY.</span></div>
     </section>
 
-    <div className="ticker" aria-label="Areas of interest">
-      <div className="ticker-track"><span>SOFTWARE</span><i>✳</i><span>INTERFACES</span><i>✳</i><span>DEVELOPER TOOLS</span><i>✳</i><span>OPEN WEB</span><i>✳</i><span>SOFTWARE</span><i>✳</i><span>INTERFACES</span><i>✳</i><span>DEVELOPER TOOLS</span><i>✳</i><span>OPEN WEB</span><i>✳</i></div>
-    </div>
+    <section className="creator-intro-strip">
+      <p>NOT HERE TO LOOK BUSY.</p>
+      <h2>Here to stay <em>curious.</em></h2>
+      <span>Technology is the medium. Learning is the point.</span>
+    </section>
 
-    <section className="manifesto section-block">
-      <p className="eyebrow">02 / THE WAY I WORK</p>
-      <div className="manifesto-content">
-        <h2>Curiosity is the<br /><em>starting point.</em></h2>
-        <div className="manifesto-note">
-          <span className="note-mark">↳</span>
-          <p>I like moving between the structure of a system and the character of its interface — figuring out how things work, then making them feel considered and clear.</p>
-          <div className="interest-tags"><span>01 / SYSTEMS</span><span>02 / INTERFACES</span><span>03 / SMALL DETAILS</span></div>
-          <button className="text-link" onClick={() => navigate('/about')}>A little about me <span>↗</span></button>
-        </div>
+    <section className="creator-interests section-block" id="interests">
+      <div className="creator-section-heading">
+        <div><p className="eyebrow">01 / WHAT I'M INTO</p><h2>A few rabbit<br /><em>holes I love.</em></h2></div>
+        <p>Three directions I keep coming back to. Different disciplines, one shared instinct: understand how things work, then see what else they can do.</p>
+      </div>
+      <div className="creator-interest-grid">
+        {interests.map((item) => <article className="creator-interest-card" key={item.number}>
+          <div className="creator-card-top"><span>{item.number} / FIELD</span><span className="creator-card-mark" aria-hidden="true">{item.mark}</span></div>
+          <div><p className="creator-card-tag">{item.tag}</p><h3>{item.title}</h3><p className="creator-card-copy">{item.copy}</p></div>
+          <span className="creator-card-arrow" aria-hidden="true">↗</span>
+        </article>)}
       </div>
     </section>
 
-    <section className="home-bottom section-block">
-      <div><p className="eyebrow">03 / KEEP IN TOUCH</p><h2>Have a good<br /><em>question?</em></h2></div>
-      <div className="home-bottom-action"><p>Good ideas usually start with a conversation. If you have a question, an idea or simply want to say hello, get in touch.</p><button className="text-link" onClick={() => navigate('/contact')}>Start a conversation <span>↗</span></button></div>
+    <section className="creator-about-band">
+      <div className="creator-about-label"><span>02 / THE PERSON</span><span>BEHIND THE KEYBOARD</span></div>
+      <div className="creator-about-content">
+        <h2>Part engineer.<br />Part explorer.<br /><em>Always a student.</em></h2>
+        <div><p>I’m Pijush. I’m interested in the space between how technology works and how it feels to use it. I like getting into the details, experimenting with ideas and learning something new along the way.</p><button className="creator-inline-link" onClick={() => navigate('/about')}>A little more about me <span>↗</span></button></div>
+      </div>
+    </section>
+
+    <section className="creator-toolkit section-block">
+      <div><p className="eyebrow">03 / THE TOOLBOX</p><h2>Tools change.<br /><em>Curiosity stays.</em></h2></div>
+      <div className="creator-toolkit-content"><p>My current toolkit moves across the web stack, scripting and app development. The fun part is learning which tool makes the most sense for the problem.</p><div className="creator-tool-tags"><span>JAVASCRIPT</span><span>TYPESCRIPT</span><span>REACT</span><span>NODE.JS</span><span>PYTHON</span><span>FLUTTER</span><span>GIT</span><span>LINUX</span></div><button className="creator-inline-link" onClick={() => navigate('/uses')}>See my setup <span>↗</span></button></div>
+    </section>
+
+    <section className="creator-contact">
+      <div className="creator-contact-orbit" aria-hidden="true"><span>✳</span></div>
+      <p className="eyebrow">04 / YOUR TURN</p>
+      <h2>Got a curious<br /><em>mind too?</em></h2>
+      <p>Good conversations can lead to unexpected places. If you want to talk tech, share an idea or just say hello, my inbox is open.</p>
+      <button className="creator-button creator-button-primary" onClick={() => navigate('/contact')}>Let's talk <span>↗</span></button>
     </section>
   </div>
 }
+
 export function AboutPage() {
-  return <div className="content-page"><PageIntro index="01" eyebrow="ABOUT" title={<>A person behind<br /><em>the pixels.</em></>}><p>I’m Pijush, a developer who learns by building. I’m interested in the way software works beneath the surface and how people experience it on the screen.</p></PageIntro><section className="prose-block"><h2>What keeps me curious</h2><p>Developer tools, maps, browser interfaces, practical automation and the small details that make a product feel considered. I enjoy moving between the structure of a system and the character of its interface.</p><h2>How I like to build</h2><p>Start with a real problem. Understand the constraints. Make the smallest useful thing, then keep refining it. I value clear behavior, resilient data handling and interfaces that respect the person using them.</p></section></div>
+  return <div className="content-page"><PageIntro index="01" eyebrow="ABOUT" title={<>A person behind<br /><em>the pixels.</em>}><p>I’m Pijush, a developer who learns by building. I’m interested in the way software works beneath the surface and how people experience it on the screen.</p></PageIntro><section className="prose-block"><h2>What keeps me curious</h2><p>Developer tools, networks, browser interfaces, practical automation and the small details that make a product feel considered. I enjoy moving between the structure of a system and the character of its interface.</p><h2>How I like to build</h2><p>Start with a real problem. Understand the constraints. Make the smallest useful thing, then keep refining it. I value clear behavior, resilient data handling and interfaces that respect the person using them.</p></section></div>
 }
 
 export function ExperimentsPage() {
-  return <div className="content-page"><PageIntro index="03" eyebrow="EXPERIMENTS" title={<>Ideas in<br /><em>motion.</em></>}><p>A place for prototypes, sketches and things that are interesting before they are finished.</p></PageIntro><section className="prose-block"><h2>Work in progress</h2><p>This section will grow as experiments are documented. Only working, attributable experiments will be published here — no invented demos or placeholder projects.</p></section></div>
+  return <div className="content-page"><PageIntro index="03" eyebrow="INTERESTS" title={<>Ideas in<br /><em>motion.</em>}><p>A place for the subjects, questions and rabbit holes that keep me exploring.</p></PageIntro><section className="prose-block"><h2>What I keep exploring</h2><p>Systems and infrastructure, creative web interfaces, networks, security and the craft of making software feel clear. This space will grow as I find useful things to share.</p></section></div>
 }
 
 export function WritingPage() {
-  return <div className="content-page"><PageIntro index="04" eyebrow="WRITING" title={<>Notes from<br /><em>the process.</em></>}><p>Technical notes, build logs and ideas worth keeping. Articles will appear here when they are ready to read.</p></PageIntro><section className="prose-block"><h2>Coming into focus</h2><p>I’m collecting useful lessons from the things I build. This space will hold the details that do not fit in a project summary.</p></section></div>
+  return <div className="content-page"><PageIntro index="04" eyebrow="NOTES" title={<>Notes from<br /><em>the process.</em>}><p>Technical notes, observations and ideas worth keeping. Articles will appear here when they are ready to read.</p></PageIntro><section className="prose-block"><h2>Coming into focus</h2><p>I’m collecting useful lessons from the things I learn and build. This space will hold the details that do not fit anywhere else.</p></section></div>
 }
 
 export function UsesPage() {
-  return <div className="content-page"><PageIntro index="05" eyebrow="USES" title={<>Tools of<br /><em>the trade.</em></>}><p>A practical inventory of the tools and setup behind the work.</p></PageIntro><section className="prose-block"><h2>Current toolkit</h2><p>VS Code, Git, GitHub, JavaScript, TypeScript, React, Vite, Node.js, Python and Flutter are part of my current toolkit. This list will be refined into a current setup rather than a permanent shopping list.</p></section></div>
+  return <div className="content-page"><PageIntro index="05" eyebrow="USES" title={<>Tools of<br /><em>the trade.</em>}><p>A practical inventory of the tools and setup behind the work.</p></PageIntro><section className="prose-block"><h2>Current toolkit</h2><p>VS Code, Git, GitHub, JavaScript, TypeScript, React, Vite, Node.js, Python and Flutter are part of my current toolkit. This list will be refined into a current setup rather than a permanent shopping list.</p></section></div>
 }
 
 export function NowPage() {
-  return <div className="content-page"><PageIntro index="06" eyebrow="NOW" title={<>What I’m<br /><em>focused on.</em></>}><p>A small snapshot of current interests and active work.</p></PageIntro><section className="prose-block"><h2>Current direction</h2><p>Building useful developer experiences, exploring expressive web interfaces and improving the craft behind reliable applications.</p></section></div>
+  return <div className="content-page"><PageIntro index="06" eyebrow="NOW" title={<>What I’m<br /><em>focused on.</em>}><p>A small snapshot of current interests and active work.</p></PageIntro><section className="prose-block"><h2>Current direction</h2><p>Building useful developer experiences, exploring expressive web interfaces and improving the craft behind reliable applications.</p></section></div>
 }
 
 export function ContactPage() {
-  return <div className="content-page"><PageIntro index="07" eyebrow="CONTACT" title={<>Have a good<br /><em>question?</em></>}><p>For a thoughtful exchange, collaboration or just to say hello, the best verified public starting point is GitHub.</p></PageIntro><div className="project-actions"><a className="text-link" href="https://github.com/TEJAS-MK2" target="_blank" rel="noreferrer">Find me on GitHub ↗</a></div></div>
+  return <div className="content-page"><PageIntro index="07" eyebrow="CONTACT" title={<>Have a good<br /><em>question?</em>}><p>For a thoughtful exchange, collaboration or just to say hello, the best verified public starting point is GitHub.</p></PageIntro><div className="project-actions"><a className="text-link" href="https://github.com/TEJAS-MK2" target="_blank" rel="noreferrer">Find me on GitHub ↗</a></div></div>
 }
 
 export function NotFoundPage() {
