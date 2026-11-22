@@ -15,7 +15,7 @@ export function SiteShell({children}:{children:ReactNode;navigate?:Navigate;path
   <a className="reference-skip" href="#main">Skip to content</a>
   <header className="reference-header">
    <a className="reference-brand" href="/" aria-label="Pijush home"><span className="reference-brand-mark">P.</span><span>PIJUSH<span className="reference-brand-dot">.</span></span></a>
-   <nav className="reference-nav" aria-label="Main navigation"><a href="#journey">Journey</a><a href="#focus">Focus</a><a href="#opensource">Open source</a><a href="#contact">Contact</a></nav>
+   <nav className="reference-nav" aria-label="Main navigation"><a href="#projects">Projects</a><a href="#work">Work</a><a href="#oss">Open source</a><a href="#contact">Contact</a></nav>
    <div className="reference-header-actions"><span className="reference-clock">{time} IST</span><CommandPalette/><AgentMode/><button className="reference-theme" type="button" onClick={()=>setDark(v=>!v)} aria-label={dark?'Switch to light theme':'Switch to dark theme'} title="Toggle theme">{dark?'☼':'◐'}</button></div>
   </header>
   <main id="main" tabIndex={-1}>{children}</main>
