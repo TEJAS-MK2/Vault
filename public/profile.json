@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "name": "Pijush",
+  "github_username": "TEJAS-MK2",
+  "role": "Student developer",
+  "website": "https://pijush.runs-on.dev/",
+  "github": "https://github.com/TEJAS-MK2",
+  "interests": [
+    "Systems thinking",
+    "Creative web",
+    "Networks and security"
+  ],
+  "toolkit": [
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Node.js",
+    "Python",
+    "Flutter",
+    "Git",
+    "Linux"
+  ],
+  "pages": {
+    "home": "/",
+    "about": "/about",
+    "interests": "/experiments",
+    "notes": "/writing",
+    "uses": "/uses",
+    "now": "/now",
+    "contact": "/contact"
+  },
+  "public_activity_api": "https://api.github.com/users/TEJAS-MK2/events/public",
+  "privacy": {
+    "public_only": true,
+    "private_activity_exposed": false,
+    "interactive_agent": false
+  }
+}
